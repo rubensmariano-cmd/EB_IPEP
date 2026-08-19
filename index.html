@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>EBIPEP — Lições Bíblicas</title>
+  <style>
+:root {
+  --bg: #f6f1e7;
+  --paper: #fffdf8;
+  --ink: #2c2416;
+  --muted: #6b5d45;
+  --gold: #8b6914;
+  --gold-soft: #c9a227;
+  --navy: #1e3a5f;
+  --navy-soft: #2a5280;
+  --box: #eef4fb;
+  --line: #e4d8c0;
+  --verse: #3d5a80;
+  --shadow: 0 10px 30px rgba(44, 36, 22, 0.08);
+  --fs: 20px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #fff8e8 0%, transparent 50%),
+    radial-gradient(900px 500px at 110% 10%, #e8eef6 0%, transparent 45%),
+    var(--bg);
+  color: var(--ink);
+  font-size: var(--fs);
+  line-height: 1.75;
+  padding: 0 0 4rem;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(30, 58, 95, 0.96);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 18px rgba(20, 35, 55, 0.25);
+  padding: 0.7rem 1rem;
+}
+
+.topbar-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.95;
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.brand strong {
+  display: block;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  text-transform: none;
+  margin-top: 0.1rem;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.35);
+  background: #08318a;
+}
+
+
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.controls span {
+  font-size: 0.8rem;
+  opacity: 0.85;
+  margin-right: 0.2rem;
+}
+
+.controls button,
+.btn {
+  min-width: 48px;
+  min-height: 48px;
+  border: 0;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #c9a227;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.85rem;
+}
+
+.controls button:active,
+.btn:active { transform: translateY(1px); }
+
+.btn.ghost {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.45);
+  box-shadow: none;
+  font-size: 0.92rem;
+}
+
+.wrap {
+  max-width: 820px;
+  margin: 1.4rem auto 0;
+  padding: 0 1rem;
+}
+
+header.hero {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1.8rem 1.5rem 1.5rem;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--navy);
+  color: #fff;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 0.7rem;
+}
+
+h1 {
+  font-size: 2.05rem;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin-top: 0.35rem;
+  color: var(--gold);
+  font-style: italic;
+  font-size: 1.05rem;
+}
+
+.hint {
+  margin-top: 0.9rem;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.92rem;
+  color: var(--navy-soft);
+  background: #eef4fb;
+  border-radius: 10px;
+  padding: 0.55rem 0.8rem;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+  margin-top: 1.3rem;
+}
+
+@media (min-width: 640px) {
+  .meta-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.card {
+  background: var(--box);
+  border: 1px solid #d5e0ee;
+  border-radius: 12px;
+  padding: 0.95rem 1.05rem;
+  text-align: left;
+}
+
+.card h2 {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 0.35rem;
+}
+
+.card p { color: var(--ink); }
+
+.refs {
+  margin-top: 1.3rem;
+  background: #fff;
+  border: 1px dashed var(--gold-soft);
+  border-radius: 12px;
+  padding: 0.9rem 1rem 0.4rem;
+  text-align: left;
+}
+
+.refs h2 {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.55rem;
+}
+
+.refs ul { list-style: none; }
+
+.refs li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid #f0e6d0;
+  font-size: 0.95em;
+}
+
+.refs li:last-child { border-bottom: 0; }
+
+article {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1.6rem 1.4rem 2rem;
+  margin-top: 1.1rem;
+}
+
+h2.sec {
+  font-size: 1.45rem;
+  color: var(--navy);
+  text-align: center;
+  letter-spacing: 0.08em;
+  margin: 0.4rem 0 1rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 2px solid var(--gold-soft);
+}
+
+h3 {
+  font-size: 1.18rem;
+  color: var(--navy-soft);
+  margin: 1.6rem 0 0.7rem;
+  line-height: 1.35;
+}
+
+p { margin: 0 0 1rem; text-align: justify; hyphens: auto; }
+
+blockquote {
+  margin: 0 0 1rem;
+  padding: 0.85rem 1rem;
+  background: #f8f3e8;
+  border-left: 5px solid var(--gold-soft);
+  border-radius: 0 10px 10px 0;
+  color: #3a3122;
+  font-style: italic;
+}
+
+.letra {
+  display: block;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 1rem 0 0.35rem;
+}
+
+button.ref {
+  display: inline;
+  font: inherit;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.92em;
+  font-weight: 700;
+  color: var(--verse);
+  background: #e8f0fa;
+  border: 0;
+  border-bottom: 2px solid #8aa4c7;
+  border-radius: 6px;
+  padding: 0.05em 0.35em;
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: 1.8;
+}
+
+button.ref:hover,
+button.ref:focus {
+  background: #d5e4f6;
+  outline: none;
+}
+
+nav.toc {
+  margin-top: 1.1rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 1.1rem 1.2rem 1.2rem;
+}
+
+nav.toc h2 {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.55rem;
+}
+
+nav.toc a {
+  display: block;
+  color: var(--navy);
+  text-decoration: none;
+  padding: 0.55rem 0.2rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.02rem;
+}
+
+nav.toc a:last-child { border-bottom: 0; }
+
+footer {
+  max-width: 820px;
+  margin: 1.4rem auto 0;
+  padding: 0 1rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.top-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.4rem;
+  margin-right: 0.5rem;
+  background: var(--navy);
+  color: #fff;
+  text-decoration: none;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  padding: 0.85rem 1.3rem;
+  border-radius: 12px;
+  min-height: 48px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 28, 40, 0.55);
+  z-index: 40;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.overlay.open { display: flex; }
+
+.sheet {
+  background: #fffdf8;
+  width: min(720px, 100%);
+  max-height: 86vh;
+  overflow: auto;
+  border-radius: 18px 18px 14px 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+  padding: 1.15rem 1.2rem 1.4rem;
+}
+
+.sheet-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+
+.sheet h2 {
+  font-size: 1.2rem;
+  color: var(--navy);
+  line-height: 1.3;
+}
+
+.sheet .ver {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.sheet .close {
+  min-width: 52px;
+  min-height: 52px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.sheet .texto p {
+  text-align: left;
+  margin: 0 0 0.85rem;
+}
+
+.sheet .texto strong {
+  color: var(--gold);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.85em;
+  margin-right: 0.25em;
+}
+
+.sheet a.ext {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--navy);
+  font-weight: 700;
+  min-height: 44px;
+  padding: 0.45rem 0;
+}
+
+@media (min-width: 700px) {
+  .overlay { align-items: center; }
+  .sheet { border-radius: 18px; }
+}
+
+/* Home */
+.lesson-list {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.2rem;
+}
+
+a.lesson {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 0.9rem;
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1rem 1.1rem;
+  text-decoration: none;
+  color: inherit;
+  min-height: 92px;
+}
+
+a.lesson:active { transform: translateY(1px); }
+
+a.lesson.wait {
+  opacity: 0.78;
+  background: #f3efe6;
+}
+
+.num {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.num small {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.num b {
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+a.lesson.wait .num { background: #8a8070; }
+
+.lesson h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--navy);
+}
+
+.lesson p {
+  margin: 0.15rem 0 0;
+  text-align: left;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.go {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.oracao {
+  margin-top: 1.3rem;
+  background: #e7eef8;
+  border: 1px solid #c5d4ea;
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  color: #24344d;
+  font-style: italic;
+}
+
+.oracao h2 {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy);
+  font-style: normal;
+  margin-bottom: 0.45rem;
+}
+
+.oracao p { text-align: left; margin: 0; }
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.3rem;
+}
+
+.view { display: none; }
+.view.on { display: block; }
+
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#inicio">
+        <img class="logo" src="data:image/jpeg;base64,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" alt="">
+        <span>EBIPEP<strong id="brand-sub">Lições Bíblicas</strong></span>
+      </a>
+      <div class="controls" aria-label="Tamanho da letra">
+        <a class="btn ghost" href="#inicio">Menu</a>
+        <span>Letra</span>
+        <button type="button" id="menor" title="Diminuir letra">A−</button>
+        <button type="button" id="maior" title="Aumentar letra">A+</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="view on" id="view-home">
+    <div class="wrap">
+      <header class="hero">
+        <div class="badge">Dons espirituais</div>
+        <h1>Lições Bíblicas</h1>
+        <p class="subtitle">Escola Bíblica da Igreja Pentecostal do Evangelho Puro</p>
+        <p class="hint">Toque na lição para ler. Um arquivo só — a aula abre nesta mesma página.</p>
+      </header>
+      <div class="lesson-list">
+      <a class="lesson" href="#licao-1">
+        <div class="num"><small>Lição</small><b>1</b></div>
+        <div>
+          <h3>Talento, dom e fruto</h3>
+          <p>Qual a diferença? · Rm 12:1-8</p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" href="#licao-2">
+        <div class="num"><small>Lição</small><b>2</b></div>
+        <div>
+          <h3>Dons ministeriais</h3>
+          <p>Apóstolos, profetas, pastores… · Ef 4:7-14</p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" href="#licao-3">
+        <div class="num"><small>Lição</small><b>3</b></div>
+        <div>
+          <h3>A importância dos dons</h3>
+          <p>Buscar e usar com ordem · 1Co 14:26-40</p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" href="#licao-4">
+        <div class="num"><small>Lição</small><b>4</b></div>
+        <div>
+          <h3>Palavra da sabedoria</h3>
+          <p>Aplicar a verdade no momento certo · Dn 2:19-28</p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" href="#licao-5">
+        <div class="num"><small>Lição</small><b>5</b></div>
+        <div>
+          <h3>Palavra do conhecimento</h3>
+          <p>Revelação que o homem não alcança · Pv 3:13-24</p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" href="#licao-6">
+        <div class="num"><small>Lição</small><b>6</b></div>
+        <div>
+          <h3>O dom da fé</h3>
+          <p>Fé natural, salvadora e sobrenatural · Hb 11:24-40</p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" href="#licao-7">
+        <div class="num"><small>Lição</small><b>7</b></div>
+        <div>
+          <h3>Dons de curas</h3>
+          <p>Fatos bíblicos sobre as curas · At 8:7-13</p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" href="#licao-8">
+        <div class="num"><small>Lição</small><b>8</b></div>
+        <div>
+          <h3>Operação de maravilhas</h3>
+          <p>Sinais e milagres · Jo 6:1-15</p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      </div>
+    </div>
+    <footer>EBIPEP · Escola Bíblica da Igreja Pentecostal do Evangelho Puro</footer>
+  </section>
+
+<section class="view" id="view-licao-1">
+<div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 1 · 1A / 1B</div>
+      <h1>TALENTO NATURAL, DOM ESPIRITUAL E FRUTO DO ESPÍRITO</h1>
+      <p class="subtitle">Qual a diferença?</p>
+      <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+      <div class="meta-grid">
+        <div class="card">
+          <h2>Leitura bíblica</h2>
+          <p><button class="ref" data-ref="rm12">Romanos 12:1-8</button></p>
+        </div>
+        <div class="card">
+          <h2>Objetivo da lição</h2>
+          <p>Explicar a diferença entre o dom espiritual, o talento natural e o fruto do Espírito.</p>
+        </div>
+      </div>
+      <div class="refs">
+        <h2>Textos de apoio — toque para ler</h2>
+        <ul>
+          <li><span>Não devemos ser ignorantes quanto aos dons</span><button class="ref" data-ref="1co121">1Co. 12:1</button></li>
+          <li><span>Deus nos deu diferentes dons</span><button class="ref" data-ref="rm12">Rm. 12:4-8</button></li>
+          <li><span>Devemos nos revestir da armadura de Deus</span><button class="ref" data-ref="ef61018">Ef. 6:10-18</button></li>
+          <li><span>Obras da carne</span><button class="ref" data-ref="gl51921">Gl. 5:19-21</button></li>
+          <li><span>O fruto do Espírito</span><button class="ref" data-ref="gl522">Gl. 5:22</button></li>
+          <li><span>Talentos naturais transformados</span><button class="ref" data-ref="ex31111">Êx. 31:1-11</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Índice</h2>
+      <a href="#l1-introducao">Introdução</a>
+      <a href="#l1-p1">1. O que são dons e talentos?</a>
+      <a href="#l1-p2">2. Um talento pode virar dom?</a>
+      <a href="#l1-p3">3. Dons e fruto do Espírito</a>
+      <a href="#l1-conclusao">Conclusão e oração</a>
+    </nav>
+
+    <article>
+      <h2 class="sec" id="l1-introducao">INTRODUÇÃO</h2>
+      <p>Há muitas razões porque precisamos estar informados sobre os dons espirituais, os talentos naturais e o fruto do Espírito.</p>
+      <p><strong>Primeiro:</strong> somos alertados a estar cientes deles <button class="ref" data-ref="1co121">1Co. 12:1</button>; <button class="ref" data-ref="1pe410">1Pe. 4:10,11</button>; <button class="ref" data-ref="rm12">Rm. 12:6-8</button>.</p>
+      <p><strong>Segundo:</strong> espera-se que nós os usemos. Há crentes que receberam um dom espiritual e não o estão usando segundo seus propósitos originais. Uns por ignorância, por desconhecer o assunto. Outros: é a desobediência que os impede de receber e usar os dons nos ministérios para os quais foram designados.</p>
+      <p><strong>Terceiro:</strong> somos administradores (despenseiros), e seremos cobrados pelo uso de nossos talentos ou dons. Isso Jesus deixou bem claro <button class="ref" data-ref="lc191127">Lc. 19:11-27</button>. Devemos, portanto, conhecê-los, buscá-los e gerenciá-los sabiamente. Nossas dádivas divinas, ou dons espirituais, não nos são dados para que os retenhamos conosco. São nossos para que os usemos no sentido de promover o reino no mundo presente.</p>
+      <p>Nesta lição, vamos estudar e conhecer a diferença entre as expressões talento natural, dom espiritual e fruto do Espírito.</p>
+
+      <h2 class="sec">EXPOSIÇÃO</h2>
+      <h3 id="l1-p1">1. O que são dons espirituais? Que são talentos naturais? Quando os recebemos?</h3>
+      <p><span class="letra">a) Dons espirituais</span> são capacitações divinas (ou manifestações sobrenaturais concedidas como dons) distribuídas pelo Espírito Santo a todo o crente (obediente), segundo os desígnios e a função de Deus para o bem comum do Corpo de Cristo <button class="ref" data-ref="1co12711">1Co. 12:7,11,18</button>. Os dons espirituais são uma graça específica dada por Deus aos que receberam uma nova vida. Os dons espirituais são concedidos no nascimento espiritual.</p>
+      <p><span class="letra">b) Os talentos naturais</span> são concedidos no nascimento físico. Todos temos talentos particulares que nos distinguem dos outros quando nascemos fisicamente. Os talentos naturais são uma expressão da graça comum de Deus a todos os que têm vida. Embora talentos naturais e dons espirituais não sejam a mesma coisa, tudo o que possuímos deve e pode ser usado para glorificar a Deus e edificar os outros.</p>
+
+      <h3 id="l1-p2">2. Um talento natural pode ser transformado em um dom espiritual?</h3>
+      <p>Não podemos confundir dons espirituais com talentos naturais. Os talentos podem ser indicadores dos dons que você possui, mas não equivalem necessariamente a eles. Todos temos algumas habilidades naturais, mas Deus reservou os dons espirituais aos verdadeiros crentes. Somente os que creram em Jesus Cristo e receberam o Espírito Santo têm um dom espiritual.</p>
+      <p>Os talentos naturais podem ser transformados pelo Espírito Santo e ser elevados à condição de dons espirituais. Não parece haver um padrão definido sobre quando os talentos naturais de um crente são confirmados como dons espirituais, mas isso pode ocorrer em alguns casos.</p>
+      <p>Por exemplo, alguém pode ser um enfermeiro competente no trabalho secular e ter o dom da misericórdia na igreja. Um vendedor bem-sucedido pode ser ratificado com o dom da evangelização.</p>
+      <p>Talentos naturais como dons espirituais são dados por Deus. Tanto um quanto outro precisam ser igualmente identificados, desenvolvidos e utilizados para a glória de Deus. Somos administradores, responsáveis por tudo aquilo que Ele nos concedeu. Nossos talentos e dons são maneiras específicas pelas quais Deus estendeu a nós Sua graça, a fim de que sejamos uma bênção graciosa para os outros <button class="ref" data-ref="1pe410">1Pe. 4:10</button>.</p>
+
+      <h3 id="l1-p3">3. Qual a diferença entre dons espirituais e fruto do Espírito?</h3>
+      <p><span class="letra">a) O fruto do Espírito:</span> significa qualidades de “ser”; atitudes; produto de uma caminhada saudável com Deus <button class="ref" data-ref="gl522">Gl. 5:22-23</button>. Essas são características íntimas do coração do cristão, reveladas em sua pureza e santidade à medida que ele cresce e manifesta a graça de Deus. O fruto do Espírito é um produto natural de um relacionamento duradouro e obediente com Jesus Cristo. O fruto do Espírito indica <strong>aquilo que devemos ser</strong>. Tanto dons espirituais como os frutos do Espírito são necessários para que alcancemos produtividade e realização em nosso ministério, mas eles oferecem contribuições bastante distintas.</p>
+      <p><span class="letra">b) Os dons espirituais:</span> são funções ou papéis orientados a tarefas para cujo desempenho Deus convocou cada crente, equipando-o para isso. Os dons espirituais indicam <strong>aquilo que fazemos</strong>. Recebemos os dons espirituais quando nos tornamos cristãos.</p>
+
+      <h2 class="sec" id="l1-conclusao">CONCLUSÃO</h2>
+      <p>O Novo Testamento descreve a igreja como um corpo. Uma perna que não é exercitada, ao longo do tempo, atrofia-se e assume uma aparência deformada. O resto do corpo tem então de compensar e carregar o “peso morto”. Essa compensação não é natural.</p>
+      <p>O corpo foi projetado para que cada membro execute a sua função! Da mesma forma, o Corpo de Cristo funcionaria de forma correta e seria um local saudável de adoração, se todos buscassem os dons espirituais. A contribuição de cada um seria maior.</p>
+      <p>Os dons espirituais e o fruto do Espírito precisam ser igualmente desenvolvidos; precisamos expressar tanto o fruto quanto os dons, e principalmente, o amor <button class="ref" data-ref="1co1313">1Co. 13:1-3</button>.</p>
+      <p>O que são os dons sem o amor? O que é o amor sem a expressão dos dons? Qual asa do avião é mais importante? Ambas são essenciais para um voo bem-sucedido. Outro fator importante é que, quando não damos lugar para os dons espirituais em nossa vida cristã, há muito mais probabilidade de reivindicar crédito pessoal para nossas realizações ministeriais. Há a tendência a um comportamento espiritual orgulhoso, que é acompanhado de expressões como: Eu fiz…, você viu o que Eu…, Eu vou…, pode acreditar, Eu… Eu… Eu…</p>
+      <p>Obediência e submissão a Cristo, ao longo do tempo, transformam nosso coração pecador e egoísta, produzindo um coração dócil que gera frutos autênticos: amor, alegria, paz e todas as outras virtudes cristãs <button class="ref" data-ref="rm1212">Rm. 12:1,2</button>.</p>
+
+      <div class="oracao">
+        <h2>Oração</h2>
+        <p>Senhor, ajude-me a compreender melhor o que os dons espirituais significam para mim e para a igreja e como posso usá-los da forma que o Senhor deseja. Ajude-me a abençoar aqueles a quem amo e orar por aqueles que desejam minha derrota. Ajude-me a ser participante ativo na igreja. Ilumine-me, Senhor, e mostre os dons que me foram dados, de forma tal que eu possa usá-los para abençoar os outros e glorificar ao Senhor. Em nome de Jesus, amém.</p>
+      </div>
+
+      <div class="pager">
+        <a class="top-link" href="#inicio">Todas as lições</a>
+        <a class="top-link" href="#licao-2">Próxima: Lição 2 ›</a>
+      </div>
+    </article>
+  </div>
+  
+</section>
+<section class="view" id="view-licao-2">
+<div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 2 · 2A / 2B</div>
+      <h1>CONHECENDO OS DONS MINISTERIAIS</h1>
+      <p class="subtitle">Funções dadas por Deus, não hierarquia de oficiais</p>
+      <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+      <div class="meta-grid">
+        <div class="card">
+          <h2>Leitura bíblica</h2>
+          <p><button class="ref" data-ref="ef47">Efésios 4:7-14</button></p>
+        </div>
+        <div class="card">
+          <h2>Objetivo da lição</h2>
+          <p>Esclarecer que os termos que indicam funções ministeriais são dons, e não categoria de oficiais.</p>
+        </div>
+      </div>
+      <div class="refs">
+        <h2>Textos de apoio — toque para ler</h2>
+        <ul>
+          <li><span>O ministério foi estabelecido por Deus</span><button class="ref" data-ref="ef411">Ef. 4:10,11</button></li>
+          <li><span>O bom ministro deve viver do evangelho</span><button class="ref" data-ref="1co914">1Co. 9:14</button></li>
+          <li><span>Não existe hierarquia ministerial no N.T.</span><button class="ref" data-ref="mt202528">Mt. 20:25-28</button></li>
+          <li><span>Os membros devem respeitar seus guias</span><button class="ref" data-ref="1ts512">1Ts. 5:12</button></li>
+          <li><span>Os membros é que escolhem seus líderes</span><button class="ref" data-ref="at1423">At. 14:23</button></li>
+          <li><span>A família do obreiro deve ser exemplar</span><button class="ref" data-ref="tt16">Tt. 1:6</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Índice</h2>
+      <a href="#l2-introducao">Introdução</a>
+      <a href="#l2-p1">1. Quais são os dons ministeriais?</a>
+      <a href="#l2-apostolos">Apóstolos</a>
+      <a href="#l2-profetas">Profetas</a>
+      <a href="#l2-evangelistas">Evangelistas</a>
+      <a href="#l2-pastores">Pastores</a>
+      <a href="#l2-mestres">Mestres</a>
+      <a href="#l2-diaconos">Diáconos</a>
+      <a href="#l2-p2">2. Quem quer mandar na Igreja</a>
+    </nav>
+
+    <article>
+      <h2 class="sec" id="l2-introducao">INTRODUÇÃO</h2>
+      <p>À medida que lermos sobre os dons ministeriais, reflita a respeito de seu próprio ministério e experiência. A igreja local não deve aceitar pessoa alguma para a obra ministerial tendo por base apenas o desejo do candidato, sua escolaridade, ou porque essa pessoa acha que tem visão ou chamada.</p>
+      <p>A igreja não tem o direito de reduzir os requisitos que Deus estabeleceu mediante Seu Espírito Santo. Eles estão plenamente em vigor e devem ser observados em tempo atual.</p>
+      <p>Que fique bem claro. Não há no Novo Testamento qualquer indício de haver obreiro maior que o outro. A função de ministro como o maior (o mais graduado, o mais qualificado) e a função de missionário como o menor (o último) dentre os que compõem o ministério é 100% invenção do homem. <strong>Não existe no N.T.!</strong> Os que governam entre os gentios exercem autoridade e domínio sobre os seus: “Mas não será assim entre vós” <button class="ref" data-ref="mt202528">Mt. 20:25-28</button>.</p>
+      <p>Nesta lição vamos esclarecer biblicamente os termos que designam os varões para essa ou aquela função. Esses são dons ministeriais dados por Deus, e de modo algum indicam uma hierarquia ministerial.</p>
+
+      <h2 class="sec">EXPOSIÇÃO</h2>
+      <h3 id="l2-p1">1. Quais são os dons ministeriais dados aos varões?</h3>
+      <blockquote>“A uns estabeleceu Deus na igreja, primeiramente, apóstolos; em segundo lugar, profetas; em terceiro lugar, mestres…” <button class="ref" data-ref="1co1228">1Co. 12:28</button>; <button class="ref" data-ref="ef411">Ef. 4:11</button>; <button class="ref" data-ref="1tm38">1Tm. 3:1</button>; <button class="ref" data-ref="at2028">At. 20:28</button>; <button class="ref" data-ref="at1423">At. 14:23</button>; <button class="ref" data-ref="at61">At. 6:1-6</button>; <button class="ref" data-ref="tt16">Tt. 1:5-7</button>.</blockquote>
+
+      <h3 id="l2-apostolos">Apóstolos</h3>
+      <p><strong>Específico — os 12:</strong> os diretamente comissionados por Cristo para estabelecer a Igreja e a mensagem genuína do Evangelho. Inclusive Paulo <button class="ref" data-ref="1co91">1Co. 9:1</button>.</p>
+      <p><strong>Geral:</strong> qualquer mensageiro biblicamente comissionado como missionário ou para outras responsabilidades especiais — Barnabé, Andrônico e Júnias, Tito, Epafrodito, Tiago irmão de Jesus. No original grego todos esses varões são chamados de apóstolos. Apóstolos no sentido geral continuam sendo essenciais para o propósito de Deus na Igreja. Se as igrejas cessarem de enviar pessoas assim, cheias do Espírito Santo, a propagação do Evangelho em todo o mundo ficará estagnada. Infelizmente, é o que está acontecendo nas últimas décadas.</p>
+
+      <h3 id="l2-profetas">Profetas</h3>
+      <p>Os que falavam sob inspiração do Espírito Santo, trazendo da parte de Deus uma mensagem para a Igreja, e cuja motivação e preocupação principais tinham a ver com a vida espiritual e a pureza da igreja <button class="ref" data-ref="at131">At. 13:1</button>.</p>
+      <p>Era dever do profeta do N.T., assim como para o do A.T., desmascarar o pecado, proclamar a justiça, advertir do juízo vindouro e combater o mundanismo e a frieza espiritual entre o povo de Deus. Por causa da sua mensagem de justiça, o profeta pode esperar ser rejeitado por muitos nas igrejas, em tempos de mornidão e apostasia. Os profetas continuam sendo imprescindíveis ao propósito de Deus para a Igreja. A igreja que rejeitar os profetas de Deus caminhará para a decadência, desviando-se para o mundanismo e o liberalismo quanto aos ensinos da Bíblia <button class="ref" data-ref="1co143">1Co. 14:3</button>.</p>
+      <p>Se ao profeta não for permitido trazer a mensagem de repreensão e de advertência denunciando o pecado e a injustiça, então a igreja já não terá o lugar onde se possa ouvir a voz do Espírito. A política eclesiástica e a direção humana tomarão o lugar do Espírito. Por outro lado, a igreja com os seus dirigentes, tendo a mensagem dos profetas de Deus, será impulsionada à renovação espiritual. O pecado será abandonado; a presença e a santidade do Espírito serão evidentes entre os fiéis.</p>
+
+      <h3 id="l2-evangelistas">Evangelistas</h3>
+      <p>São os que receberam dons de Deus para proclamar o evangelho aos não salvos <button class="ref" data-ref="at85">Filipe, At. 8:5-8</button>. Os evangelistas eram homens de Deus, capacitados e comissionados para anunciar o Evangelho da salvação aos perdidos e ajudar a estabelecer uma nova obra numa localidade. A igreja que deixar de apoiar e promover o ministério de evangelista cessará de ganhar convertidos segundo o desejo de Deus. Tornar-se-á uma igreja estática, sem crescimento e indiferente à obra missionária.</p>
+
+      <h3 id="l2-pastores">Pastores</h3>
+      <p>São os escolhidos para dirigir a igreja e cuidar das suas necessidades espirituais. Também são chamados de presbíteros e bispos. A tarefa do pastor é cuidar da sã doutrina, refutar a heresia, ensinar a Palavra de Deus e exercer a direção local <button class="ref" data-ref="at2028">At. 20:28-31</button>.</p>
+      <p>Pastores são ministros que cuidam do rebanho, tendo como modelo Jesus <button class="ref" data-ref="jo101116">Jo. 10:11-16</button>; <button class="ref" data-ref="1pe52">1Pe. 5:2-4</button>. Segundo o N.T., uma igreja local era dirigida por um grupo de pastores. Os pastores eram escolhidos, não por política, mas segundo a sabedoria do Espírito concedida à igreja local.</p>
+
+      <h3 id="l2-mestres">Mestres</h3>
+      <p>Os dotados por Deus para esclarecer e explicar a Palavra de Deus para edificação da igreja <button class="ref" data-ref="at1825">Apolo, At. 18:25-28</button>. Os mestres ou doutores têm de Deus um dom especial para esclarecer, expor e proclamar a Palavra, a fim de edificar o Corpo de Cristo. A igreja que rejeita, ou se descuida do ensino dos mestres consagrados e fiéis à revelação bíblica, não se preocupará pela autenticidade e qualidade da mensagem. A igreja onde os mestres estão calados não terá firmeza na verdade. Tal igreja aceitará inovações doutrinárias sem objeção; e nela as práticas religiosas e ideias humanas serão de fato o guia — quando deveria ser a verdade bíblica.</p>
+
+      <h3 id="l2-diaconos">Diáconos</h3>
+      <p>Os escolhidos e dotados por Deus para prestar assistência prática aos membros <button class="ref" data-ref="at61">At. 6:1-6</button>; <button class="ref" data-ref="1tm38">1Tm. 3:8-13</button>. Diácono (gr. <em>diákonos</em>) significa “servo”. Deviam ajudar os pastores, cuidando dos assuntos temporais e materiais da igreja, de tal maneira que os pastores pudessem dedicar-se à oração e ao ministério da Palavra. As qualificações espirituais dos diáconos são essencialmente as mesmas dos pastores.</p>
+
+      <h3 id="l2-p2">2. Que acontece com aquele que quer mandar na Igreja de Deus?</h3>
+      <p>Será possuído pelo espírito de superioridade. Aqueles que cobiçam o poder dominarão aqueles a quem deveriam servir. Não deixe de ler: <button class="ref" data-ref="2ts234">2Ts. 2:3,4</button>; <button class="ref" data-ref="3jo910">3Jo. 9,10</button>; <button class="ref" data-ref="1pe52">1Pe. 5:3</button>; <button class="ref" data-ref="mt202528">Mt. 20:25-28</button>.</p>
+
+      <div class="pager">
+        <a class="top-link" href="#licao-1">‹ Lição 1</a>
+        <a class="top-link" href="#inicio">Menu</a>
+        <a class="top-link" href="#licao-3">Lição 3 ›</a>
+      </div>
+    </article>
+  </div>
+  
+</section>
+<section class="view" id="view-licao-3">
+<div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 3 · 3A / 3B</div>
+      <h1>A IMPORTÂNCIA DOS DONS ESPIRITUAIS</h1>
+      <p class="subtitle">Estudar e estimular a igreja a buscar os dons</p>
+      <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+      <div class="meta-grid">
+        <div class="card">
+          <h2>Leitura bíblica</h2>
+          <p><button class="ref" data-ref="1co1426">1 Coríntios 14:26-40</button></p>
+        </div>
+        <div class="card">
+          <h2>Objetivo da lição</h2>
+          <p>Estudar e estimular a igreja a buscar os dons espirituais.</p>
+        </div>
+      </div>
+      <div class="refs">
+        <h2>Textos de apoio — toque para ler</h2>
+        <ul>
+          <li><span>O Espírito ajuda a sair de dificuldades</span><button class="ref" data-ref="jz1514">Jz. 15:14</button></li>
+          <li><span>Todos devem buscar os dons espirituais</span><button class="ref" data-ref="1co14112">1Co. 14:1,12</button></li>
+          <li><span>Os dons edificam a igreja</span><button class="ref" data-ref="1co14112">1Co. 14:12</button></li>
+          <li><span>Ordem no exercício dos dons</span><button class="ref" data-ref="1co1426">1Co. 14:26-32</button></li>
+          <li><span>O Espírito reparte os diversos dons</span><button class="ref" data-ref="1co12711">1Co. 12:7,11</button></li>
+          <li><span>Os dons sem o amor para nada servem</span><button class="ref" data-ref="1co1313">1Co. 13:1-3</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Índice</h2>
+      <a href="#l3-introducao">Introdução</a>
+      <a href="#l3-p1">1. Primeiro princípio</a>
+      <a href="#l3-p2">2. Que proveitos trazem os dons?</a>
+      <a href="#l3-p3">3. Exercício dos dons e ordem no culto</a>
+      <a href="#l3-p4">4. Domínio próprio e abusos</a>
+      <a href="#l3-conclusao">Conclusão e oração</a>
+    </nav>
+
+    <article>
+      <h2 class="sec" id="l3-introducao">INTRODUÇÃO</h2>
+      <p>Quando os dons espirituais são buscados e postos em prática, surgem benefícios para a igreja e para o reino. Assim que cada igreja local conhecer e usar os dons espirituais, terá consciência de sua tarefa espiritual. Consequentemente terá maior capacidade de cumprir os propósitos divinos. Os dons ajudarão a identificar o que cada um deve fazer.</p>
+      <p>Considere o corpo humano. Quando crianças, dependemos do fígado, pulmões, coração, rins e outros órgãos para funcionar perfeitamente e ter um crescimento normal. Quando cada parte dá a sua contribuição apropriada, o corpo se fortalece, amadurece e é capaz de cumprir suas responsabilidades. Se uma, duas ou mais partes do corpo deixam de operar, o corpo torna-se incapaz de ouvir, de andar ou talvez até de respirar. O mesmo acontece com o Corpo de Cristo, a igreja: “Ora, vós sois corpo de Cristo; e, individualmente, membros desse corpo” <button class="ref" data-ref="1co1227">1Co. 12:27</button>. Quando um, dois ou mais de nós deixamos de dar nossa contribuição, a igreja não consegue funcionar como deveria. Você já teve a impressão de que a igreja estava ou está mancando?</p>
+      <p>A primeira pergunta a fazer é: “Estou dando uma contribuição apropriada”? Haverá mais unidade nas igrejas que ensinam e buscam os dons espirituais. Essas igrejas terão mais harmonia, menos orgulho, e a falsa humildade poderá desaparecer.</p>
+
+      <h2 class="sec">EXPOSIÇÃO</h2>
+      <h3 id="l3-p1">1. Qual deve ser o primeiro princípio para o exercício dos dons na igreja?</h3>
+      <p>O primeiro princípio é valorizar proporcionalmente todos os dons <button class="ref" data-ref="1co1426">1Co. 14:26</button>. Os crentes que têm amor genuíno pelos que também pertencem ao Corpo de Cristo devem buscar os dons espirituais a fim de poderem ajudar, consolar, encorajar e fortalecer os necessitados. Não esperar passivamente que Deus lhes conceda os dons do Espírito Santo. Devem, pelo contrário, com zelo, desejar e buscar com oração esses dons, principalmente os dons que são próprios para encorajar, consolar e edificar <button class="ref" data-ref="1co1445">1Co. 14:3,13,19,26</button>.</p>
+
+      <h3 id="l3-p2">2. Que proveitos trazem os dons espirituais?</h3>
+      <p>Paulo apresenta os motivos pelos quais a igreja deve manifestar os dons. Os dons eram parte indispensável da vida e do ministério da igreja primitiva. Deus quer que esses dons continuem em ação na igreja em todos os períodos de sua história <button class="ref" data-ref="1co17">1Co. 1:7</button>.</p>
+      <p>Os objetivos dos dons espirituais são os seguintes: manifestar a graça, o poder e o amor de Deus entre o Seu povo, nas reuniões públicas, nos lares, nas famílias e nas atividades pessoais. Ajudar a tornar eficaz a pregação do evangelho aos perdidos, confirmando de modo sobrenatural a mensagem do Evangelho <button class="ref" data-ref="mc161520">Mc. 16:15-20</button>. Suprir as necessidades humanas, e fortalecer e edificar espiritualmente tanto a congregação como os crentes individualmente. Isto é, aperfeiçoar os crentes no amor de um coração puro, e de uma boa consciência, e de uma fé não fingida <button class="ref" data-ref="1tm15">1Tm. 1:5</button>; comparar com <button class="ref" data-ref="1co1313">1Co. 13</button>.</p>
+
+      <h3 id="l3-p3">3. Que verdades Paulo ensinou sobre o exercício dos dons e a ordem no culto?</h3>
+      <p><span class="letra">a)</span> As línguas estranhas não se devem ausentar da igreja <button class="ref" data-ref="1co1445">1Co. 14:4,5,39</button>.</p>
+      <p><span class="letra">b)</span> O que fala língua ajuda a si mesmo <button class="ref" data-ref="1co1445">1Co. 14:4</button>.</p>
+      <p><span class="letra">c)</span> A profecia é mais útil que a língua não interpretada. Paulo não objetivou destacar o elemento humano, mas a superioridade e a utilidade do dom, pois “exorta, consola e edifica a igreja” <button class="ref" data-ref="1co143">14:3</button>.</p>
+      <p><span class="letra">d)</span> Os crentes devem buscar a interpretação das línguas.</p>
+      <p><span class="letra">e)</span> Na igreja deve haver mais profecias do que línguas.</p>
+      <p><span class="letra">f)</span> A igreja fica muito restrita somente com o dom de línguas. Se Paulo fosse a Corinto e ocupasse todo o tempo falando línguas estranhas, que proveito teria se não houvesse também revelação, ciência, profecia e doutrina? Seria inútil a sua visita; a igreja fica sem proveito.</p>
+      <p>A igreja de Corinto havia-se voltado demasiadamente para o dom de línguas. Daí Paulo ensinar que os dons de interpretação e a profecia são superiores ao falar línguas, pois ambos dão a conhecer a mensagem divina em língua inteligível, isto é, que se compreende bem.</p>
+
+      <h3 id="l3-p4">4. Como explica Paulo o domínio próprio? Como ele combateu os abusos?</h3>
+      <p><button class="ref" data-ref="1co1426">1Co. 14:32,40</button>. Paulo expressou no versículo 32 que aquele que possui o dom deve dominar sua expansão, quando esse domínio for necessário.</p>
+      <p><strong>Autodomínio:</strong> o fator domínio é essencial para que o culto não fique monopolizado somente em uma atividade; para que os que têm salmo, doutrina, revelação, interpretação também atuem a seu devido tempo. Sem o domínio próprio as línguas ocupariam o lugar da pregação, dos cânticos e dos testemunhos. O culto perderia sua razão de ser e Deus não seria cultuado racionalmente <button class="ref" data-ref="rm1212">Rm. 12:1</button>.</p>
+      <p><strong>Ordem e decência:</strong> Deus, o grande e sábio arquiteto do universo, com toda a Sua beleza e organização, jamais permitiria que o Espírito Santo inspirasse aquilo que seria desordenado e vergonhoso. A ordem é um princípio celestial. Deus não é Deus de confusão <button class="ref" data-ref="1co1426">1Co. 14:33</button>.</p>
+
+      <h2 class="sec" id="l3-conclusao">CONCLUSÃO</h2>
+      <p>Os capítulos 12 e 14 de 1 Coríntios se tornam inúteis para uma igreja que não experimenta as manifestações do Espírito. O propósito principal de todos os dons espirituais é edificar a igreja e o indivíduo. Edificar significa fortalecer e promover a vida espiritual, a maturidade e o caráter santo dos crentes. Essa edificação é uma obra do Espírito Santo através dos dons espirituais, pelos quais os cristãos são espiritualmente transformados mais e mais, para não se conformarem com este mundo, mas edificados no amor a Deus, no bem-estar do próximo, na pureza de coração, numa boa consciência e numa fé sincera.</p>
+      <p>Hoje vemos muita confusão acerca dos dons espirituais. Há desordem, gritaria (na verdade, histeria). Tudo pura carnalidade. Deveremos ter todo o cuidado para não cairmos no mesmo erro!</p>
+
+      <div class="oracao">
+        <h2>Oração</h2>
+        <p>Senhor, rogo que me ajude a reconhecer e a buscar o dom que quer me conceder. Se o tenho ignorado, peço perdão. Se o tenho abafado, peço que o Senhor o estimule. Dirija meus pensamentos rumo à santificação, e me fortaleça para que eu possa ser tudo aquilo que o Senhor pretende de mim: útil, alegre, amoroso, fiel e grato. Em nome de Jesus, amém.</p>
+      </div>
+
+      <div class="pager">
+        <a class="top-link" href="#licao-2">‹ Lição 2</a>
+        <a class="top-link" href="#inicio">Menu</a>
+        <a class="top-link" href="#licao-4">Lição 4 ›</a>
+      </div>
+    </article>
+  </div>
+  
+</section>
+<section class="view" id="view-licao-4">
+<div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 4 · 4A / 4B</div>
+      <h1>O DOM DA PALAVRA DA SABEDORIA</h1>
+      <p class="subtitle">O que a Bíblia diz sobre este dom</p>
+      <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+      <div class="meta-grid">
+        <div class="card">
+          <h2>Leitura bíblica</h2>
+          <p><button class="ref" data-ref="dn21928">Daniel 2:19-28</button></p>
+        </div>
+        <div class="card">
+          <h2>Objetivo da lição</h2>
+          <p>Saber o que a Bíblia diz sobre o dom da palavra da sabedoria.</p>
+        </div>
+      </div>
+      <div class="refs">
+        <h2>Textos de apoio — toque para ler</h2>
+        <ul>
+          <li><span>A sabedoria é constituída pelo temor de Deus</span><button class="ref" data-ref="jo2828">Jó 28:28</button></li>
+          <li><span>A sabedoria pode ser aumentada</span><button class="ref" data-ref="jo327">Jó 32:7</button></li>
+          <li><span>A sabedoria é aquisição suprema</span><button class="ref" data-ref="pv47">Pv. 4:7</button></li>
+          <li><span>A sabedoria percebe a verdade divina</span><button class="ref" data-ref="os149">Os. 14:9</button></li>
+          <li><span>A sabedoria é cheia de frutos espirituais</span><button class="ref" data-ref="tg317">Tg. 3:17</button></li>
+          <li><span>As Escrituras: fonte da sabedoria</span><button class="ref" data-ref="2tm315">2Tm. 3:15</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Índice</h2>
+      <a href="#l4-introducao">Introdução</a>
+      <a href="#l4-p1">1. O que é o dom da sabedoria?</a>
+      <a href="#l4-p2">2. Como operou nos servos de Deus</a>
+      <a href="#l4-p3">3. Sair de dificuldades</a>
+      <a href="#l4-p4">4. A promessa do Mestre</a>
+      <a href="#l4-p5">5. No ministério do ensino</a>
+      <a href="#l4-p6">6. Salomão</a>
+      <a href="#l4-p7">7. Efeitos no cristão</a>
+      <a href="#l4-conclusao">Conclusão e oração</a>
+    </nav>
+
+    <article>
+      <h2 class="sec" id="l4-introducao">INTRODUÇÃO</h2>
+      <p>O dom da sabedoria é uma mensagem vocal sábia, enunciada mediante a operação sobrenatural do Espírito Santo. Tal mensagem aplica a revelação da Palavra de Deus ou a sabedoria do Espírito a uma situação ou problema específico <button class="ref" data-ref="at610">At. 6:10</button>; <button class="ref" data-ref="at1513">At. 15:13-22</button>. Não se trata aqui da sabedoria comum de Deus, para o viver diário, que se obtém pelo diligente estudo e meditação nas coisas de Deus e na Sua Palavra, e pela oração <button class="ref" data-ref="tg15">Tg. 1:5,6</button>.</p>
+      <p>Esse dom proporciona, pela operação do Espírito Santo, visão e compreensão da profundidade da sabedoria divina, ensinando a aplicá-la no trabalho e nas decisões no serviço do Senhor. Proporciona também sabedoria para entender e transmitir o que está revelado nas Escrituras Sagradas e as revelações entre a palavra da ciência e a palavra da sabedoria <button class="ref" data-ref="ef117">Ef. 1:17</button>.</p>
+      <p>A palavra da sabedoria é a palavra que vem no momento exato para solucionar os problemas que estão afetando a vida espiritual do ouvinte, sem que o pregador ou evangelista conheça qual é e em que situação ele se encontra. São palavras que o Espírito Santo ensina <button class="ref" data-ref="1co213">1Co. 2:13</button>. Dessa maneira pode convencer; por isso o ganhador de almas é caracterizado como sábio <button class="ref" data-ref="pv1130">Pv. 11:30</button>.</p>
+
+      <h2 class="sec">EXPOSIÇÃO</h2>
+      <h3 id="l4-p1">1. O que é o dom da sabedoria?</h3>
+      <p>Capacidade divina de aplicar a verdade espiritual com eficiência, satisfazendo uma necessidade dentro de uma situação específica.</p>
+
+      <h3 id="l4-p2">2. Como operou o dom da sabedoria nos servos de Deus em épocas distintas?</h3>
+      <p><strong>Em José</strong> (Egito) <button class="ref" data-ref="gn4116">Gn. 41:16, 25-31</button>. Graças à interpretação foi possível uma preparação para enfrentar os anos difíceis. As palavras de José e o testemunho do rei confirmam que se tratou de uma interpretação divina.</p>
+      <p><strong>Em Daniel</strong> (Babilônia, Dn. 2, 4 e 5). Fontes históricas informam que, quando Daniel interpretou o primeiro sonho de Nabucodonosor, era ainda muito jovem, com provavelmente dezesseis anos. Quando interpretou o segundo, estava por perto dos cinquenta anos. Quando interpretou a miraculosa escritura na parede do palácio para Belsazar, ele devia ter, pelo menos, oitenta anos de idade. Temos em Daniel o exemplo de toda uma vida de bênçãos para o Senhor!</p>
+      <p>O dom da palavra da sabedoria é muito importante para entender visões, sonhos, palavras e números misteriosos <button class="ref" data-ref="ap1718">Ap. 13:18; 17:9</button>. Pedro, auxiliado por este dom, pôde entender que a visão do lençol não se referia a uma autorização para alimentos proibidos, mas à dispensação do evangelho aos gentios, e que ele, como judeu, teria que abandonar o preconceito contra este povo <button class="ref" data-ref="at1019">At. 10:28</button>.</p>
+
+      <h3 id="l4-p3">3. Quem fez uso da palavra da sabedoria para sair de dificuldades?</h3>
+      <p><button class="ref" data-ref="lc202125">Lc. 20:21-26</button>; <button class="ref" data-ref="at610">At. 6:10</button>. Numa situação difícil e perigosa, Jesus precisava responder aos inimigos: “Dai, pois, a César o que é de César e a Deus o que é de Deus”. Jesus também usou o dom da sabedoria para evangelizar: aproveitou uma situação e pregou o evangelho à mulher samaritana. Estêvão comprova que, numa situação difícil, o dom da sabedoria resolve problemas e cria dificuldades para o adversário.</p>
+
+      <h3 id="l4-p4">4. Que promessa fez o Mestre e como se verificou o seu cumprimento?</h3>
+      <p><button class="ref" data-ref="lc121112">Lc. 12:11,12</button>; <button class="ref" data-ref="at468">At. 4:8-13</button>. Jesus advertiu Seus discípulos que seriam levados diante das autoridades. Falar fluentemente é a grande preocupação de quem se encontra perante pessoas importantes. Mas Cristo disse: “Porque na mesma hora vos ensinará o Espírito Santo o que vos convenha falar”. De fato, com muita precisão, várias vezes se cumpriu o predito.</p>
+
+      <h3 id="l4-p5">5. Como esse dom pode ser eficiente no ministério do ensino?</h3>
+      <p><button class="ref" data-ref="mt854">Mt. 13:54</button>; <button class="ref" data-ref="mc62">Mc. 6:2</button>. O dom da sabedoria auxilia grandemente para interpretar e aplicar a palavra sagrada e entender o cumprimento das profecias.</p>
+
+      <h3 id="l4-p6">6. Como Salomão conseguiu ser o homem mais sábio de seu tempo?</h3>
+      <p><button class="ref" data-ref="1rs35">1Rs. 3:5-14</button>. Salomão começou seu reinado com fé no Senhor e amor a Ele. Orou pedindo sabedoria e um coração entendido. Deus se agradou do seu pedido e atendeu sua oração. O dom da sabedoria que Deus deu a Salomão não era uma garantia de que ele sempre andaria em retidão. Devemos orar e vigiar para não perdermos o dom que recebemos de Deus.</p>
+
+      <h3 id="l4-p7">7. Que efeitos produz a palavra da sabedoria no cristão?</h3>
+      <p>A palavra da sabedoria pode produzir renovação no entendimento, mudando a maneira de pensar e entender as coisas espirituais <button class="ref" data-ref="rm1212">Rm. 12:2</button>. O homem natural, que ainda não sofreu a transformação no entendimento, não pode entender as coisas espirituais, pois essas lhe parecem loucura <button class="ref" data-ref="1co213">1Co. 2:14</button>. Essa renovação de entendimento implanta no crente “a mente de Cristo” <button class="ref" data-ref="1co213">1Co. 2:16</button>.</p>
+
+      <h2 class="sec" id="l4-conclusao">CONCLUSÃO</h2>
+      <p>Através da história do povo de Deus, tanto do Antigo como do Novo Testamento, sempre a palavra de sabedoria foi o suficiente para esclarecer, convencer, entender e salvar. Continuará sendo ainda em nossos dias, se compreendermos o seu valor para a marcha e o progresso da igreja e do Evangelho do Reino de Deus. Busque, irmão, o precioso dom da sabedoria. É só pedir:</p>
+      <blockquote>“E, se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente e não o lança em rosto; e ser-lhe-á dada.” <button class="ref" data-ref="tg15">Tg. 1:5</button></blockquote>
+
+      <div class="oracao">
+        <h2>Oração</h2>
+        <p>Senhor, obrigado pela rica diversidade que existe entre todos nós. Pela forma que maravilhosamente nos complementamos uns aos outros. Mostre-me um espelho, para que possa ver meu verdadeiro eu — a pessoa que o Senhor pretende que eu me torne. Ajude-me a reconhecer a mim mesmo, e a viver honesta e alegremente, sem medo, servindo ao Senhor e a Seu povo. Em nome de Jesus, amém.</p>
+      </div>
+
+      <div class="pager">
+        <a class="top-link" href="#licao-3">‹ Lição 3</a>
+        <a class="top-link" href="#inicio">Menu</a>
+        <a class="top-link" href="#licao-5">Lição 5 ›</a>
+      </div>
+    </article>
+  </div>
+  
+</section>
+<section class="view" id="view-licao-5">
+<div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 5 · 5A / 5B</div>
+      <h1>O DOM DA PALAVRA DO CONHECIMENTO</h1>
+      <p class="subtitle">Fatos importantes sobre o dom de conhecimento</p>
+      <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+      <div class="meta-grid">
+        <div class="card">
+          <h2>Leitura bíblica</h2>
+          <p><button class="ref" data-ref="pv31324">Provérbios 3:13-24</button></p>
+        </div>
+        <div class="card">
+          <h2>Objetivo da lição</h2>
+          <p>Conhecer fatos importantes sobre o dom de conhecimento.</p>
+        </div>
+      </div>
+      <div class="refs">
+        <h2>Textos de apoio — toque para ler</h2>
+        <ul>
+          <li><span>Obtido através de nossa relação com Deus</span><button class="ref" data-ref="os63">Os. 6:3</button></li>
+          <li><span>Obediência, condição para recebê-lo</span><button class="ref" data-ref="jo71617">Jo. 7:16,17</button></li>
+          <li><span>Liberta a pessoa do engano</span><button class="ref" data-ref="jo832">Jo. 8:32</button></li>
+          <li><span>Conduz à vida eterna</span><button class="ref" data-ref="jo173">Jo. 17:3</button></li>
+          <li><span>Motivo de regozijo</span><button class="ref" data-ref="jr924">Jr. 9:24</button></li>
+          <li><span>Deve-se buscá-lo como se busca o tesouro</span><button class="ref" data-ref="pv235">Pv. 2:3-5</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Índice</h2>
+      <a href="#l5-introducao">Introdução</a>
+      <a href="#l5-p1">1. Como ajudou no passado</a>
+      <a href="#l5-p2">2. Elias</a>
+      <a href="#l5-p3">3. Eliseu e Geazi</a>
+      <a href="#l5-p4">4. Natanael e a samaritana</a>
+      <a href="#l5-p5">5. Ananias e Saulo</a>
+      <a href="#l5-p6">6. Pedro e Cornélio</a>
+      <a href="#l5-conclusao">Conclusão e oração</a>
+    </nav>
+
+    <article>
+      <h2 class="sec" id="l5-introducao">INTRODUÇÃO</h2>
+      <p>O dom da palavra do conhecimento é um dom de revelação <button class="ref" data-ref="1co128">1Co. 12:8</button>. Revela conhecimento a respeito de pessoas, de circunstâncias, ou de verdades bíblicas. Consiste em poder saber aquilo que o entendimento humano jamais poderia alcançar. Deus é onisciente, sabe minuciosamente o que acontece no universo e no íntimo de cada pessoa <button class="ref" data-ref="sl139">Sl. 139:1-6</button>.</p>
+      <p>O conhecimento de Deus é ilimitado, do qual o homem, que é limitado, não pode saber ou imaginar; porém pode chegar a compreender somente pela poderosa intervenção do Espírito Santo, porque o Espírito penetra todas as coisas, ainda as profundezas de Deus: “Mas Deus no-las revelou pelo seu Espírito; porque o Espírito penetra todas as coisas, ainda as profundezas de Deus” <button class="ref" data-ref="1co210">1Co. 2:10</button>.</p>
+      <p>Este, como qualquer outro dom espiritual, não pode ser controlado pela vontade humana: Deus é que determina o momento e a finalidade. Por isso é uma revelação que vem como relâmpago à mente humana.</p>
+
+      <h2 class="sec">EXPOSIÇÃO</h2>
+      <h3 id="l5-p1">1. Como o dom da palavra da ciência ajudou os servos de Deus no passado?</h3>
+      <p><button class="ref" data-ref="1sm3">1Sm. 3:1,4,11</button>; <button class="ref" data-ref="1sm915">1Sm. 9:15-17</button>. Este dom foi notável no ministério dos profetas, os quais tinham a responsabilidade de falar em nome do Senhor, para guiar e aconselhar a nação de Israel. Samuel, ainda jovem, teve a revelação, conhecimento da parte de Deus, acerca do futuro do sumo sacerdote Eli e da escolha de Saul para reinar sobre o povo de Israel.</p>
+
+      <h3 id="l5-p2">2. De que maneira Deus exortou e consolou o profeta Elias?</h3>
+      <p>O capítulo 19 do primeiro livro dos Reis registra o abatimento de Elias. Sua experiência é muito significativa: refugiou-se no monte Horebe, porque Jezabel queria matá-lo. Encontra-se num estado de confusão. Havia fugido da morte e depois pediu a morte <button class="ref" data-ref="1rs194">1Rs. 19:4</button>. Deus lhe deu uma oportunidade de apresentar sua queixa e também o alimentou. Um sentimento profundo de solidão se apoderou dele. Mas o Senhor, pela palavra da ciência, fê-lo saber que não estava só: ainda restavam sete mil fiéis que não se dobraram diante de Baal. Aqui está uma prova de que o poder de Deus se aperfeiçoa na fraqueza; a graça do Senhor nos basta <button class="ref" data-ref="2co129">2Co. 12:9</button>.</p>
+      <p>Com Eliseu, a nação israelita foi preservada. O profeta descobriu os planos do rei da Síria que pretendia fazer guerra contra Israel. Recebeu a revelação e soube em que parte estaria o acampamento do exército inimigo. Quando ainda não existiam os sistemas de espionagem avançados como na atualidade — minúsculos microfones, satélites, telefones e internet —, o profeta era usado por meios sobrenaturais para salvar a nação preferida do Senhor.</p>
+
+      <h3 id="l5-p3">3. Como Eliseu descobriu a hipocrisia de seu servo Geazi?</h3>
+      <p><button class="ref" data-ref="2rs525">2Rs. 5:25-27</button>. Geazi não suportou ver grande soma de riquezas oferecida e recusada. Deus, que não apoia nenhum tipo de ambição prejudicial, que é infinitamente sábio e tudo vê, revelou para Eliseu o grande mal que fizera Geazi.</p>
+      <p>O N.T. refere-se a pessoas semelhantes que mercadejam a Palavra de Deus <button class="ref" data-ref="2co217">2Co. 2:17</button>. Algumas organizações religiosas, infelizmente, procuram enriquecer e acumular riquezas materiais através da proclamação do sangue de Cristo e da mensagem do Evangelho do Reino, oferecendo salvação aos perdidos, curas aos enfermos, ou aconselhamento aos que estão em crise. Os tais se aproveitam da Palavra de Deus e mercantilizam a Sua misericórdia. Jesus, quando enviou os doze, advertiu-os: “De graça recebestes, de graça dai” <button class="ref" data-ref="mt108">Mt. 10:8</button>.</p>
+
+      <h3 id="l5-p4">4. Que revelou Cristo acerca de Natanael, da mulher samaritana, e o que resultou?</h3>
+      <p>Jesus exerceu Seu ministério na terra como homem perfeito, para mostrar a todos os homens que é possível ao homem vencer o mundo <button class="ref" data-ref="hb217">Hb. 2:17,18</button>. Pela palavra da ciência tinha conhecimentos sobrenaturais <button class="ref" data-ref="jo14748">Jo. 1:47,48</button>. Através do dom da ciência o Messias deixou profundamente impressionada a mulher samaritana, de tal maneira que serviu para romper a barreira que existia entre judeus e samaritanos <button class="ref" data-ref="jo49">Jo. 4:9,29</button>. O Senhor não havia conhecido aquela mulher antes e tampouco havia recebido informações sobre ela, mas, através da palavra da ciência, disse tudo sobre a vida dela.</p>
+
+      <h3 id="l5-p5">5. Como a palavra da ciência ajudou no ministério apostólico</h3>
+      <p><button class="ref" data-ref="at910">At. 9:10</button>. A intervenção divina fez Ananias saber quem necessitava de ajuda, onde estava e o que fazia. Não foi preciso recorrer ao computador para obter os dados. Por meios divinos acumulou toda a informação suficiente para chegar até Saulo. Resultado: um pecador foi liberto, uma visão foi recuperada e um grande apóstolo se levantou.</p>
+
+      <h3 id="l5-p6">6. Em que outra circunstância veio a palavra da ciência a Pedro?</h3>
+      <p><button class="ref" data-ref="at1019">At. 10:19,20</button>. No relógio divino se aproximava a hora em que a porta da graça se abriria aos gentios. Uma visão de profundo significado teve Pedro. Graças à palavra da ciência o apóstolo não duvidou. Resultado: a família de Cornélio e alguns amigos foram salvos e o Evangelho começou a ser introduzido entre os gentios.</p>
+
+      <h2 class="sec" id="l5-conclusao">CONCLUSÃO</h2>
+      <p>A cada dia devemos-nos convencer mais da necessidade dos dons espirituais na igreja. Quão maravilhoso é Deus operar assim em nosso meio.</p>
+
+      <div class="oracao">
+        <h2>Oração</h2>
+        <p>Senhor, peço que me dê conhecimento e sabedoria para perceber quem o Senhor quer que eu me torne e onde poderei contribuir da melhor forma na Tua santa Igreja. Acima de tudo, conceda-me um coração de servo, auxilie-me a buscar Sua vontade e a ficar em paz com o meu passado e a ter confiança no futuro. Ajude-me a cumprir o propósito especial para o qual o Senhor me criou. Em nome de Jesus, amém.</p>
+      </div>
+
+      <div class="pager">
+        <a class="top-link" href="#licao-4">‹ Lição 4</a>
+        <a class="top-link" href="#inicio">Menu</a>
+        <a class="top-link" href="#licao-6">Lição 6 ›</a>
+      </div>
+    </article>
+  </div>
+  
+</section>
+<section class="view" id="view-licao-6">
+<div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 6 · 6A / 6B</div>
+      <h1>O DOM DA FÉ</h1>
+      <p class="subtitle">Os tipos de fé na Bíblia, destacando a fé sobrenatural</p>
+      <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+      <div class="meta-grid">
+        <div class="card">
+          <h2>Leitura bíblica</h2>
+          <p><button class="ref" data-ref="hb112440">Hebreus 11:24-40</button></p>
+        </div>
+        <div class="card">
+          <h2>Objetivo da lição</h2>
+          <p>Demonstrar os tipos de fé existentes na Bíblia, destacando a fé sobrenatural.</p>
+        </div>
+      </div>
+      <div class="refs">
+        <h2>Textos de apoio — toque para ler</h2>
+        <ul>
+          <li><span>A fé que garante a salvação</span><button class="ref" data-ref="jo315">Jo. 3:15</button></li>
+          <li><span>A fé que assegura a vitória</span><button class="ref" data-ref="hb1133">Hb. 11:33</button></li>
+          <li><span>A fé como arma defensiva</span><button class="ref" data-ref="ef616">Ef. 6:16</button></li>
+          <li><span>A fé deve estar unida ao amor</span><button class="ref" data-ref="1jo323">1Jo. 3:23</button></li>
+          <li><span>É indispensável à religião</span><button class="ref" data-ref="hb116">Hb. 11:6</button></li>
+          <li><span>Traz segurança espiritual</span><button class="ref" data-ref="1jo514">1Jo. 5:14</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Índice</h2>
+      <a href="#l6-introducao">Introdução</a>
+      <a href="#l6-p1">1. Quantos tipos de fé existem?</a>
+      <a href="#l6-p2">2. Fé natural</a>
+      <a href="#l6-p3">3. Fé salvadora</a>
+      <a href="#l6-p4">4. Fé fruto do Espírito</a>
+      <a href="#l6-p5">5. A fé de que Cristo fala</a>
+      <a href="#l6-p6">6. Exemplos do dom da fé</a>
+      <a href="#l6-conclusao">Conclusão</a>
+    </nav>
+
+    <article>
+      <h2 class="sec" id="l6-introducao">INTRODUÇÃO</h2>
+      <p>O dom da fé <button class="ref" data-ref="1co129">1Co. 12:9</button>. Neste texto, não se trata da fé para a salvação, mas de uma fé sobrenatural especial, comunicada pelo Espírito Santo, capacitando o crente a crer em Deus para a realização de coisas extraordinárias e milagrosas. É a fé que remove montanhas <button class="ref" data-ref="mt1720">Mt. 17:20</button>; <button class="ref" data-ref="1co1313">1Co. 13:2</button> e que frequentemente opera em conjunto com outras manifestações do Espírito, tais como as curas e os milagres.</p>
+      <p>O dom da fé é o equipamento espiritual e sobrenatural do(a) cristão, o qual lhe concede poder de confiar em Deus nas ocasiões em que só um milagre glorioso pode alterar a situação.</p>
+      <p>Este dom espiritual capacita o irmão a confiar quando tudo aparentemente está perdido, sem a mínima esperança de uma solução. O resultado dessa fé é imediato. A fé, dom espiritual, quando está em eminência no crente, faz triunfar a vontade de Deus, apesar de todas as resistências naturais. Ela abre as portas para todas as maravilhas além de todas as expectativas. Enche de convicção sobrenatural de que Deus manifestará Seu poder, Sua justiça e Sua misericórdia em circunstâncias difíceis.</p>
+      <p>Para distinguir bem a fé dom espiritual, primeiramente veremos outros tipos de fé; depois consideraremos a fé miraculosa.</p>
+
+      <h2 class="sec">EXPOSIÇÃO</h2>
+      <h3 id="l6-p1">1. Quantos tipos de fé existem?</h3>
+      <p>Podemos identificar perfeitamente que, além da fé de <button class="ref" data-ref="1co129">1Co. 12:9</button>, existem: fé natural, fé salvadora e fé fruto do Espírito.</p>
+
+      <h3 id="l6-p2">2. Que se entende por fé natural?</h3>
+      <p>A fé natural não está relacionada com os demais tipos de fé. Qualquer pessoa pode possuí-la, independentemente de ser cristã. É aquela que a pessoa deposita no amigo ou parente a quem empresta dinheiro, ou com quem realiza negócios. A fé que o agricultor deposita quando semeia o trigo, o arroz, o feijão… Tem a esperança de que o grão vai nascer, crescer e produzir. Pela fé natural, a pessoa pode crer na existência de Deus, pelo ensinamento recebido numa escola, porém sem ter fé n’Ele, ou crer que Ele pode abençoar.</p>
+
+      <h3 id="l6-p3">3. Qual é a fé salvadora?</h3>
+      <p><button class="ref" data-ref="at1631">At. 16:31</button>; <button class="ref" data-ref="ef28">Ef. 2:8</button>. A fé salvadora também é divina, porém não realiza maravilhas. Ela nasce no coração do homem pelo ouvir a Palavra de Deus <button class="ref" data-ref="rm1017">Rm. 10:17</button>. Ela leva o pecador a arrepender-se e a aceitar a salvação gratuita oferecida por Cristo e a crer nas promessas divinas.</p>
+
+      <h3 id="l6-p4">4. Que é a fé fruto do Espírito?</h3>
+      <p><button class="ref" data-ref="gl522">Gl. 5:22</button>. A fé fruto do Espírito é uma das qualidades do caráter cristão produzida pela santificação. É uma fé que expressa fidelidade. É a fé que uma vez foi dada aos santos <button class="ref" data-ref="jd3">Jd. 3</button>. É a fé que justifica <button class="ref" data-ref="rm51">Rm. 5:1</button>. Essa fé põe-nos em paz com Deus, atrai o amor de Deus ao coração <button class="ref" data-ref="rm51">Rm. 5:5</button>, e desenvolve no interior do homem o costume de fazê-lo confiar em Deus em todas as circunstâncias.</p>
+      <p>A fé natural é independente da espiritual; a fé salvadora precede a salvação. A fé, fruto do Espírito, surge como resultado da salvação; e a fé, dom espiritual, é miraculosa.</p>
+
+      <h3 id="l6-p5">5. De qual fé Cristo fala?</h3>
+      <p>Jesus fala de uma fé que pode fazer coisas impossíveis, como operar milagres e curas e realizar grandes coisas para Deus <button class="ref" data-ref="mt1720">Mt. 17:20</button>.</p>
+      <p><strong>Nota:</strong> Jesus não quis dizer que a pessoa deve pedir o dom, ajoelhar-se diante de um monte e suplicar que o mesmo seja removido. Cristo usou-o como figura para expressar que, pelo poder da fé, o impossível se torna possível: “Tudo é possível ao que crê” <button class="ref" data-ref="mc923">Mc. 9:23</button>.</p>
+
+      <h3 id="l6-p6">6. Quais exemplos temos de que o dom da fé faz o impossível tornar realidade?</h3>
+      <p><span class="letra">Moisés</span> <button class="ref" data-ref="ex1413">Êx. 14:13</button>. A fé de Moisés foi o suficiente para crer que o impossível seria possível. O dom da fé traz essa sensação que ele sentiu, isto é, como se Deus tivesse realizado o milagre. Isso confirma que “a fé é o firme fundamento das coisas que se esperam” <button class="ref" data-ref="hb111">Hb. 11:1</button>.</p>
+      <p><span class="letra">Elias</span> <button class="ref" data-ref="1rs1824">1Rs. 18:24,37-39</button>. Elias mostrou um grau extraordinário de fé ao desafiar os 450 profetas de Baal diante de um povo vacilante. Por isso o dom da fé é uma certeza extraordinária que consegue atrair o sobrenatural ao natural. Essa certeza tem a virtude de confirmar os fracos na fé.</p>
+      <p><span class="letra">Daniel</span> <button class="ref" data-ref="dn621">Dn. 6:21,22</button>. A fé de Daniel fê-lo confiar em Deus, em meio dos famintos e ferozes leões. Ela foi o convite à intervenção divina; Deus enviou Seu anjo e a maravilha aconteceu. Ele permaneceu pacífico e tranquilo diante do perigo. O profeta, pela fé, saiu intacto!</p>
+      <p><span class="letra">Sadraque, Mesaque e Abede-Nego</span> <button class="ref" data-ref="dn323">Dn. 3:23,25</button>. Estes três servos de Deus não obedeceram à ordem imperiosa do rei, e por isso foram lançados na fornalha ardente. Porém os três passeavam dentro da fogueira e já não eram três, mas quatro, porque o anjo do Senhor se acampou ao redor deles e os livrou. Nos três jovens hebreus se cumpriram as palavras de Isaías <button class="ref" data-ref="is432">Is. 43:2</button>.</p>
+      <p><span class="letra">Paulo</span> <button class="ref" data-ref="at2835">At. 28:3-5</button>. Paulo foi picado por uma serpente de mordida letal. Os habitantes da ilha de Malta ficaram esperando o momento em que o apóstolo cairia morto; como não ocorreu, mudaram de parecer, dizendo: é um deus. Jesus disse: “…estes sinais seguirão aos que crerem… pegarão nas serpentes…” <button class="ref" data-ref="mc16">Mc. 16:17,18</button>.</p>
+
+      <h2 class="sec" id="l6-conclusao">CONCLUSÃO</h2>
+      <p>A fé sobrenatural, a fé salvadora e a fé fruto do Espírito constituem um verdadeiro escudo espiritual para a Igreja de Deus, com o qual se pode apagar todos os dardos inflamados do maligno <button class="ref" data-ref="ef616">Ef. 6:16</button>.</p>
+
+      <div class="pager">
+        <a class="top-link" href="#licao-5">‹ Lição 5</a>
+        <a class="top-link" href="#inicio">Menu</a>
+        <a class="top-link" href="#licao-7">Lição 7 ›</a>
+      </div>
+    </article>
+  </div>
+  
+</section>
+<section class="view" id="view-licao-7">
+<div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 7</div>
+      <h1>DONS DE CURAS</h1>
+      <p class="subtitle">Fatos bíblicos relacionados aos dons de curas</p>
+      <p class="hint">Toque em qualquer referência azul para ler o versículo aqui mesmo.</p>
+
+      <div class="meta-grid">
+        <div class="card">
+          <h2>Leitura bíblica</h2>
+          <p><button class="ref" data-ref="at8">Atos 8:7-13</button></p>
+        </div>
+        <div class="card">
+          <h2>Objetivo da lição</h2>
+          <p>Relatar fatos bíblicos relacionados aos dons de curas.</p>
+        </div>
+      </div>
+
+      <div class="refs">
+        <h2>Textos de apoio — toque para ler</h2>
+        <ul>
+          <li><span>Cura de Ezequias</span><button class="ref" data-ref="2rs20">2Rs. 20:7</button></li>
+          <li><span>Pedro cura os enfermos</span><button class="ref" data-ref="at5">At. 5:15</button></li>
+          <li><span>Paulo também faz curas</span><button class="ref" data-ref="at14">At. 14:3,10</button></li>
+          <li><span>Pode-se fazer uso da medicina</span><button class="ref" data-ref="lc531">Lc. 5:31</button></li>
+          <li><span>Remédio é recomendado</span><button class="ref" data-ref="1tm523">1Tm. 5:23</button></li>
+          <li><span>O cristão de hoje também pode curar</span><button class="ref" data-ref="mc16">Mc. 16:17</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Índice — toque para ir</h2>
+      <a href="#l7-introducao">Introdução</a>
+      <a href="#l7-exposicao">Exposição</a>
+      <a href="#l7-p1">1. A doença é castigo divino?</a>
+      <a href="#l7-p2">2. Deus quer curar hoje em dia?</a>
+      <a href="#l7-p3">3. Que é exigido para se receber a cura divina?</a>
+      <a href="#l7-p4">4. Que efeito tem o dom de cura na pregação do Evangelho?</a>
+      <a href="#l7-p5">5. Devemos dispensar os cuidados médicos?</a>
+    </nav>
+
+    <article>
+      <h2 class="sec" id="l7-introducao">INTRODUÇÃO</h2>
+
+      <p>
+        Dons de cura <button class="ref" data-ref="1co129">1Co. 12:9</button>. Esses dons são concedidos à igreja para a restauração da saúde física, por meios divinos e sobrenaturais. O plural “dons” indica curas de diferentes enfermidades e sugere que cada ato de cura vem de um dom especial de Deus. Os dons de curas não são concedidos a todos os membros do Corpo de Cristo <button class="ref" data-ref="1co121130">1Co. 12:11,30</button>, todavia, todos eles podem orar pelos enfermos. Havendo fé, os enfermos serão curados. Pode também haver cura em obediência ao ensino bíblico <button class="ref" data-ref="tg5">Tg. 5:14-16</button>. Não somente o povo de Deus pode ser curado mediante a operação do dom sobrenatural, mas também os pagãos podem ser beneficiados por ela. Exemplo: Naamã, chefe do exército Sírio; o pai de Públio, governador da Ilha de Malta; a filha da mulher Cananéia; o servo do centurião romano, etc.
+      </p>
+
+      <p>
+        A cura divina é extensiva aos que creem, mas nem todos a recebem. O rei Azarias ficou enfermo quase toda a sua vida, embora fizesse o que era reto diante de Deus. Timóteo, homem de fé, de oração, merecedor do benefício, porém, o Senhor lhe permitiu frequentes enfermidades <button class="ref" data-ref="1tm523">1Tm. 5:23</button>.
+      </p>
+
+      <h2 class="sec" id="l7-exposicao">EXPOSIÇÃO</h2>
+
+      <h3 id="l7-p1">1. A doença é castigo divino?</h3>
+
+      <blockquote>
+        “A ideia pagã de que a desgraça e o sofrimento se abatiam sobre as pessoas como juízo arbitrário de Deus era repulsiva a Jesus.” Mesmo os discípulos pensavam assim <button class="ref" data-ref="jo9">Jo. 9:2,3</button> — compare com <button class="ref" data-ref="lc13">Lc. 13:2-5</button>.
+      </blockquote>
+
+      <p>
+        Jesus, porém, deixou bem clara esta questão. Embora o sofrimento e a morte sejam consequências do pecado, o pecado não vem de Deus, e Deus não está punindo o pecado agora. Se a doença fosse castigo divino, que direito teríamos de procurar os médicos para sermos curados? Estaríamos agindo contra a vontade divina. Se Deus estivesse dando a cada um segundo as suas obras agora, então os maus deveriam sempre estar sofrendo e os justos sempre prosperando, porque Deus é um Deus de justiça. A realidade, porém, mostra que os justos sofrem e os ímpios muitas vezes prosperam.
+      </p>
+
+      <h3 id="l7-p2">2. Deus quer curar hoje em dia?</h3>
+
+      <blockquote>
+        “Alguém poderá supor que, se Deus o curasse, evitaria despesas médicas e hospitalares! Mas essa atitude é incorreta. Embora Deus deseje operar milagres ainda hoje, há certas condições que precisam ser observadas. Ele quer que façamos a nossa parte, caso contrário a operação de milagres nos encorajaria à preguiça.”
+      </blockquote>
+
+      <p>
+        Vejamos: se a pessoa precisa fazer exercícios físicos para curar-se de insônia, não adiantará orar, ao mesmo tempo que negligencia os exercícios, pois a oração não é substituto para o trabalho. Embora Deus tenha poder para curar, Ele nem sempre o faz, porque uma doença pode ser usada por Deus como instrumento de correção para produzir frutos <button class="ref" data-ref="2co417">2Co. 4:17</button> <button class="ref" data-ref="2co12">2Co. 12:8,9</button>. Dessa experiência podemos concluir que precisamos confiar na sabedoria divina e aceitar a Sua decisão. Se Ele decidir não nos curar, devemos nos conformar e crer que isto também é para o nosso bem eterno, pois “todas as coisas contribuem para o bem daqueles que amam a Deus” <button class="ref" data-ref="rm828">Rm. 8:28</button>.
+      </p>
+
+      <h3 id="l7-p3">3. Que é exigido para se receber a cura divina?</h3>
+
+      <p>
+        A falta de fé pode paralisar os dons espirituais na igreja; a incredulidade causa impedimentos <button class="ref" data-ref="mt1358">Mt. 13:58</button> / <button class="ref" data-ref="mt928">Mt. 9:28,30</button>. O dom de curar requer fé para ser eficaz; vejamos alguns exemplos:
+      </p>
+
+      <p>
+        <span class="letra">a) A fé exercida por um dos familiares.</span>
+        Na ressurreição da filha de Jairo, a fé foi exclusivamente do pai <button class="ref" data-ref="mc5">Mc. 5:35-43</button>.
+      </p>
+
+      <p>
+        <span class="letra">b) A fé exercida por terceiros.</span>
+        O paralítico trazido por quatro homens e introduzido pelo telhado para chegar a Jesus foi curado pela fé deles <button class="ref" data-ref="mc2">Mc. 2:5</button>.
+      </p>
+
+      <p>
+        <span class="letra">c) A fé exercida pelo paciente.</span>
+        A mulher que sofria de uma hemorragia, num ato de fé tocou na orla do vestido de Jesus <button class="ref" data-ref="mt922">Mt. 9:22</button>. Basta ter fé. Não é necessário enviar roupas, fotografias, etc., pois a enfermidade está no corpo da pessoa e não em seus pertences. É a pessoa que deve ir a Jesus e não seus objetos pessoais. Não há nenhum mandamento expresso ou relatado em que Cristo ou os apóstolos oraram por objetos de enfermos. Tal prática é antibíblica.
+      </p>
+
+      <h3 id="l7-p4">4. Que efeito tem o dom de cura na pregação do Evangelho?</h3>
+
+      <p>
+        <button class="ref" data-ref="at9">At. 9:35</button>
+        <button class="ref" data-ref="jo62">Jo. 6:2</button>
+        <button class="ref" data-ref="mc16">Mc. 16:17,18</button>.
+        A cura divina é importante na evangelização para atrair o povo a ouvir o Evangelho; é um poder para atração. Os habitantes de Lida e Sarona se converteram ao Senhor ao verem Enéias curado. Pela cura Jesus atraía multidões e ministrava-lhes o Evangelho do Reino. Devido às grandes maravilhas e curas realizadas por Filipe, as multidões prestavam grande atenção ao que ele dizia. Os dons de curar servem como rede espiritual para pescar almas. A pregação do Evangelho não deve consistir somente em palavras <button class="ref" data-ref="1ts15">1Ts. 1:5</button>.
+      </p>
+
+      <h3 id="l7-p5">5. Hoje, no caso de enfermidade física, devemos confiar somente em Deus dispensando os cuidados médicos?</h3>
+
+      <p>
+        <button class="ref" data-ref="2cr16">2Cr. 16:12,13</button>.
+        O grande erro do rei Asa foi ter confiado apenas nos médicos de seu tempo, que eram pouco mais do que curandeiros, já que a medicina e a feitiçaria andavam de mãos dadas naqueles tempos remotos. Mesmo hoje, com todos os recursos que temos, não deveríamos jamais prescindir da ajuda divina. Mas confiar em Deus, por outro lado, não significa dispensar os cuidados médicos. Em outras palavras, não devemos optar por um em exclusão do outro, pois Deus deseja operar em associação conosco. Estão redondamente enganados aqueles que querem excluir o uso da medicina!
+      </p>
+
+      <div class="pager">
+        <a class="top-link" href="#licao-6">‹ Lição 6</a>
+        <a class="top-link" href="#inicio">Menu</a>
+        <a class="top-link" href="#licao-8">Lição 8 ›</a>
+      </div>
+    </article>
+  </div>
+
+  
+</section>
+<section class="view" id="view-licao-8">
+<div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 8 · 8A / 8B</div>
+      <h1>DOM DE OPERAÇÃO DE MARAVILHAS</h1>
+      <p class="subtitle">Fatos bíblicos sobre milagres e sinais</p>
+      <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+      <div class="meta-grid">
+        <div class="card">
+          <h2>Leitura bíblica</h2>
+          <p><button class="ref" data-ref="jo6115">João 6:1-15</button></p>
+        </div>
+        <div class="card">
+          <h2>Objetivo da lição</h2>
+          <p>Estudar fatos bíblicos relacionados ao dom de operação de maravilhas, ou milagres.</p>
+        </div>
+      </div>
+      <div class="refs">
+        <h2>Textos de apoio — toque para ler</h2>
+        <ul>
+          <li><span>Os cristãos fariam muitas obras</span><button class="ref" data-ref="jo1412">Jo. 14:12</button></li>
+          <li><span>Os sinais seguiriam aos que crerem</span><button class="ref" data-ref="mc16">Mc. 16:17,18</button></li>
+          <li><span>Expulsarão demônios</span><button class="ref" data-ref="at5">At. 5:15,16</button></li>
+          <li><span>Poder sobre veneno</span><button class="ref" data-ref="at2835">At. 28:3-5</button></li>
+          <li><span>Falar novas línguas</span><button class="ref" data-ref="at1046">At. 10:46</button></li>
+          <li><span>As maravilhas devem seguir os fiéis</span><button class="ref" data-ref="gl35">Gl. 3:5</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Índice</h2>
+      <a href="#l8-introducao">Introdução</a>
+      <a href="#l8-p1">1. Que é o dom de maravilhas?</a>
+      <a href="#l8-p2">2. Obras maiores que as de Jesus</a>
+      <a href="#l8-p3">3. Os crentes ainda podem manifestar sinais?</a>
+      <a href="#l8-conclusao">Conclusão</a>
+    </nav>
+
+    <article>
+      <h2 class="sec" id="l8-introducao">INTRODUÇÃO</h2>
+      <p>O dom de operação de maravilhas <button class="ref" data-ref="1co12711">1Co. 12:10</button>. Trata-se de atos sobrenaturais de poder, que intervêm nas leis da natureza. Incluem atos divinos em que se manifesta o Reino de Deus contra Satanás e os espíritos malignos: “E Deus pelas mãos de Paulo fazia maravilhas extraordinárias” <button class="ref" data-ref="at1911">At. 19:11</button>.</p>
+      <p>O ministério de Paulo em Éfeso foi marcado por milagres extraordinários de curas e de expulsão de demônios, levados a efeito de modo direto, ou através de lenços que ele carregava, isto é, lenços para enxugar suor e aventais usados por ele no trabalho com tecido de couro, na confecção de tendas <button class="ref" data-ref="at183">At. 18:3</button>. As doenças desapareciam e os maus espíritos saíam, quando os sofredores tocavam nesses panos <button class="ref" data-ref="at5">At. 5:15</button>; <button class="ref" data-ref="mc527">Mc. 5:27</button>.</p>
+      <p>Os pregadores atuais que procuram obter dinheiro vendendo lenços, azeite, água, etc., “ungidos”, não estão agindo segundo os motivos e o caráter de Paulo, pois ele não usava essas coisas em troca de dinheiro. Ele apenas multiplicou o poder que nele havia, através desses meios tangíveis, e assim curou e libertou mais pessoas do que impondo as mãos pessoalmente.</p>
+
+      <h2 class="sec">EXPOSIÇÃO</h2>
+      <h3 id="l8-p1">1. Que é o dom de maravilhas?</h3>
+      <p>A operação de maravilhas ou milagres se distingue dos demais dons, tendo um raio de ação muito maior. É o poder divino ou sobre-humano manifestado fora do comum, extraordinariamente, o que atrai atenções. Por isso visa chamar a atenção à fonte do divino poder <button class="ref" data-ref="at1911">At. 19:11</button>.</p>
+
+      <h3 id="l8-p2">2. Como entender as palavras de Jesus que Seus discípulos fariam obras maiores que as d’Ele?</h3>
+      <p>O propósito e o desejo do Senhor Jesus é que Seus seguidores façam as mesmas obras que Ele fazia. As obras “maiores” incluem tanto a conversão de pessoas a Cristo, como a operação de milagres. Este fato é demonstrado na narrativa de Atos <button class="ref" data-ref="at24143">At. 2:41,43</button>; <button class="ref" data-ref="at512">At. 4:33; 5:12</button>, e na declaração de Jesus em <button class="ref" data-ref="mc16">Mc. 16:17,18</button>.</p>
+      <p>A razão porque os discípulos poderão fazer obras maiores é que Jesus foi para o Pai e enviou o poder do Espírito Santo <button class="ref" data-ref="jo1412">Jo. 14:16</button>; <button class="ref" data-ref="jo167">Jo. 16:7</button>; <button class="ref" data-ref="at18">At. 1:8</button>; <button class="ref" data-ref="at24">At. 2:4</button>, e atende as orações feitas em Seu nome <button class="ref" data-ref="jo1412">Jo. 14:14</button>. As obras dos discípulos serão “maiores” em número e alcance.</p>
+
+      <h3 id="l8-p3">3. Os crentes podem continuar a manifestar os sinais de maravilhas?</h3>
+      <p><span class="letra">a)</span> As Escrituras ensinam claramente que Cristo quer que Seus seguidores operem milagres ao anunciarem o Evangelho do Reino de Deus <button class="ref" data-ref="mt101">Mt. 10:1</button>; <button class="ref" data-ref="jo1412">Jo. 14:12</button>.</p>
+      <p><span class="letra">b)</span> Estes sinais realizados pelos discípulos verdadeiros confirmam que a mensagem do Evangelho é genuína, que o Reino de Deus chegou à Terra com poder e que o Senhor Jesus vivo e ressurreto está presente entre os Seus, operando através deles <button class="ref" data-ref="at1038">At. 10:38</button>.</p>
+      <p><span class="letra">c)</span> Cada um destes sinais (exceto a ingestão de veneno) ocorreu na igreja primitiva: falar línguas <button class="ref" data-ref="at24">At. 2:4</button> / <button class="ref" data-ref="at1046">10:46</button>; expulsar demônios <button class="ref" data-ref="at5">At. 5:15,16</button> / <button class="ref" data-ref="at1911">19:11,12</button>; escapar da morte por picada de serpente <button class="ref" data-ref="at2835">At. 28:3-5</button> e curar os enfermos <button class="ref" data-ref="at14">At. 14:8-10</button>. Portanto, essas manifestações espirituais devem continuar na igreja até a volta de Jesus. Conforme vemos nas Escrituras, esses sinais não foram limitados ao período que se seguiu à ascensão de Jesus <button class="ref" data-ref="gl35">Gl. 3:5</button>; compare com <button class="ref" data-ref="1co17">1Co. 1:7</button>.</p>
+      <p><span class="letra">d)</span> Os discípulos de Cristo não somente deviam pregar o evangelho e levar a salvação àqueles que creem, mas também realizar sinais de maravilhas <button class="ref" data-ref="at512">At. 5:12</button>; <button class="ref" data-ref="gl35">Gl. 3:5</button>. A real presença do Espírito Santo em cada um de nós trará mais desejo de uma maior operação de sinais e maravilhas, e também uma maior operação de seus dons em nossa vida.</p>
+      <p><span class="letra">e)</span> Jesus deixa bem claro, em <button class="ref" data-ref="mc161520">Mc. 16:15-20</button>, que esses sinais não são dons para apenas alguns crentes, mas que seriam concedidos a todos os Seus servos que, em obediência a Cristo, dão testemunho do evangelho e reivindicam as suas promessas.</p>
+      <p><span class="letra">f)</span> A ausência desses sinais na igreja, hoje, não significa que Cristo falhou no cumprimento de Suas promessas. A falta, conforme Jesus declara, está na vida dos Seus seguidores <button class="ref" data-ref="mt1717">Mt. 17:17</button>. Este texto demonstra que deixar de libertar os oprimidos por Satanás ou pelos demônios demonstra falta de fé, de compreensão e de autoridade espiritual <button class="ref" data-ref="mc92829">Mc. 9:28,29</button>. O registro desses sinais de maravilhas operado por Jesus ressalta não somente que Ele expulsava demônios, como também que Ele deseja que Seus discípulos façam a mesma coisa mediante a fé, a oração e o jejum. Jesus fica profundamente entristecido quando Seu povo deixa de participar do seu ministério contra as forças de Satanás.</p>
+      <p><span class="letra">g)</span> Cristo prometeu que Sua autoridade, poder e presença nos acompanharão à medida que lutemos contra o reino de Satanás. Devemos libertar o povo do cativeiro do pecado pela pregação do Evangelho, mediante uma vida de retidão <button class="ref" data-ref="mt633">Mt. 6:33</button> e pela operação de sinais e milagres através do poder do Espírito Santo <button class="ref" data-ref="at43133">At. 4:31-33</button>; <button class="ref" data-ref="2co1212">2Co. 12:12</button>; <button class="ref" data-ref="hb234">Hb. 2:3,4</button>; <button class="ref" data-ref="1co245">1Co. 2:4,5</button>.</p>
+      <p><strong>Nota:</strong> Observemos que, conforme o ensino do N.T., falsos mestres e pregadores também realizam sinais e prodígios <button class="ref" data-ref="mt72123">Mt. 7:21-23</button>.</p>
+
+      <h2 class="sec" id="l8-conclusao">CONCLUSÃO</h2>
+      <p>Precisamos entender que a demora de Deus em atender as orações não é uma recusa d’Ele às nossas petições. Às vezes, Deus tem em mente um propósito maior, que ao cumprir-se resulta em sua maior glória <button class="ref" data-ref="jo114">Jo. 11:4,14,15,45</button> e em bem para nós <button class="ref" data-ref="rm828">Rm. 8:28</button>.</p>
+
+      <div class="pager">
+        <a class="top-link" href="#licao-7">‹ Lição 7</a>
+        <a class="top-link" href="#inicio">Menu</a>
+      </div>
+    </article>
+  </div>
+  
+</section>
+
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true">
+    <div class="sheet">
+      <div class="sheet-top">
+        <div>
+          <h2 id="sheet-title"></h2>
+          <span class="ver">Almeida Revista e Corrigida</span>
+        </div>
+        <button type="button" class="close" id="fechar" aria-label="Fechar">×</button>
+      </div>
+      <div class="texto" id="sheet-text"></div>
+      <a class="ext" id="sheet-link" href="#" target="_blank" rel="noopener">Abrir este texto na Bíblia Online</a>
+    </div>
+  </div>
+
+  <script>
+(function () {
+  function V(titulo, slug, html) {
+    return {
+      titulo: titulo,
+      url: "https://www.bibliaonline.com.br/arc/" + slug,
+      html: html
+    };
+  }
+  window.VERSOS_DB = {
+    "rm12": V("Romanos 12:1-8 — Leitura bíblica", "rm/12/1-8",
+      "<p><strong>1</strong> Rogo-vos, pois, irmãos, pela compaixão de Deus, que apresenteis o vosso corpo em sacrifício vivo, santo e agradável a Deus, que é o vosso culto racional.</p><p><strong>2</strong> E não vos conformeis com este mundo, mas transformai-vos pela renovação do vosso entendimento, para que experimenteis qual seja a boa, agradável e perfeita vontade de Deus.</p><p><strong>3</strong> Porque, pela graça que me é dada, digo a cada um dentre vós que não saiba mais do que convém saber, mas que saiba com temperança, conforme a medida da fé que Deus repartiu a cada um.</p><p><strong>4</strong> Porque assim como em um corpo temos muitos membros, e nem todos os membros têm a mesma operação,</p><p><strong>5</strong> assim nós, que somos muitos, somos um só corpo em Cristo, mas individualmente somos membros uns dos outros.</p><p><strong>6</strong> De modo que, tendo diferentes dons, segundo a graça que nos é dada: se é profecia, seja ela segundo a medida da fé;</p><p><strong>7</strong> se é ministério, seja em ministrar; se é ensinar, haja dedicação ao ensino;</p><p><strong>8</strong> ou o que exorta, use esse dom em exortar; o que reparte, faça-o com liberalidade; o que preside, com cuidado; o que exercita misericórdia, com alegria.</p>"),
+    "rm1212": V("Romanos 12:1-2", "rm/12/1-2",
+      "<p><strong>1</strong> Rogo-vos, pois, irmãos, pela compaixão de Deus, que apresenteis o vosso corpo em sacrifício vivo, santo e agradável a Deus, que é o vosso culto racional.</p><p><strong>2</strong> E não vos conformeis com este mundo, mas transformai-vos pela renovação do vosso entendimento, para que experimenteis qual seja a boa, agradável e perfeita vontade de Deus.</p>"),
+    "1co121": V("1 Coríntios 12:1", "1co/12/1",
+      "<p><strong>1</strong> Acerca dos dons espirituais, não quero, irmãos, que sejais ignorantes.</p>"),
+    "1co12711": V("1 Coríntios 12:7-11", "1co/12/7-11",
+      "<p><strong>7</strong> Mas a manifestação do Espírito é dada a cada um para o que for útil.</p><p><strong>8</strong> Porque a um, pelo Espírito, é dada a palavra da sabedoria; e a outro, pelo mesmo Espírito, a palavra da ciência;</p><p><strong>9</strong> e a outro, pelo mesmo Espírito, a fé; e a outro, pelo mesmo Espírito, os dons de curar;</p><p><strong>10</strong> e a outro, a operação de maravilhas; e a outro, a profecia; e a outro, o dom de discernir os espíritos; e a outro, a variedade de línguas; e a outro, a interpretação das línguas.</p><p><strong>11</strong> Mas um só e o mesmo Espírito opera todas essas coisas, repartindo particularmente a cada um como quer.</p>"),
+    "1co128": V("1 Coríntios 12:8", "1co/12/8",
+      "<p><strong>8</strong> Porque a um, pelo Espírito, é dada a palavra da sabedoria; e a outro, pelo mesmo Espírito, a palavra da ciência;</p>"),
+    "1co129": V("1 Coríntios 12:9", "1co/12/9",
+      "<p><strong>9</strong> e a outro, pelo mesmo Espírito, a fé; e a outro, pelo mesmo Espírito, os dons de curar;</p>"),
+    "1co1218": V("1 Coríntios 12:18", "1co/12/18",
+      "<p><strong>18</strong> Mas, agora, Deus colocou os membros no corpo, cada um deles como quis.</p>"),
+    "1co1227": V("1 Coríntios 12:27", "1co/12/27",
+      "<p><strong>27</strong> Ora, vós sois corpo de Cristo, e seus membros em particular.</p>"),
+    "1co1228": V("1 Coríntios 12:28", "1co/12/28",
+      "<p><strong>28</strong> E a uns pôs Deus na igreja, primeiramente apóstolos, em segundo lugar profetas, em terceiro mestres, depois milagres, depois dons de curar, socorros, governos, variedades de línguas.</p>"),
+    "1co1313": V("1 Coríntios 13:1-3", "1co/13/1-3",
+      "<p><strong>1</strong> Ainda que eu falasse as línguas dos homens e dos anjos e não tivesse amor, seria como o metal que soa ou como o sino que tine.</p><p><strong>2</strong> E ainda que tivesse o dom de profecia, e conhecesse todos os mistérios e toda a ciência, e ainda que tivesse toda a fé, de maneira tal que transportasse os montes, e não tivesse amor, nada seria.</p><p><strong>3</strong> E ainda que distribuísse toda a minha fortuna para sustento dos pobres, e ainda que entregasse o meu corpo para ser queimado, e não tivesse amor, nada disso me aproveitaria.</p>"),
+    "1pe410": V("1 Pedro 4:10-11", "1pe/4/10-11",
+      "<p><strong>10</strong> Cada um administre aos outros o dom como o recebeu, como bons despenseiros da multiforme graça de Deus.</p><p><strong>11</strong> Se alguém falar, fale segundo as palavras de Deus; se alguém administrar, administre segundo o poder que Deus dá, para que em tudo Deus seja glorificado por Jesus Cristo, a quem pertence a glória e o poder para todo o sempre. Amém!</p>"),
+    "gl51921": V("Gálatas 5:19-21", "gl/5/19-21",
+      "<p><strong>19</strong> Porque as obras da carne são manifestas, as quais são: prostituição, impureza, lascívia,</p><p><strong>20</strong> idolatria, feitiçarias, inimizades, porfias, emulações, iras, pelejas, dissensões, heresias,</p><p><strong>21</strong> invejas, homicídios, bebedices, glutonarias e coisas semelhantes a estas, acerca das quais vos declaro, como já antes vos disse, que os que cometem tais coisas não herdarão o Reino de Deus.</p>"),
+    "gl522": V("Gálatas 5:22-23", "gl/5/22-23",
+      "<p><strong>22</strong> Mas o fruto do Espírito é: amor, gozo, paz, longanimidade, benignidade, bondade, fé, mansidão, temperança.</p><p><strong>23</strong> Contra essas coisas não há lei.</p>"),
+    "ef61018": V("Efésios 6:10-18", "ef/6/10-18",
+      "<p><strong>10</strong> No demais, irmãos meus, fortalecei-vos no Senhor e na força do seu poder.</p><p><strong>11</strong> Revesti-vos de toda a armadura de Deus, para que possais estar firmes contra as astutas ciladas do diabo.</p><p><strong>12</strong> Porque não temos que lutar contra carne e sangue, mas, sim, contra os principados, contra as potestades, contra os príncipes das trevas deste século, contra as hostes espirituais da maldade, nos lugares celestiais.</p><p><strong>13</strong> Portanto, tomai toda a armadura de Deus, para que possais resistir no dia mau e, havendo feito tudo, ficar firmes.</p><p><strong>14</strong> Estai, pois, firmes, tendo cingidos os vossos lombos com a verdade, e vestida a couraça da justiça,</p><p><strong>15</strong> e calçados os pés na preparação do evangelho da paz;</p><p><strong>16</strong> tomando sobretudo o escudo da fé, com o qual podereis apagar todos os dardos inflamados do maligno.</p><p><strong>17</strong> Tomai também o capacete da salvação e a espada do Espírito, que é a palavra de Deus,</p><p><strong>18</strong> orando em todo tempo com toda oração e súplica no Espírito, e vigiando nisso com toda perseverança e súplica por todos os santos.</p>"),
+    "ef616": V("Efésios 6:16", "ef/6/16",
+      "<p><strong>16</strong> tomando sobretudo o escudo da fé, com o qual podereis apagar todos os dardos inflamados do maligno.</p>"),
+    "ex31111": V("Êxodo 31:1-6", "ex/31/1-6",
+      "<p><strong>1</strong> Depois, falou o Senhor a Moisés, dizendo:</p><p><strong>2</strong> Eis que eu tenho chamado por nome a Bezalel, filho de Uri, filho de Hur, da tribo de Judá,</p><p><strong>3</strong> e o enchi do Espírito de Deus, de sabedoria, e de entendimento, e de ciência, em todo lavramento,</p><p><strong>4</strong> para inventar invenções, para trabalhar em ouro, e em prata, e em cobre,</p><p><strong>5</strong> e em lapidar pedras para engastar, e em entalhar madeira, para trabalhar em todo lavramento.</p><p><strong>6</strong> E eis que eu tenho dado com ele a Aoliabe, filho de Aisamaque, da tribo de Dã; e tenho dado sabedoria ao coração de todo aquele que é sábio de coração, para que façam tudo o que te tenho ordenado.</p>"),
+    "lc191127": V("Lucas 19:12-26 — As minas", "lc/19/12-26",
+      "<p><strong>12</strong> Disse, pois: Certo homem nobre partiu para uma terra remota, a fim de tomar para si um reino e voltar.</p><p><strong>13</strong> E, chamando dez servos seus, deu-lhes dez minas e disse-lhes: Negociai até que eu venha.</p><p><strong>16</strong> E veio o primeiro, dizendo: Senhor, a tua mina rendeu dez minas.</p><p><strong>17</strong> E ele lhe disse: Bem está, servo bom, porque no mínimo foste fiel, sobre dez cidades terás autoridade.</p><p><strong>20</strong> E veio outro, dizendo: Senhor, aqui está a tua mina, que guardei num lenço;</p><p><strong>24</strong> E disse aos que estavam com ele: Tirai-lhe a mina e dai-a ao que tem dez minas.</p><p><strong>26</strong> Pois eu vos digo que a qualquer que tiver ser-lhe-á dado, mas ao que não tiver, até o que tem lhe será tirado.</p>"),
+    "ef47": V("Efésios 4:7-14 — Leitura bíblica", "ef/4/7-14",
+      "<p><strong>7</strong> Mas a graça foi dada a cada um de nós segundo a medida do dom de Cristo.</p><p><strong>8</strong> Pelo que diz: Subindo ao alto, levou cativo o cativeiro e deu dons aos homens.</p><p><strong>10</strong> Aquele que desceu é também o mesmo que subiu acima de todos os céus, para cumprir todas as coisas.</p><p><strong>11</strong> E ele mesmo deu uns para apóstolos, e outros para profetas, e outros para evangelistas, e outros para pastores e doutores,</p><p><strong>12</strong> querendo o aperfeiçoamento dos santos, para a obra do ministério, para edificação do corpo de Cristo,</p><p><strong>13</strong> até que todos cheguemos à unidade da fé e ao conhecimento do Filho de Deus, a varão perfeito, à medida da estatura completa de Cristo,</p><p><strong>14</strong> para que não sejamos mais meninos inconstantes, levados em roda por todo vento de doutrina, pelo engano dos homens que, com astúcia, enganam fraudulosamente.</p>"),
+    "ef411": V("Efésios 4:10-11", "ef/4/10-11",
+      "<p><strong>10</strong> Aquele que desceu é também o mesmo que subiu acima de todos os céus, para cumprir todas as coisas.</p><p><strong>11</strong> E ele mesmo deu uns para apóstolos, e outros para profetas, e outros para evangelistas, e outros para pastores e doutores,</p>"),
+    "1co914": V("1 Coríntios 9:14", "1co/9/14",
+      "<p><strong>14</strong> Assim ordenou também o Senhor aos que anunciam o evangelho, que vivam do evangelho.</p>"),
+    "mt202528": V("Mateus 20:25-28", "mt/20/25-28",
+      "<p><strong>25</strong> Então, Jesus, chamando-os para junto de si, disse: Bem sabeis que pelos príncipes dos gentios são estes dominados e que os grandes exercem autoridade sobre eles.</p><p><strong>26</strong> Não será assim entre vós; mas todo aquele que quiser, entre vós, fazer-se grande, que seja vosso serviçal;</p><p><strong>27</strong> e qualquer que, entre vós, quiser ser o primeiro, que seja vosso servo,</p><p><strong>28</strong> bem como o Filho do Homem não veio para ser servido, mas para servir e para dar a sua vida em resgate de muitos.</p>"),
+    "1ts512": V("1 Tessalonicenses 5:12", "1ts/5/12",
+      "<p><strong>12</strong> E rogamo-vos, irmãos, que reconheçais os que trabalham entre vós, e que presidem sobre vós no Senhor, e vos admoestam.</p>"),
+    "at1423": V("Atos 14:23", "atos/14/23",
+      "<p><strong>23</strong> E, havendo-lhes, por comum consentimento, eleito anciãos em cada igreja, orando com jejuns, os encomendaram ao Senhor em quem haviam crido.</p>"),
+    "tt16": V("Tito 1:5-7", "tt/1/5-7",
+      "<p><strong>5</strong> Por esta causa te deixei em Creta, para que pusesses em boa ordem as coisas que ainda restam e, de cidade em cidade, estabelecesses presbíteros, como já te mandei:</p><p><strong>6</strong> aquele que for irrepreensível, marido de uma mulher, que tenha filhos fiéis, que não possam ser acusados de dissolução nem são desobedientes.</p><p><strong>7</strong> Porque convém que o bispo seja irrepreensível como despenseiro da casa de Deus, não soberbo, nem iracundo, nem dado ao vinho, nem espancador, nem cobiçoso de torpe ganância.</p>"),
+    "1co91": V("1 Coríntios 9:1", "1co/9/1",
+      "<p><strong>1</strong> Não sou eu apóstolo? Não sou livre? Não vi eu a Jesus Cristo, Senhor nosso? Não sois vós a minha obra no Senhor?</p>"),
+    "at131": V("Atos 13:1", "atos/13/1",
+      "<p><strong>1</strong> E na igreja que estava em Antioquia havia alguns profetas e doutores, a saber: Barnabé, e Simeão, chamado Níger, e Lúcio, cireneu, e Manaém, que se criara com Herodes, o tetrarca, e Saulo.</p>"),
+    "1co143": V("1 Coríntios 14:3", "1co/14/3",
+      "<p><strong>3</strong> Mas o que profetiza fala aos homens para edificação, exortação e consolação.</p>"),
+    "at85": V("Atos 8:5-8", "atos/8/5-8",
+      "<p><strong>5</strong> E, descendo Filipe à cidade de Samaria, lhes pregava a Cristo.</p><p><strong>6</strong> E as multidões unanimemente prestavam atenção ao que Filipe dizia, porque ouviam e viam os sinais que ele fazia.</p><p><strong>7</strong> pois que os espíritos imundos saíam de muitos que os tinham, clamando em alta voz; e muitos paralíticos e coxos eram curados.</p><p><strong>8</strong> E havia grande alegria naquela cidade.</p>"),
+    "at2028": V("Atos 20:28-31", "atos/20/28-31",
+      "<p><strong>28</strong> Olhai, pois, por vós e por todo o rebanho sobre que o Espírito Santo vos constituiu bispos, para apascentardes a igreja de Deus, que ele resgatou com seu próprio sangue.</p><p><strong>29</strong> Porque eu sei isto: que, depois da minha partida, entrarão no meio de vós lobos cruéis, que não pouparão o rebanho.</p><p><strong>30</strong> E que, dentre vós mesmos, se levantarão homens que falarão coisas perversas, para atraírem os discípulos após si.</p><p><strong>31</strong> Portanto, vigiai, lembrando-vos de que, durante três anos, não cessei, noite e dia, de admoestar, com lágrimas, a cada um de vós.</p>"),
+    "jo101116": V("João 10:11-16", "jo/10/11-16",
+      "<p><strong>11</strong> Eu sou o bom Pastor; o bom Pastor dá a sua vida pelas ovelhas.</p><p><strong>14</strong> Eu sou o bom Pastor, e conheço as minhas ovelhas, e das minhas sou conhecido.</p><p><strong>16</strong> Ainda tenho outras ovelhas que não são deste aprisco; também me convém agregar estas, e elas ouvirão a minha voz, e haverá um rebanho e um Pastor.</p>"),
+    "1pe52": V("1 Pedro 5:2-4", "1pe/5/2-4",
+      "<p><strong>2</strong> Apascentai o rebanho de Deus que está entre vós, tendo cuidado dele, não por força, mas voluntariamente; nem por torpe ganância, mas de ânimo pronto;</p><p><strong>3</strong> nem como tendo domínio sobre a herança de Deus, mas servindo de exemplo ao rebanho.</p><p><strong>4</strong> E, quando aparecer o Sumo Pastor, alcançareis a incorruptível coroa de glória.</p>"),
+    "at61": V("Atos 6:1-6", "atos/6/1-6",
+      "<p><strong>1</strong> Ora, naqueles dias, crescendo o número dos discípulos, houve uma murmuração dos gregos contra os hebreus, porque as suas viúvas eram desprezadas no ministério cotidiano.</p><p><strong>2</strong> E os doze, convocando a multidão dos discípulos, disseram: Não é razoável que nós deixemos a palavra de Deus e sirvamos às mesas.</p><p><strong>3</strong> Escolhei, pois, irmãos, dentre vós, sete varões de boa reputação, cheios do Espírito Santo e de sabedoria, aos quais constituamos sobre este importante negócio.</p><p><strong>4</strong> Mas nós perseveraremos na oração e no ministério da palavra.</p><p><strong>5</strong> E este parecer contentou a toda a multidão, e elegeram Estêvão, homem cheio de fé e do Espírito Santo, e Filipe, e Prócoro, e Nicanor, e Timão, e Pármenas e Nicolau, prosélito de Antioquia;</p><p><strong>6</strong> e os apresentaram ante os apóstolos, e estes, orando, lhes impuseram as mãos.</p>"),
+    "1tm38": V("1 Timóteo 3:1-13", "1tm/3/1-13",
+      "<p><strong>1</strong> Esta é uma palavra fiel: Se alguém deseja o episcopado, excelente obra deseja.</p><p><strong>2</strong> Convém, pois, que o bispo seja irrepreensível, marido de uma mulher, vigilante, sóbrio, honesto, hospitaleiro, apto para ensinar;</p><p><strong>8</strong> Da mesma sorte os diáconos sejam honestos, não de língua dobre, não dados a muito vinho, não cobiçosos de torpe ganância,</p><p><strong>9</strong> guardando o mistério da fé em uma pura consciência.</p><p><strong>13</strong> Porque os que servirem bem como diáconos adquirirão para si uma boa posição e muita confiança na fé que há em Cristo Jesus.</p>"),
+    "1co1426": V("1 Coríntios 14:26-40 — Leitura bíblica", "1co/14/26-40",
+      "<p><strong>26</strong> Que fareis, pois, irmãos? Quando vos ajuntais, cada um de vós tem salmo, tem doutrina, tem revelação, tem língua, tem interpretação. Faça-se tudo para edificação.</p><p><strong>27</strong> E, se alguém falar língua estranha, faça-se isso por dois ou, quando muito, três, e por sua vez, e haja intérprete.</p><p><strong>28</strong> Mas, se não houver intérprete, esteja calado na igreja e fale consigo mesmo e com Deus.</p><p><strong>29</strong> E falem dois ou três profetas, e os outros julguem.</p><p><strong>32</strong> E os espíritos dos profetas estão sujeitos aos profetas.</p><p><strong>33</strong> Porque Deus não é Deus de confusão, senão de paz, como em todas as igrejas dos santos.</p><p><strong>39</strong> Portanto, irmãos, procurai, com zelo, profetizar e não proibais falar línguas.</p><p><strong>40</strong> Mas faça-se tudo decentemente e com ordem.</p>"),
+    "1co14112": V("1 Coríntios 14:1 e 14:12", "1co/14/1",
+      "<p><strong>1</strong> Segui o amor e procurai com zelo os dons espirituais, mas principalmente o de profetizar.</p><p><strong>12</strong> Assim também vós, como desejais dons espirituais, procurai sobejar neles, para a edificação da igreja.</p>"),
+    "jz1514": V("Juízes 15:14", "jz/15/14",
+      "<p><strong>14</strong> E, chegando ele a Leí, os filisteus lhe saíram ao encontro, jubilando; porém o Espírito do Senhor se apossou dele, e as cordas que ele tinha nos braços se tornaram como fios de linho que estão queimados do fogo, e as suas amarraduras se desfizeram das suas mãos.</p>"),
+    "1co17": V("1 Coríntios 1:7", "1co/1/7",
+      "<p><strong>7</strong> de maneira que nenhum dom vos falta, esperando a manifestação de nosso Senhor Jesus Cristo.</p>"),
+    "1co1445": V("1 Coríntios 14:3-6", "1co/14/3-6",
+      "<p><strong>3</strong> Mas o que profetiza fala aos homens para edificação, exortação e consolação.</p><p><strong>4</strong> O que fala língua estranha edifica-se a si mesmo, mas o que profetiza edifica a igreja.</p><p><strong>5</strong> E eu quero que todos vós faleis línguas estranhas; mas muito mais que profetizeis, porque o que profetiza é maior do que o que fala línguas estranhas, a não ser que também interprete, para que a igreja receba edificação.</p><p><strong>6</strong> E, agora, irmãos, se eu for ter convosco falando línguas estranhas, que vos aproveitaria, se vos não falasse ou por meio da revelação, ou da ciência, ou da profecia, ou da doutrina?</p>"),
+    "1tm15": V("1 Timóteo 1:5", "1tm/1/5",
+      "<p><strong>5</strong> Ora, o fim do mandamento é o amor de um coração puro, e de uma boa consciência, e de uma fé não fingida.</p>"),
+    "mc161520": V("Marcos 16:15-20", "mc/16/15-20",
+      "<p><strong>15</strong> E disse-lhes: Ide por todo o mundo, pregai o evangelho a toda criatura.</p><p><strong>16</strong> Quem crer e for batizado será salvo; mas quem não crer será condenado.</p><p><strong>17</strong> E estes sinais seguirão aos que crerem: em meu nome, expulsarão demônios; falarão novas línguas;</p><p><strong>18</strong> pegarão nas serpentes; e, se beberem alguma coisa mortífera, não lhes fará dano algum; e imporão as mãos sobre os enfermos e os curarão.</p>"),
+    "dn21928": V("Daniel 2:19-28 — Leitura bíblica", "dn/2/19-28",
+      "<p><strong>19</strong> Então, foi revelado o segredo a Daniel numa visão de noite; e Daniel louvou o Deus do céu.</p><p><strong>20</strong> Falou Daniel e disse: Seja bendito o nome de Deus para todo o sempre, porque dele é a sabedoria e a força;</p><p><strong>21</strong> ele muda os tempos e as horas; ele remove os reis e estabelece os reis; ele dá sabedoria aos sábios e ciência aos inteligentes.</p><p><strong>22</strong> Ele revela o profundo e o escondido e conhece o que está em trevas; e com ele mora a luz.</p><p><strong>23</strong> Ó Deus de meus pais, eu te louvo e celebro porque me deste sabedoria e força; e, agora, me fizeste saber o que te pedimos, porque nos fizeste saber este assunto do rei.</p><p><strong>27</strong> Respondeu Daniel na presença do rei e disse: O segredo que o rei requer, nem sábios, nem astrólogos, nem magos, nem adivinhos o podem descobrir ao rei.</p><p><strong>28</strong> Mas há um Deus nos céus, o qual revela os segredos; ele, pois, fez saber ao rei Nabucodonosor o que há de ser no fim dos dias.</p>"),
+    "jo2828": V("Jó 28:28", "jó/28/28",
+      "<p><strong>28</strong> E disse ao homem: Eis que o temor do Senhor é a sabedoria, e apartar-se do mal é a inteligência.</p>"),
+    "pv47": V("Provérbios 4:7", "pv/4/7",
+      "<p><strong>7</strong> A sabedoria é a coisa principal; adquire, pois, a sabedoria; sim, com tudo o que possuis, adquire o conhecimento.</p>"),
+    "tg317": V("Tiago 3:17", "tg/3/17",
+      "<p><strong>17</strong> Mas a sabedoria que do alto vem é, primeiramente, pura, depois, pacífica, moderada, tratável, cheia de misericórdia e de bons frutos, sem parcialidade e sem hipocrisia.</p>"),
+    "2tm315": V("2 Timóteo 3:15", "2tm/3/15",
+      "<p><strong>15</strong> e que, desde a tua meninice, sabes as sagradas letras, que podem fazer-te sábio para a salvação, pela fé que há em Cristo Jesus.</p>"),
+    "tg15": V("Tiago 1:5-6", "tg/1/5-6",
+      "<p><strong>5</strong> E, se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente e o não lança em rosto; e ser-lhe-á dada.</p><p><strong>6</strong> Peça-a, porém, com fé, não duvidando; porque o que duvida é semelhante à onda do mar, que é levada pelo vento e lançada de uma para outra parte.</p>"),
+    "at610": V("Atos 6:10", "atos/6/10",
+      "<p><strong>10</strong> E não podiam resistir à sabedoria e ao Espírito com que falava.</p>"),
+    "at1513": V("Atos 15:13-22", "atos/15/13-22",
+      "<p><strong>13</strong> E, havendo-se eles calado, tomou Tiago a palavra, dizendo: Varões irmãos, ouvi-me.</p><p><strong>19</strong> Por isso, julgo que não se deve perturbar aqueles, dentre os gentios, que se convertem a Deus,</p><p><strong>20</strong> mas escrever-lhes que se abstenham das contaminações dos ídolos, da prostituição, do que é sufocado e do sangue.</p>"),
+    "ef117": V("Efésios 1:17", "ef/1/17",
+      "<p><strong>17</strong> para que o Deus de nosso Senhor Jesus Cristo, o Pai da glória, vos dê em seu conhecimento o espírito de sabedoria e de revelação;</p>"),
+    "1co213": V("1 Coríntios 2:13-16", "1co/2/13-16",
+      "<p><strong>13</strong> As quais também falamos, não com palavras de sabedoria humana, mas com as que o Espírito Santo ensina, comparando as coisas espirituais com as espirituais.</p><p><strong>14</strong> Ora, o homem natural não compreende as coisas do Espírito de Deus, porque lhe parecem loucura; e não pode entendê-las, porque elas se discernem espiritualmente.</p><p><strong>16</strong> Porque quem conheceu a mente do Senhor, para que possa instruí-lo? Mas nós temos a mente de Cristo.</p>"),
+    "pv1130": V("Provérbios 11:30", "pv/11/30",
+      "<p><strong>30</strong> O fruto do justo é árvore de vida, e o que ganha almas é sábio.</p>"),
+    "gn4116": V("Gênesis 41:16 e 25-31", "gn/41/16",
+      "<p><strong>16</strong> E respondeu José a Faraó, dizendo: Isso não está em mim; Deus dará resposta de paz a Faraó.</p><p><strong>25</strong> Então, disse José a Faraó: O sonho de Faraó é um só; o que Deus há de fazer, mostrou-o a Faraó.</p><p><strong>29</strong> E eis que vêm sete anos, e haverá grande fartura em toda a terra do Egito.</p><p><strong>30</strong> E, depois deles, levantar-se-ão sete anos de fome, e toda aquela fartura será esquecida na terra do Egito, e a fome consumirá a terra.</p>"),
+    "lc202125": V("Lucas 20:21-26 — A César", "lc/20/21-26",
+      "<p><strong>21</strong> E perguntaram-lhe, dizendo: Mestre, sabemos que falas e ensinas bem e retamente e que não consideras a aparência da pessoa, mas ensinas com verdade o caminho de Deus.</p><p><strong>22</strong> É-nos lícito dar tributo a César ou não?</p><p><strong>24</strong> Mostrai-me uma moeda. De quem tem a imagem e a inscrição? E, respondendo eles, disseram: De César.</p><p><strong>25</strong> Disse-lhes, então: Dai, pois, a César o que é de César e a Deus, o que é de Deus.</p>"),
+    "lc121112": V("Lucas 12:11-12", "lc/12/11-12",
+      "<p><strong>11</strong> E, quando vos conduziram às sinagogas, aos magistrados e potestades, não estejais solícitos de como ou do que haveis de responder, nem do que haveis de dizer.</p><p><strong>12</strong> Porque na mesma hora vos ensinará o Espírito Santo o que vos convenha falar.</p>"),
+    "at468": V("Atos 4:8-13", "atos/4/8-13",
+      "<p><strong>8</strong> Então, Pedro, cheio do Espírito Santo, lhes disse: Principais do povo e vós, anciãos de Israel,</p><p><strong>10</strong> seja conhecido de vós todos e de todo o povo de Israel que em nome de Jesus Cristo, o Nazareno, aquele a quem vós crucificastes e a quem Deus ressuscitou dos mortos, em nome desse é que este está são diante de vós.</p><p><strong>13</strong> Então eles, vendo a ousadia de Pedro e João, e informados de que eram homens sem letras e indoutos, se maravilharam; e tinham conhecimento de que eles haviam estado com Jesus.</p>"),
+    "1rs35": V("1 Reis 3:5-14", "1rs/3/5-14",
+      "<p><strong>5</strong> E em Gibeão apareceu o Senhor a Salomão de noite em sonhos; e disse-lhe Deus: Pede o que queres que eu te dê.</p><p><strong>9</strong> A teu servo, pois, dá um coração entendido para julgar a teu povo, para que prudentemente discirna entre o bem e o mal; porque quem poderia julgar a este teu tão grande povo?</p><p><strong>10</strong> E bem pareceu esta palavra aos olhos do Senhor, que Salomão pedisse esta coisa.</p><p><strong>12</strong> eis que fiz segundo as tuas palavras: eis que te dei um coração tão sábio e entendido, que antes de ti não houve teu semelhante, e depois de ti se não levantará outro como tu.</p>"),
+    "pv31324": V("Provérbios 3:13-24 — Leitura bíblica", "pv/3/13-24",
+      "<p><strong>13</strong> Bem-aventurado o homem que acha sabedoria, e o homem que adquire conhecimento.</p><p><strong>14</strong> Porque melhor é a sua mercadoria do que a mercadoria de prata, e a sua renda do que o ouro mais fino.</p><p><strong>17</strong> Os seus caminhos são caminhos de delícias, e todas as suas veredas, paz.</p><p><strong>18</strong> É árvore da vida para os que a seguram, e bem-aventurados são todos os que a retêm.</p><p><strong>21</strong> Filho meu, não se apartem estas coisas dos teus olhos; guarda a verdadeira sabedoria e o bom siso;</p><p><strong>23</strong> Então, andarás com confiança no teu caminho, e não tropeçará o teu pé.</p><p><strong>24</strong> Quando te deitares, não temerás; sim, tu te deitarás, e o teu sono será suave.</p>"),
+    "os63": V("Oséias 6:3", "os/6/3",
+      "<p><strong>3</strong> Então, conheçamos e prossigamos em conhecer o Senhor; a sua saída, como a alva, é certa; e ele a nós virá como a chuva, como chuva serôdia que rega a terra.</p>"),
+    "jo71617": V("João 7:16-17", "jo/7/16-17",
+      "<p><strong>16</strong> Jesus lhes respondeu e disse: A minha doutrina não é minha, mas daquele que me enviou.</p><p><strong>17</strong> Se alguém quiser fazer a vontade dele, pela mesma doutrina conhecerá se ela é de Deus ou se eu falo de mim mesmo.</p>"),
+    "jo832": V("João 8:32", "jo/8/32",
+      "<p><strong>32</strong> E conhecereis a verdade, e a verdade vos libertará.</p>"),
+    "jo173": V("João 17:3", "jo/17/3",
+      "<p><strong>3</strong> E a vida eterna é esta: que conheçam a ti só por único Deus verdadeiro e a Jesus Cristo, a quem enviaste.</p>"),
+    "jr924": V("Jeremias 9:24", "jr/9/24",
+      "<p><strong>24</strong> mas o que se gloriar, glorie-se nisto: em me conhecer e saber que eu sou o Senhor, que faço beneficência, juízo e justiça na terra; porque destas coisas me agrado, diz o Senhor.</p>"),
+    "pv235": V("Provérbios 2:3-5", "pv/2/3-5",
+      "<p><strong>3</strong> se clamares por entendimento, e por inteligência alçares a tua voz,</p><p><strong>4</strong> se como a prata a buscares e como a tesouros escondidos a procurares,</p><p><strong>5</strong> então, entenderás o temor do Senhor e acharás o conhecimento de Deus.</p>"),
+    "sl139": V("Salmos 139:1-6", "sl/139/1-6",
+      "<p><strong>1</strong> Senhor, tu me sondaste e me conheces.</p><p><strong>2</strong> Tu sabes o meu assentar e o meu levantar; de longe entendes o meu pensamento.</p><p><strong>4</strong> Sem que haja uma palavra na minha língua, eis que, ó Senhor, tudo conheces.</p><p><strong>6</strong> Tal ciência é para mim maravilhosíssima; tão alta, que não a posso atingir.</p>"),
+    "1co210": V("1 Coríntios 2:10", "1co/2/10",
+      "<p><strong>10</strong> Mas Deus no-las revelou pelo seu Espírito; porque o Espírito penetra todas as coisas, ainda as profundezas de Deus.</p>"),
+    "1sm3": V("1 Samuel 3:1, 4, 11", "1sm/3/1",
+      "<p><strong>1</strong> E o jovem Samuel servia ao Senhor perante Eli; e a palavra do Senhor era de muita valia naqueles dias; não havia visão manifesta.</p><p><strong>4</strong> E o Senhor chamou a Samuel, e disse ele: Eis-me aqui.</p><p><strong>11</strong> E disse o Senhor a Samuel: Eis que vou fazer uma coisa em Israel, a qual todo o que ouvir lhe tinirão ambos os ouvidos.</p>"),
+    "1sm915": V("1 Samuel 9:15-17", "1sm/9/15-17",
+      "<p><strong>15</strong> E o Senhor revelara isto aos ouvidos de Samuel, um dia antes que Saul viesse, dizendo:</p><p><strong>16</strong> Amanhã, a estas horas, te enviarei um homem da terra de Benjamim, o qual ungirás por capitão sobre o meu povo de Israel, e ele livrará o meu povo da mão dos filisteus.</p><p><strong>17</strong> E, quando Samuel viu a Saul, o Senhor lhe respondeu: Eis aqui o homem de quem eu te falei. Este dominará sobre o meu povo.</p>"),
+    "1rs194": V("1 Reis 19:4 e 18", "1rs/19/4",
+      "<p><strong>4</strong> E ele se foi ao deserto, caminho de um dia, e veio, e se assentou debaixo de um zimbro; e pediu em seu ânimo a morte e disse: Já basta, ó Senhor; toma agora a minha vida, pois não sou melhor do que meus pais.</p><p><strong>18</strong> Também deixei ficar em Israel sete mil: todos os joelhos que se não dobraram a Baal, e toda boca que o não beijou.</p>"),
+    "2co129": V("2 Coríntios 12:9", "2co/12/9",
+      "<p><strong>9</strong> E disse-me: A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza. De boa vontade, pois, me gloriarei nas minhas fraquezas, para que em mim habite o poder de Cristo.</p>"),
+    "2rs525": V("2 Reis 5:25-27", "2rs/5/25-27",
+      "<p><strong>25</strong> Então, entrou e pôs-se diante de seu senhor. E disse-lhe Eliseu: Donde vens, Geazi? E disse: Teu servo não foi nem a uma nem a outra parte.</p><p><strong>26</strong> Porém ele lhe disse: Porventura, não foi o meu coração contigo, quando aquele homem voltou do seu carro a encontrar-te? Era isto ocasião para tomares prata, e para tomares vestes, e olivais, e vinhas, e ovelhas, e bois, e servos, e servas?</p><p><strong>27</strong> Portanto, a lepra de Naamã se pegará a ti e à tua descendência para sempre. Então, saiu de diante dele leproso, branco como a neve.</p>"),
+    "2co217": V("2 Coríntios 2:17", "2co/2/17",
+      "<p><strong>17</strong> Porque nós não somos, como muitos, falsificadores da palavra de Deus; antes, falamos de Cristo com sinceridade, como de Deus na presença de Deus.</p>"),
+    "mt108": V("Mateus 10:8", "mt/10/8",
+      "<p><strong>8</strong> Curai os enfermos, limpai os leprosos, ressuscitai os mortos, expulsai os demônios; de graça recebestes, de graça dai.</p>"),
+    "jo14748": V("João 1:47-48", "jo/1/47-48",
+      "<p><strong>47</strong> Jesus viu Natanael chegar até ele e disse dele: Eis aqui um verdadeiro israelita, em quem não há dolo.</p><p><strong>48</strong> Disse-lhe Natanael: De onde me conheces tu? Jesus respondeu e disse-lhe: Antes que Filipe te chamasse, te vi eu estando tu debaixo da figueira.</p>"),
+    "jo49": V("João 4:9 e 29", "jo/4/9",
+      "<p><strong>9</strong> Disse-lhe, pois, a mulher samaritana: Como, sendo tu judeu, me pedes de beber a mim, que sou mulher samaritana? (Porque os judeus não se comunicam com os samaritanos.)</p><p><strong>29</strong> Vinde e vede um homem que me disse tudo quanto tenho feito; porventura, não é este o Cristo?</p>"),
+    "at910": V("Atos 9:10-18", "atos/9/10-18",
+      "<p><strong>10</strong> E havia em Damasco um certo discípulo chamado Ananias. E disse-lhe o Senhor em visão: Ananias! E ele respondeu: Eis-me aqui, Senhor!</p><p><strong>11</strong> E o Senhor lhe disse: Levanta-te, e vai à rua chamada Direita, e pergunta em casa de Judas por um homem de Tarso chamado Saulo, pois eis que ele ora.</p><p><strong>17</strong> E Ananias foi, e entrou na casa, e, impondo-lhe as mãos, disse: Irmão Saulo, o Senhor Jesus, que te apareceu no caminho por onde vinhas, me enviou, para que tornes a ver e sejas cheio do Espírito Santo.</p><p><strong>18</strong> E logo lhe caíram dos olhos como que umas escamas, e recuperou a vista; e, levantando-se, foi batizado.</p>"),
+    "at1019": V("Atos 10:19-20 e 28", "atos/10/19-20",
+      "<p><strong>19</strong> E, pensando Pedro naquela visão, disse-lhe o Espírito: Eis que três homens te buscam.</p><p><strong>20</strong> Levanta-te, pois, e desce, e vai com eles, não duvidando, porque eu os enviei.</p><p><strong>28</strong> E disse-lhes: Vós bem sabeis que não é lícito a um homem judeu ajuntar-se ou chegar-se a estrangeiros; mas Deus mostrou-me que a nenhum homem chame comum ou imundo.</p>"),
+    "hb112440": V("Hebreus 11:24-40 — Leitura bíblica", "hb/11/24-40",
+      "<p><strong>24</strong> Pela fé, Moisés, sendo já grande, recusou ser chamado filho da filha de Faraó,</p><p><strong>25</strong> escolhendo, antes, ser maltratado com o povo de Deus do que, por um pouco de tempo, ter o gozo do pecado;</p><p><strong>27</strong> Pela fé, deixou o Egito, não temendo a ira do rei; porque ficou firme, como vendo o invisível.</p><p><strong>29</strong> Pela fé, passaram o mar Vermelho, como por terra seca; o que intentando os egípcios, se afogaram.</p><p><strong>33</strong> os quais, pela fé, venceram reinos, praticaram a justiça, alcançaram promessas, fecharam as bocas dos leões,</p><p><strong>34</strong> apagaram a força do fogo, escaparam do fio da espada, da fraqueza tiraram forças, na batalha se esforçaram, puseram em fugida os exércitos dos estranhos.</p><p><strong>39</strong> E todos estes, tendo tido testemunho pela fé, não alcançaram a promessa,</p><p><strong>40</strong> provendo Deus alguma coisa melhor a nosso respeito, para que eles, sem nós, não fossem aperfeiçoados.</p>"),
+    "jo315": V("João 3:15-16", "jo/3/15-16",
+      "<p><strong>15</strong> para que todo aquele que nele crê não pereça, mas tenha a vida eterna.</p><p><strong>16</strong> Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna.</p>"),
+    "hb1133": V("Hebreus 11:33", "hb/11/33",
+      "<p><strong>33</strong> os quais, pela fé, venceram reinos, praticaram a justiça, alcançaram promessas, fecharam as bocas dos leões,</p>"),
+    "1jo323": V("1 João 3:23", "1jo/3/23",
+      "<p><strong>23</strong> E o seu mandamento é este: que creiamos no nome de seu Filho Jesus Cristo e nos amemos uns aos outros, segundo o seu mandamento.</p>"),
+    "hb116": V("Hebreus 11:6", "hb/11/6",
+      "<p><strong>6</strong> Ora, sem fé é impossível agradar-lhe, porque é necessário que aquele que se aproxima de Deus creia que ele existe e que é galardoador dos que o buscam.</p>"),
+    "1jo514": V("1 João 5:14", "1jo/5/14",
+      "<p><strong>14</strong> E esta é a confiança que temos nele: que, se pedirmos alguma coisa, segundo a sua vontade, ele nos ouve.</p>"),
+    "mt1720": V("Mateus 17:20", "mt/17/20",
+      "<p><strong>20</strong> E Jesus lhes disse: Por causa da vossa pequena fé; porque em verdade vos digo que, se tiverdes fé como um grão de mostarda, direis a este monte: Passa daqui para acolá — e há de passar; e nada vos será impossível.</p>"),
+    "at1631": V("Atos 16:31", "atos/16/31",
+      "<p><strong>31</strong> E eles disseram: Crê no Senhor Jesus Cristo e serás salvo, tu e a tua casa.</p>"),
+    "ef28": V("Efésios 2:8", "ef/2/8",
+      "<p><strong>8</strong> Porque pela graça sois salvos, por meio da fé; e isso não vem de vós; é dom de Deus.</p>"),
+    "rm1017": V("Romanos 10:17", "rm/10/17",
+      "<p><strong>17</strong> De sorte que a fé é pelo ouvir, e o ouvir pela palavra de Deus.</p>"),
+    "jd3": V("Judas 3", "jd/1/3",
+      "<p><strong>3</strong> Amados, procurando eu escrever-vos com toda a diligência acerca da salvação comum, tive por necessidade escrever-vos e exortar-vos a batalhar pela fé que uma vez foi dada aos santos.</p>"),
+    "rm51": V("Romanos 5:1 e 5", "rm/5/1",
+      "<p><strong>1</strong> Sendo, pois, justificados pela fé, temos paz com Deus por nosso Senhor Jesus Cristo.</p><p><strong>5</strong> E a esperança não traz confusão, porquanto o amor de Deus está derramado em nosso coração pelo Espírito Santo que nos foi dado.</p>"),
+    "mc923": V("Marcos 9:23", "mc/9/23",
+      "<p><strong>23</strong> E Jesus disse-lhe: Se tu podes crer; tudo é possível ao que crê.</p>"),
+    "ex1413": V("Êxodo 14:13-16", "ex/14/13-16",
+      "<p><strong>13</strong> Moisés, porém, disse ao povo: Não temais; estai quietos e vede o livramento do Senhor, que hoje vos fará; porque aos egípcios, que hoje vistes, nunca mais vereis para sempre.</p><p><strong>14</strong> O Senhor pelejará por vós, e vos calareis.</p><p><strong>16</strong> E tu, levanta a tua vara, e estende a tua mão sobre o mar, e fende-o, para que os filhos de Israel passem pelo meio do mar em seco.</p>"),
+    "hb111": V("Hebreus 11:1", "hb/11/1",
+      "<p><strong>1</strong> Ora, a fé é o firme fundamento das coisas que se esperam e a prova das coisas que se não veem.</p>"),
+    "1rs1824": V("1 Reis 18:24 e 37-39", "1rs/18/24",
+      "<p><strong>24</strong> Invocai vós o nome do vosso deus, e eu invocarei o nome do Senhor; e há de ser que o deus que responder por fogo esse será Deus. E todo o povo respondeu, dizendo: É boa esta palavra.</p><p><strong>37</strong> Responde-me, Senhor, responde-me, para que este povo conheça que tu, Senhor, és Deus e que tu fizeste voltar o seu coração.</p><p><strong>38</strong> Então, caiu fogo do Senhor, e consumiu o holocausto, e a lenha, e as pedras, e o pó, e ainda lambeu a água que estava no rego.</p><p><strong>39</strong> O que vendo todo o povo, caíram sobre os seus rostos e disseram: Só o Senhor é Deus! Só o Senhor é Deus!</p>"),
+    "dn621": V("Daniel 6:21-22", "dn/6/21-22",
+      "<p><strong>21</strong> Então, falou Daniel com o rei: Ó rei, vive para sempre!</p><p><strong>22</strong> O meu Deus enviou o seu anjo e fechou a boca dos leões, para que não me fizessem dano, porque foi achada em mim inocência diante dele; e também contra ti, ó rei, não tenho cometido delito algum.</p>"),
+    "dn323": V("Daniel 3:23-25", "dn/3/23-25",
+      "<p><strong>23</strong> E estes três homens, Sadraque, Mesaque e Abede-Nego, caíram atados dentro da fornalha de fogo ardente.</p><p><strong>24</strong> Então, o rei Nabucodonosor se espantou, e se levantou depressa, e falou, e disse aos seus conselheiros: Não lançamos nós, dentro do fogo, três homens atados? Responderam e disseram ao rei: É verdade, ó rei.</p><p><strong>25</strong> Respondeu, dizendo: Eu, porém, vejo quatro homens soltos, que andam passeando dentro do fogo, sem sofrer nenhum dano; e o aspecto do quarto é semelhante ao Filho de Deus.</p>"),
+    "is432": V("Isaías 43:2", "is/43/2",
+      "<p><strong>2</strong> Quando passares pelas águas, estarei contigo, e, quando pelos rios, eles não te submergirão; quando passares pelo fogo, não te queimarás, nem a chama arderá em ti.</p>"),
+    "at2835": V("Atos 28:3-6", "atos/28/3-6",
+      "<p><strong>3</strong> E, havendo Paulo ajuntado uma quantidade de vides e pondo-as no fogo, uma víbora, fugindo do calor, lhe acometeu a mão.</p><p><strong>4</strong> E os bárbaros, vendo-lhe a víbora pendurada na mão, diziam uns aos outros: Certamente, este homem é homicida, visto como, escapando do mar, a Justiça não o deixa viver.</p><p><strong>5</strong> Mas, sacudindo ele a víbora no fogo, não padeceu nenhum mal.</p><p><strong>6</strong> E eles esperavam que viesse a inchar ou a cair morto de repente; mas, tendo esperado já muito e vendo que nenhum incômodo lhe sobrevinha, mudando de parecer, diziam que era um deus.</p>"),
+    "mc16": V("Marcos 16:17-18", "mc/16/17-18",
+      "<p><strong>17</strong> E estes sinais seguirão aos que crerem: em meu nome, expulsarão demônios; falarão novas línguas;</p><p><strong>18</strong> pegarão nas serpentes; e, se beberem alguma coisa mortífera, não lhes fará dano algum; e imporão as mãos sobre os enfermos e os curarão.</p>"),
+    "1co1439": V("1 Coríntios 14:39-40", "1co/14/39-40",
+      "<p><strong>39</strong> Portanto, irmãos, procurai, com zelo, profetizar e não proibais falar línguas.</p><p><strong>40</strong> Mas faça-se tudo decentemente e com ordem.</p>"),
+    "os149": V("Oséias 14:9", "os/14/9",
+      "<p><strong>9</strong> Quem é sábio, para que entenda estas coisas? Quem é prudente, para que as saiba? Porque os caminhos do Senhor são retos, e os justos andarão neles, mas os transgressores neles cairão.</p>"),
+    "jo327": V("Jó 32:7", "jó/32/7",
+      "<p><strong>7</strong> Dizia eu: Falem os dias, e a multitude dos anos ensine a sabedoria.</p>"),
+    "at1825": V("Atos 18:24-28", "atos/18/24-28",
+      "<p><strong>24</strong> E chegou a Éfeso um certo judeu chamado Apolo, natural de Alexandria, homem eloquente e poderoso nas Escrituras.</p><p><strong>25</strong> Este era instruído no caminho do Senhor; e, fervoroso de espírito, falava e ensinava diligentemente as coisas do Senhor, conhecendo somente o batismo de João.</p><p><strong>28</strong> Porque, com grande veemência, convencia publicamente os judeus, mostrando pelas Escrituras que Jesus era o Cristo.</p>"),
+    "2ts234": V("2 Tessalonicenses 2:3-4", "2ts/2/3-4",
+      "<p><strong>3</strong> Ninguém, de maneira alguma, vos engane, porque não será assim sem que antes venha a apostasia e se manifeste o homem do pecado, o filho da perdição,</p><p><strong>4</strong> o qual se opõe e se levanta contra tudo o que se chama Deus ou se adora; de sorte que se assentará, como Deus, no templo de Deus, querendo parecer Deus.</p>"),
+    "3jo910": V("3 João 9-10", "3jo/1/9-10",
+      "<p><strong>9</strong> Tenho escrito à igreja; mas Diótrefes, que procura ter entre eles o primado, não nos recebe.</p><p><strong>10</strong> Pelo que, se eu for, trarei à memória as obras que ele faz, proferindo contra nós palavras maliciosas; e, não contente com isto, não recebe os irmãos, e impede os que querem recebê-los, e os lança fora da igreja.</p>"),
+    "mt854": V("Mateus 13:54", "mt/13/54",
+      "<p><strong>54</strong> E, chegando à sua pátria, ensinava-os na sinagoga deles, de sorte que se maravilhavam e diziam: De onde veio a este a sabedoria e estas maravilhas?</p>"),
+    "mc62": V("Marcos 6:2", "mc/6/2",
+      "<p><strong>2</strong> E, chegando o sábado, começou a ensinar na sinagoga; e muitos, ouvindo-o, se admiravam, dizendo: De onde lhe vêm essas coisas? E que sabedoria é esta que lhe foi dada? E como se fazem tais maravilhas por suas mãos?</p>"),
+    "ap1718": V("Apocalipse 13:18 e 17:9", "ap/13/18",
+      "<p><strong>13:18</strong> Aqui há sabedoria. Aquele que tem entendimento calcule o número da besta, porque é número de homem; e o seu número é seiscentos e sessenta e seis.</p><p><strong>17:9</strong> Aqui o sentido, que tem sabedoria. As sete cabeças são sete montes, sobre os quais a mulher está sentada.</p>"),
+    "hb217": V("Hebreus 2:17-18", "hb/2/17-18",
+      "<p><strong>17</strong> Pelo que convinha que, em tudo, fosse semelhante aos irmãos, para ser misericordioso e fiel sumo sacerdote naquilo que é de Deus, para expiar os pecados do povo.</p><p><strong>18</strong> Porque, naquilo que ele mesmo, sendo tentado, padeceu, pode socorrer aos que são tentados.</p>")
+
+    "jo6115": V("João 6:1-15 — Leitura bíblica", "jo/6/1-15",
+      "<p><strong>1</strong> Depois disso, partiu Jesus para o outro lado do mar da Galileia, que é o de Tiberíades.</p><p><strong>2</strong> E grande multidão o seguia, porque via os sinais que operava sobre os enfermos.</p><p><strong>5</strong> Então, Jesus, levantando os olhos e vendo que uma grande multidão vinha ter com ele, disse a Filipe: Onde compraremos pão, para estes comerem?</p><p><strong>9</strong> Está aqui um rapaz que tem cinco pães de cevada e dois peixinhos; mas que é isso para tantos?</p><p><strong>11</strong> E Jesus tomou os pães e, havendo dado graças, repartiu-os pelos discípulos, e os discípulos, pelos que estavam assentados; e igualmente também os peixes, quanto eles queriam.</p><p><strong>13</strong> Recolheram-nos, pois, e encheram doze cestos de pedaços dos cinco pães de cevada, que sobejaram aos que haviam comido.</p><p><strong>14</strong> Vendo, pois, aqueles homens o milagre que Jesus tinha feito, diziam: Este é, verdadeiramente, o profeta que devia vir ao mundo.</p>"),
+    "jo1412": V("João 14:12-16", "jo/14/12-16",
+      "<p><strong>12</strong> Na verdade, na verdade vos digo que aquele que crê em mim também fará as obras que eu faço e as fará maiores do que estas, porque eu vou para meu Pai.</p><p><strong>13</strong> E tudo quanto pedirdes em meu nome, eu o farei, para que o Pai seja glorificado no Filho.</p><p><strong>14</strong> Se pedirdes alguma coisa em meu nome, eu o farei.</p><p><strong>16</strong> E eu rogarei ao Pai, e ele vos dará outro Consolador, para que fique convosco para sempre.</p>"),
+    "gl35": V("Gálatas 3:5", "gl/3/5",
+      "<p><strong>5</strong> Aquele, pois, que vos dá o Espírito e que opera maravilhas entre vós o faz pelas obras da lei ou pela pregação da fé?</p>"),
+    "at1911": V("Atos 19:11-12", "atos/19/11-12",
+      "<p><strong>11</strong> E Deus, pelas mãos de Paulo, fazia maravilhas extraordinárias,</p><p><strong>12</strong> de sorte que até os lenços e aventais se levavam do seu corpo aos enfermos, e as enfermidades fugiam deles, e os espíritos malignos saíam.</p>"),
+    "at1046": V("Atos 10:46", "atos/10/46",
+      "<p><strong>46</strong> Porque os ouviam falar línguas e magnificarem a Deus.</p>"),
+    "at1038": V("Atos 10:38", "atos/10/38",
+      "<p><strong>38</strong> Como Deus ungiu a Jesus de Nazaré com o Espírito Santo e com virtude; o qual andou fazendo bem e curando a todos os oprimidos do diabo, porque Deus era com ele.</p>"),
+    "at183": V("Atos 18:3", "atos/18/3",
+      "<p><strong>3</strong> E, como era do mesmo ofício, ficou com eles e trabalhava; pois tinham por ofício fazer tendas.</p>"),
+    "mc527": V("Marcos 5:27-29", "mc/5/27-29",
+      "<p><strong>27</strong> ouvindo falar de Jesus, veio por detrás, entre a multidão, e tocou no seu vestido.</p><p><strong>28</strong> Porque dizia: Se tão somente tocar nos seus vestidos, sararei.</p><p><strong>29</strong> E logo se lhe secou a fonte do seu sangue; e sentiu no corpo estar já sã daquele mal.</p>"),
+    "at24143": V("Atos 2:41 e 43", "atos/2/41",
+      "<p><strong>41</strong> De sorte que foram batizados os que de bom grado receberam a sua palavra; e, naquele dia, agregaram-se quase três mil almas.</p><p><strong>43</strong> E em toda a alma havia temor, e muitas maravilhas e sinais se faziam pelos apóstolos.</p>"),
+    "at512": V("Atos 4:33 e 5:12", "atos/4/33",
+      "<p><strong>4:33</strong> E os apóstolos davam, com grande poder, testemunho da ressurreição do Senhor Jesus, e em todos eles havia abundante graça.</p><p><strong>5:12</strong> E muitos sinais e prodígios eram feitos entre o povo pelas mãos dos apóstolos.</p>"),
+    "jo167": V("João 16:7", "jo/16/7",
+      "<p><strong>7</strong> Todavia, digo-vos a verdade: que vos convém que eu vá, porque, se eu não for, o Consolador não virá a vós; mas, se eu for, enviar-vo-lo-ei.</p>"),
+    "at18": V("Atos 1:8", "atos/1/8",
+      "<p><strong>8</strong> Mas recebereis a virtude do Espírito Santo, que há de vir sobre vós; e ser-me-eis testemunhas tanto em Jerusalém como em toda a Judeia e Samaria e até aos confins da terra.</p>"),
+    "at24": V("Atos 2:4", "atos/2/4",
+      "<p><strong>4</strong> E todos foram cheios do Espírito Santo e começaram a falar em outras línguas, conforme o Espírito Santo lhes concedia que falassem.</p>"),
+    "mt101": V("Mateus 10:1", "mt/10/1",
+      "<p><strong>1</strong> E, chamando os seus doze discípulos, deu-lhes poder sobre os espíritos imundos, para os expulsarem e para curarem toda enfermidade e todo mal.</p>"),
+    "mt1717": V("Mateus 17:17", "mt/17/17",
+      "<p><strong>17</strong> E Jesus, respondendo, disse: Ó geração incrédula e perversa! Até quando estarei convosco e até quando vos sofrerei? Trazei-mo aqui.</p>"),
+    "mc92829": V("Marcos 9:28-29", "mc/9/28-29",
+      "<p><strong>28</strong> E, quando entrou em casa, os seus discípulos lhe perguntaram à parte: Por que o não pudemos nós expulsar?</p><p><strong>29</strong> E disse-lhes: Esta casta não pode sair com coisa alguma, a não ser com oração e jejum.</p>"),
+    "mt633": V("Mateus 6:33", "mt/6/33",
+      "<p><strong>33</strong> Mas buscai primeiro o Reino de Deus, e a sua justiça, e todas essas coisas vos serão acrescentadas.</p>"),
+    "at43133": V("Atos 4:31-33", "atos/4/31-33",
+      "<p><strong>31</strong> E, tendo orado, moveu-se o lugar em que estavam reunidos; e todos foram cheios do Espírito Santo e anunciavam com ousadia a palavra de Deus.</p><p><strong>33</strong> E os apóstolos davam, com grande poder, testemunho da ressurreição do Senhor Jesus, e em todos eles havia abundante graça.</p>"),
+    "2co1212": V("2 Coríntios 12:12", "2co/12/12",
+      "<p><strong>12</strong> Os sinais do meu apostolado foram operados entre vós, com toda a paciência, por sinais, prodígios e maravilhas.</p>"),
+    "hb234": V("Hebreus 2:3-4", "hb/2/3-4",
+      "<p><strong>3</strong> como escaparemos nós, se não atentarmos para uma tão grande salvação, a qual, começando a ser anunciada pelo Senhor, foi-nos depois confirmada pelos que a ouviram;</p><p><strong>4</strong> testificando também Deus com eles, por sinais, e milagres, e várias maravilhas, e dons do Espírito Santo, distribuídos por sua vontade?</p>"),
+    "1co245": V("1 Coríntios 2:4-5", "1co/2/4-5",
+      "<p><strong>4</strong> A minha palavra e a minha pregação não consistiram em palavras persuasivas de sabedoria humana, mas em demonstração do Espírito e de poder,</p><p><strong>5</strong> para que a vossa fé não se apoiasse em sabedoria dos homens, mas no poder de Deus.</p>"),
+    "mt72123": V("Mateus 7:21-23", "mt/7/21-23",
+      "<p><strong>21</strong> Nem todo o que me diz: Senhor, Senhor! entrará no Reino dos céus, mas aquele que faz a vontade de meu Pai, que está nos céus.</p><p><strong>22</strong> Muitos me dirão naquele Dia: Senhor, Senhor, não profetizamos nós em teu nome? E, em teu nome, não expulsamos demônios? E, em teu nome, não fizemos muitas maravilhas?</p><p><strong>23</strong> E, então, lhes direi abertamente: Nunca vos conheci; apartai-vos de mim, vós que praticais a iniquidade.</p>"),
+    "jo114": V("João 11:4 e 43-45", "jo/11/4",
+      "<p><strong>4</strong> E Jesus, ouvindo isso, disse: Esta enfermidade não é para morte, mas para glória de Deus, para que o Filho de Deus seja glorificado por ela.</p><p><strong>43</strong> E, tendo dito isso, clamou com grande voz: Lázaro, vem para fora.</p><p><strong>44</strong> E o defunto saiu, tendo as mãos e os pés ligados com faixas, e o seu rosto, envolto num lenço. Disse-lhes Jesus: Desligai-o e deixai-o ir.</p><p><strong>45</strong> Muitos, pois, dentre os judeus que tinham vindo a Maria e que tinham visto o que Jesus fizera, creram nele.</p>"),
+  };
+})();
+
+  </script>
+  <script>
+    Object.assign(VERSOS_DB, {
+      "2rs20": {
+        titulo: "2 Reis 20:7",
+        url: "https://www.bibliaonline.com.br/arc/2rs/20/7",
+        html: "<p><strong>7</strong> Disse mais Isaías: Tomai uma pasta de figos. E a tomaram e a puseram sobre a chaga; e ele sarou.</p>"
+      },
+      "at5": {
+        titulo: "Atos 5:15",
+        url: "https://www.bibliaonline.com.br/arc/atos/5/15",
+        html: "<p><strong>15</strong> de sorte que transportavam os enfermos para as ruas e os punham em leitos e em camilhas, para que ao menos a sombra de Pedro, quando este passasse, cobrisse alguns deles.</p>"
+      },
+      "at14": {
+        titulo: "Atos 14:3 e 14:8-10",
+        url: "https://www.bibliaonline.com.br/arc/atos/14/3-10",
+        html: "<p><strong>3</strong> Detiveram-se, pois, muito tempo, falando ousadamente acerca do Senhor, o qual dava testemunho à palavra da sua graça, permitindo que por suas mãos se fizessem sinais e prodígios.</p><p><strong>8</strong> E estava assentado em Listra certo varão leso dos pés, coxo desde o seu nascimento, o qual nunca tinha andado.</p><p><strong>9</strong> Este ouviu falar Paulo, que, fixando nele os olhos e vendo que tinha fé para ser curado,</p><p><strong>10</strong> disse em voz alta: Levanta-te direito sobre teus pés. E ele saltou e andou.</p>"
+      },
+      "lc531": {
+        titulo: "Lucas 5:31",
+        url: "https://www.bibliaonline.com.br/arc/lc/5/31",
+        html: "<p><strong>31</strong> E Jesus, respondendo, disse-lhes: Não necessitam de médico os que estão sãos, mas sim os que estão enfermos.</p>"
+      },
+      "1tm523": {
+        titulo: "1 Timóteo 5:23",
+        url: "https://www.bibliaonline.com.br/arc/1tm/5/23",
+        html: "<p><strong>23</strong> Não bebas mais água só, mas usa de um pouco de vinho, por causa do teu estômago e das tuas frequentes enfermidades.</p>"
+      },
+      "mc16": {
+        titulo: "Marcos 16:17-18",
+        url: "https://www.bibliaonline.com.br/arc/mc/16/17-18",
+        html: "<p><strong>17</strong> E estes sinais seguirão aos que crerem: em meu nome, expulsarão demônios; falarão novas línguas;</p><p><strong>18</strong> pegarão nas serpentes; e, se beberem alguma coisa mortífera, não lhes fará dano algum; e imporão as mãos sobre os enfermos e os curarão.</p>"
+      },
+      "at8": {
+        titulo: "Atos 8:7-13 — Leitura bíblica",
+        url: "https://www.bibliaonline.com.br/arc/atos/8/7-13",
+        html: "<p><strong>7</strong> pois que os espíritos imundos saíam de muitos que os tinham, clamando em alta voz; e muitos paralíticos e coxos eram curados.</p><p><strong>8</strong> E havia grande alegria naquela cidade.</p><p><strong>9</strong> E estava ali um certo homem chamado Simão, que anteriormente exercera naquela cidade a arte mágica e tinha iludido a gente de Samaria, dizendo que era uma grande personagem;</p><p><strong>10</strong> ao qual todos atendiam, desde o mais pequeno até ao maior, dizendo: Este é a grande virtude de Deus.</p><p><strong>11</strong> E atendiam-no a ele, porque já desde muito tempo os havia iludido com artes mágicas.</p><p><strong>12</strong> Mas, como cressem em Filipe, que lhes pregava acerca do Reino de Deus e do nome de Jesus Cristo, se batizavam, tanto homens como mulheres.</p><p><strong>13</strong> E creu até o próprio Simão; e, sendo batizado, ficou, de contínuo, com Filipe e, vendo os sinais e as grandes maravilhas que se faziam, estava atônito.</p>"
+      },
+      "1co129": {
+        titulo: "1 Coríntios 12:9",
+        url: "https://www.bibliaonline.com.br/arc/1co/12/9",
+        html: "<p><strong>9</strong> e a outro, pelo mesmo Espírito, a fé; e a outro, pelo mesmo Espírito, os dons de curar;</p>"
+      },
+      "1co121130": {
+        titulo: "1 Coríntios 12:11 e 12:30",
+        url: "https://www.bibliaonline.com.br/arc/1co/12/11",
+        html: "<p><strong>11</strong> Mas um só e o mesmo Espírito opera todas essas coisas, repartindo particularmente a cada um como quer.</p><p><strong>30</strong> Têm todos o dom de curar? Falam todos diversas línguas? Interpretam todos?</p>"
+      },
+      "tg5": {
+        titulo: "Tiago 5:14-16",
+        url: "https://www.bibliaonline.com.br/arc/tg/5/14-16",
+        html: "<p><strong>14</strong> Está alguém entre vós doente? Chame os presbíteros da igreja, e orem sobre ele, ungindo-o com azeite em nome do Senhor;</p><p><strong>15</strong> e a oração da fé salvará o doente, e o Senhor o levantará; e, se houver cometido pecados, ser-lhe-ão perdoados.</p><p><strong>16</strong> Confessai as vossas culpas uns aos outros e orai uns pelos outros, para que sareis; a oração feita por um justo pode muito em seus efeitos.</p>"
+      },
+      "jo9": {
+        titulo: "João 9:2-3",
+        url: "https://www.bibliaonline.com.br/arc/jo/9/2-3",
+        html: "<p><strong>2</strong> E os seus discípulos lhe perguntaram, dizendo: Rabi, quem pecou, este ou seus pais, para que nascesse cego?</p><p><strong>3</strong> Jesus respondeu: Nem ele pecou, nem seus pais; mas foi assim para que se manifestem nele as obras de Deus.</p>"
+      },
+      "lc13": {
+        titulo: "Lucas 13:2-5",
+        url: "https://www.bibliaonline.com.br/arc/lc/13/2-5",
+        html: "<p><strong>2</strong> E, respondendo Jesus, disse-lhes: Cuidais vós que esses galileus foram mais pecadores do que todos os galileus, por terem padecido tais coisas?</p><p><strong>3</strong> Não, vos digo; antes, se vos não arrependerdes, todos de igual modo perecereis.</p><p><strong>4</strong> E aqueles dezoito sobre os quais caiu a torre de Siloé e os matou, cuidais que foram mais culpados do que todos quantos homens habitam em Jerusalém?</p><p><strong>5</strong> Não, vos digo; antes, se vos não arrependerdes, todos de igual modo perecereis.</p>"
+      },
+      "2co417": {
+        titulo: "2 Coríntios 4:17",
+        url: "https://www.bibliaonline.com.br/arc/2co/4/17",
+        html: "<p><strong>17</strong> Porque a nossa leve e momentânea tribulação produz para nós um peso eterno de glória mui excelente,</p>"
+      },
+      "2co12": {
+        titulo: "2 Coríntios 12:8-9",
+        url: "https://www.bibliaonline.com.br/arc/2co/12/8-9",
+        html: "<p><strong>8</strong> Acerca do qual três vezes orei ao Senhor, para que se desviasse de mim.</p><p><strong>9</strong> E disse-me: A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza. De boa vontade, pois, me gloriarei nas minhas fraquezas, para que em mim habite o poder de Cristo.</p>"
+      },
+      "rm828": {
+        titulo: "Romanos 8:28",
+        url: "https://www.bibliaonline.com.br/arc/rm/8/28",
+        html: "<p><strong>28</strong> E sabemos que todas as coisas contribuem juntamente para o bem daqueles que amam a Deus, daqueles que são chamados por seu decreto.</p>"
+      },
+      "mt1358": {
+        titulo: "Mateus 13:58",
+        url: "https://www.bibliaonline.com.br/arc/mt/13/58",
+        html: "<p><strong>58</strong> E não fez ali muitas maravilhas, por causa da incredulidade deles.</p>"
+      },
+      "mt928": {
+        titulo: "Mateus 9:28-30",
+        url: "https://www.bibliaonline.com.br/arc/mt/9/28-30",
+        html: "<p><strong>28</strong> E, quando chegou à casa, os cegos se aproximaram dele; e Jesus disse-lhes: Credes vós que eu possa fazer isto? Disseram-lhe eles: Sim, Senhor.</p><p><strong>29</strong> Tocou, então, os olhos deles, dizendo: Seja-vos feito segundo a vossa fé.</p><p><strong>30</strong> E os olhos se lhes abriram. E Jesus ameaçou-os, dizendo: Olhai que ninguém o saiba.</p>"
+      },
+      "mc5": {
+        titulo: "Marcos 5:35-43 — A filha de Jairo",
+        url: "https://www.bibliaonline.com.br/arc/mc/5/35-43",
+        html: "<p><strong>35</strong> Estando ele ainda falando, chegaram alguns do principal da sinagoga, a quem disseram: A tua filha está morta; para que enfadas mais o Mestre?</p><p><strong>36</strong> E Jesus, tendo ouvido essas palavras, disse ao principal da sinagoga: Não temas, crê somente.</p><p><strong>37</strong> E não permitiu que alguém o seguisse, a não ser Pedro, e Tiago, e João, irmão de Tiago.</p><p><strong>38</strong> E, tendo chegado à casa do principal da sinagoga, viu o alvoroço e os que choravam muito e pranteavam.</p><p><strong>39</strong> E, entrando, disse-lhes: Por que vos alvoroçais e chorais? A menina não está morta, mas dorme.</p><p><strong>40</strong> E riam-se dele; porém ele, tendo-os feito sair, tomou consigo o pai e a mãe da menina e os que com ele estavam e entrou onde a menina estava deitada.</p><p><strong>41</strong> E, tomando a mão da menina, disse-lhe: Talitá cumi, que, traduzido, é: Menina, a ti te digo: levanta-te.</p><p><strong>42</strong> E logo a menina se levantou e andava, pois já tinha doze anos; e assombraram-se com grande espanto.</p><p><strong>43</strong> E mandou-lhes expressamente que ninguém o soubesse; e disse que lhe dessem de comer.</p>"
+      },
+      "mc2": {
+        titulo: "Marcos 2:3-5 — O paralítico",
+        url: "https://www.bibliaonline.com.br/arc/mc/2/3-5",
+        html: "<p><strong>3</strong> E vieram ter com ele, conduzindo um paralítico, trazido por quatro.</p><p><strong>4</strong> E, não podendo aproximar-se dele, por causa da multidão, descobriram o telhado onde estava e, fazendo um buraco, baixaram o leito em que jazia o paralítico.</p><p><strong>5</strong> E Jesus, vendo-lhes a fé, disse ao paralítico: Filho, perdoados estão os teus pecados.</p>"
+      },
+      "mt922": {
+        titulo: "Mateus 9:22",
+        url: "https://www.bibliaonline.com.br/arc/mt/9/22",
+        html: "<p><strong>22</strong> E Jesus, voltando-se e vendo-a, disse: Tem ânimo, filha, a tua fé te salvou. E imediatamente a mulher ficou sã.</p>"
+      },
+      "at9": {
+        titulo: "Atos 9:33-35 — Enéias",
+        url: "https://www.bibliaonline.com.br/arc/atos/9/33-35",
+        html: "<p><strong>33</strong> E achou ali um certo homem, chamado Enéias, que havia oito anos jazia na cama, porque era paralítico.</p><p><strong>34</strong> E disse-lhe Pedro: Enéias, Jesus Cristo te dá saúde; levanta-te e faze a tua cama. E logo se levantou.</p><p><strong>35</strong> E viram-no todos os que habitavam em Lida e Sarona, os quais se converteram ao Senhor.</p>"
+      },
+      "jo62": {
+        titulo: "João 6:2",
+        url: "https://www.bibliaonline.com.br/arc/jo/6/2",
+        html: "<p><strong>2</strong> E grande multidão o seguia, porque via os sinais que operava sobre os enfermos.</p>"
+      },
+      "1ts15": {
+        titulo: "1 Tessalonicenses 1:5",
+        url: "https://www.bibliaonline.com.br/arc/1ts/1/5",
+        html: "<p><strong>5</strong> porque o nosso evangelho não foi a vós somente em palavras, mas também em poder, e no Espírito Santo, e em muita certeza, como bem sabeis quais fomos entre vós, por amor de vós.</p>"
+      },
+      "2cr16": {
+        titulo: "2 Crônicas 16:12-13",
+        url: "https://www.bibliaonline.com.br/arc/2cr/16/12-13",
+        html: "<p><strong>12</strong> E caiu Asa doente de seus pés no ano trigésimo nono do seu reinado; grande por extremo era a sua enfermidade, e, contudo, na sua enfermidade, não buscou ao Senhor, mas, antes, aos médicos.</p><p><strong>13</strong> E Asa dormiu com seus pais e morreu no ano quarenta e um do seu reinado.</p>"
+      }
+    });
+  </script>
+  <script>
+(function () {
+  const root = document.documentElement;
+  const KEY = "licoes-fs";
+  let size = parseInt(localStorage.getItem(KEY) || "20", 10);
+  if (isNaN(size) || size < 16 || size > 32) size = 20;
+  root.style.setProperty("--fs", size + "px");
+
+  function bindFont() {
+    const maior = document.getElementById("maior");
+    const menor = document.getElementById("menor");
+    if (!maior || !menor) return;
+    maior.addEventListener("click", function () {
+      if (size < 32) {
+        size += 2;
+        root.style.setProperty("--fs", size + "px");
+        localStorage.setItem(KEY, String(size));
+      }
+    });
+    menor.addEventListener("click", function () {
+      if (size > 16) {
+        size -= 2;
+        root.style.setProperty("--fs", size + "px");
+        localStorage.setItem(KEY, String(size));
+      }
+    });
+  }
+
+  function bindVersos(versos) {
+    const overlay = document.getElementById("overlay");
+    if (!overlay || !versos) return;
+    const titleEl = document.getElementById("sheet-title");
+    const textEl = document.getElementById("sheet-text");
+    const linkEl = document.getElementById("sheet-link");
+
+    function abrir(id) {
+      const v = versos[id];
+      if (!v) return;
+      titleEl.textContent = v.titulo;
+      textEl.innerHTML = v.html;
+      linkEl.href = v.url;
+      overlay.classList.add("open");
+    }
+
+    function fechar() {
+      overlay.classList.remove("open");
+    }
+
+    document.querySelectorAll("button.ref").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        abrir(btn.getAttribute("data-ref"));
+      });
+    });
+
+    document.getElementById("fechar").addEventListener("click", fechar);
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) fechar();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") fechar();
+    });
+  }
+
+  window.LICAO = {
+    init: function (versos) {
+      bindFont();
+      bindVersos(versos || null);
+    }
+  };
+})();
+
+  </script>
+  <script>LICAO.init(VERSOS_DB);</script>
+  <script>
+
+(function () {
+  var titles = {
+    "1": "Talento, dom e fruto",
+    "2": "Dons ministeriais",
+    "3": "Importância dos dons",
+    "4": "Palavra da sabedoria",
+    "5": "Palavra do conhecimento",
+    "6": "O dom da fé",
+    "7": "Dons de curas",
+    "8": "Operação de maravilhas"
+  };
+  function show(id) {
+    document.querySelectorAll(".view").forEach(function (el) {
+      el.classList.toggle("on", el.id === id);
+    });
+    var sub = document.getElementById("brand-sub");
+    if (id === "view-home") sub.textContent = "Lições Bíblicas";
+    else {
+      var n = id.replace("view-licao-", "");
+      sub.textContent = titles[n] || "Lição";
+    }
+    if (!location.hash || location.hash.indexOf("#l") !== 0 || location.hash.indexOf("#licao-") === 0) {
+      window.scrollTo(0, 0);
+    }
+  }
+  function route() {
+    var h = (location.hash || "#inicio").replace("#", "");
+    if (h.indexOf("licao-") === 0) show("view-" + h);
+    else if (h.indexOf("l") === 0 && h.indexOf("-") > 0) {
+      var num = h.slice(1, h.indexOf("-"));
+      show("view-licao-" + num);
+    } else show("view-home");
+  }
+  window.addEventListener("hashchange", route);
+  route();
+})();
+
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2d8df14cdfa3236',t:'MTc4NzEzOTUwMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
