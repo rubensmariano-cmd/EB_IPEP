@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Lição 7 — Dons de Curas</title>
+  <style>
+    :root {
+      --bg: #f6f1e7;
+      --paper: #fffdf8;
+      --ink: #2c2416;
+      --muted: #6b5d45;
+      --gold: #8b6914;
+      --gold-soft: #c9a227;
+      --navy: #1e3a5f;
+      --navy-soft: #2a5280;
+      --box: #eef4fb;
+      --line: #e4d8c0;
+      --verse: #3d5a80;
+      --shadow: 0 10px 30px rgba(44, 36, 22, 0.08);
+      --fs: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #fff8e8 0%, transparent 50%),
+        radial-gradient(900px 500px at 110% 10%, #e8eef6 0%, transparent 45%),
+        var(--bg);
+      color: var(--ink);
+      font-size: var(--fs);
+      line-height: 1.75;
+      padding: 0 0 4rem;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(30, 58, 95, 0.96);
+      color: #fff;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 18px rgba(20, 35, 55, 0.25);
+      padding: 0.7rem 1rem;
+    }
+
+    .topbar-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+      text-transform: none;
+      margin-top: 0.1rem;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+
+    .controls span {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      margin-right: 0.2rem;
+    }
+
+    .controls button {
+      min-width: 48px;
+      min-height: 48px;
+      border: 0;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--navy);
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 0 #c9a227;
+    }
+
+    .controls button:active { transform: translateY(1px); }
+
+    .wrap {
+      max-width: 820px;
+      margin: 1.4rem auto 0;
+      padding: 0 1rem;
+    }
+
+    header.hero {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 1.8rem 1.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--navy);
+      color: #fff;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 0.7rem;
+    }
+
+    h1 {
+      font-size: 2.05rem;
+      letter-spacing: 0.04em;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 0.35rem;
+      color: var(--gold);
+      font-style: italic;
+      font-size: 1.05rem;
+    }
+
+    .hint {
+      margin-top: 0.9rem;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.92rem;
+      color: var(--navy-soft);
+      background: #eef4fb;
+      border-radius: 10px;
+      padding: 0.55rem 0.8rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      margin-top: 1.3rem;
+    }
+
+    @media (min-width: 640px) {
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .card {
+      background: var(--box);
+      border: 1px solid #d5e0ee;
+      border-radius: 12px;
+      padding: 0.95rem 1.05rem;
+      text-align: left;
+    }
+
+    .card h2 {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 0.35rem;
+    }
+
+    .card p { color: var(--ink); }
+
+    .refs {
+      margin-top: 1.3rem;
+      background: #fff;
+      border: 1px dashed var(--gold-soft);
+      border-radius: 12px;
+      padding: 0.9rem 1rem 0.4rem;
+      text-align: left;
+    }
+
+    .refs h2 {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.55rem;
+    }
+
+    .refs ul { list-style: none; }
+
+    .refs li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.2rem 0;
+      border-bottom: 1px solid #f0e6d0;
+      font-size: 0.95em;
+    }
+
+    .refs li:last-child { border-bottom: 0; }
+
+    article {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 1.6rem 1.4rem 2rem;
+      margin-top: 1.1rem;
+    }
+
+    h2.sec {
+      font-size: 1.45rem;
+      color: var(--navy);
+      text-align: center;
+      letter-spacing: 0.08em;
+      margin: 0.4rem 0 1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid var(--gold-soft);
+    }
+
+    h3 {
+      font-size: 1.18rem;
+      color: var(--navy-soft);
+      margin: 1.6rem 0 0.7rem;
+      line-height: 1.35;
+    }
+
+    p { margin: 0 0 1rem; text-align: justify; hyphens: auto; }
+
+    blockquote {
+      margin: 0 0 1rem;
+      padding: 0.85rem 1rem;
+      background: #f8f3e8;
+      border-left: 5px solid var(--gold-soft);
+      border-radius: 0 10px 10px 0;
+      color: #3a3122;
+      font-style: italic;
+    }
+
+    .letra {
+      display: block;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 1rem 0 0.35rem;
+    }
+
+    button.ref {
+      display: inline;
+      font: inherit;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.92em;
+      font-weight: 700;
+      color: var(--verse);
+      background: #e8f0fa;
+      border: 0;
+      border-bottom: 2px solid #8aa4c7;
+      border-radius: 6px;
+      padding: 0.05em 0.35em;
+      cursor: pointer;
+      white-space: nowrap;
+      line-height: 1.8;
+    }
+
+    button.ref:hover,
+    button.ref:focus {
+      background: #d5e4f6;
+      outline: none;
+    }
+
+    nav.toc {
+      margin-top: 1.1rem;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1.2rem 1.2rem;
+    }
+
+    nav.toc h2 {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.55rem;
+    }
+
+    nav.toc a {
+      display: block;
+      color: var(--navy);
+      text-decoration: none;
+      padding: 0.55rem 0.2rem;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.02rem;
+    }
+
+    nav.toc a:last-child { border-bottom: 0; }
+
+    footer {
+      max-width: 820px;
+      margin: 1.4rem auto 0;
+      padding: 0 1rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+
+    .top-link {
+      display: inline-block;
+      margin-top: 1.4rem;
+      background: var(--navy);
+      color: #fff;
+      text-decoration: none;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      padding: 0.85rem 1.3rem;
+      border-radius: 12px;
+      min-height: 48px;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 28, 40, 0.55);
+      z-index: 40;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .overlay.open { display: flex; }
+
+    .sheet {
+      background: #fffdf8;
+      width: min(720px, 100%);
+      max-height: 86vh;
+      overflow: auto;
+      border-radius: 18px 18px 14px 14px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      padding: 1.15rem 1.2rem 1.4rem;
+    }
+
+    .sheet-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.8rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .sheet h2 {
+      font-size: 1.2rem;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    .sheet .ver {
+      display: block;
+      margin-top: 0.2rem;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .sheet .close {
+      min-width: 52px;
+      min-height: 52px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--navy);
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .sheet .texto p {
+      text-align: left;
+      margin: 0 0 0.85rem;
+    }
+
+    .sheet .texto strong {
+      color: var(--gold);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.85em;
+      margin-right: 0.25em;
+    }
+
+    .sheet a.ext {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      color: var(--navy);
+      font-weight: 700;
+      min-height: 44px;
+      padding: 0.45rem 0;
+    }
+
+    @media (min-width: 700px) {
+      .overlay { align-items: center; }
+      .sheet { border-radius: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Lição 7A / 7B<strong>Dons de Curas</strong></div>
+      <div class="controls" aria-label="Tamanho da letra">
+        <span>Letra</span>
+        <button type="button" id="menor" title="Diminuir letra">A−</button>
+        <button type="button" id="maior" title="Aumentar letra">A+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 7</div>
+      <h1>DONS DE CURAS</h1>
+      <p class="subtitle">Fatos bíblicos relacionados aos dons de curas</p>
+      <p class="hint">Toque em qualquer referência azul para ler o versículo aqui mesmo.</p>
+
+      <div class="meta-grid">
+        <div class="card">
+          <h2>Leitura bíblica</h2>
+          <p><button class="ref" data-ref="at8">Atos 8:7-13</button></p>
+        </div>
+        <div class="card">
+          <h2>Objetivo da lição</h2>
+          <p>Relatar fatos bíblicos relacionados aos dons de curas.</p>
+        </div>
+      </div>
+
+      <div class="refs">
+        <h2>Textos de apoio — toque para ler</h2>
+        <ul>
+          <li><span>Cura de Ezequias</span><button class="ref" data-ref="2rs20">2Rs. 20:7</button></li>
+          <li><span>Pedro cura os enfermos</span><button class="ref" data-ref="at5">At. 5:15</button></li>
+          <li><span>Paulo também faz curas</span><button class="ref" data-ref="at14">At. 14:3,10</button></li>
+          <li><span>Pode-se fazer uso da medicina</span><button class="ref" data-ref="lc531">Lc. 5:31</button></li>
+          <li><span>Remédio é recomendado</span><button class="ref" data-ref="1tm523">1Tm. 5:23</button></li>
+          <li><span>O cristão de hoje também pode curar</span><button class="ref" data-ref="mc16">Mc. 16:17</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Índice — toque para ir</h2>
+      <a href="#introducao">Introdução</a>
+      <a href="#exposicao">Exposição</a>
+      <a href="#p1">1. A doença é castigo divino?</a>
+      <a href="#p2">2. Deus quer curar hoje em dia?</a>
+      <a href="#p3">3. Que é exigido para se receber a cura divina?</a>
+      <a href="#p4">4. Que efeito tem o dom de cura na pregação do Evangelho?</a>
+      <a href="#p5">5. Devemos dispensar os cuidados médicos?</a>
+    </nav>
+
+    <article>
+      <h2 class="sec" id="introducao">INTRODUÇÃO</h2>
+
+      <p>
+        Dons de cura <button class="ref" data-ref="1co129">1Co. 12:9</button>. Esses dons são concedidos à igreja para a restauração da saúde física, por meios divinos e sobrenaturais. O plural “dons” indica curas de diferentes enfermidades e sugere que cada ato de cura vem de um dom especial de Deus. Os dons de curas não são concedidos a todos os membros do Corpo de Cristo <button class="ref" data-ref="1co121130">1Co. 12:11,30</button>, todavia, todos eles podem orar pelos enfermos. Havendo fé, os enfermos serão curados. Pode também haver cura em obediência ao ensino bíblico <button class="ref" data-ref="tg5">Tg. 5:14-16</button>. Não somente o povo de Deus pode ser curado mediante a operação do dom sobrenatural, mas também os pagãos podem ser beneficiados por ela. Exemplo: Naamã, chefe do exército Sírio; o pai de Públio, governador da Ilha de Malta; a filha da mulher Cananéia; o servo do centurião romano, etc.
+      </p>
+
+      <p>
+        A cura divina é extensiva aos que creem, mas nem todos a recebem. O rei Azarias ficou enfermo quase toda a sua vida, embora fizesse o que era reto diante de Deus. Timóteo, homem de fé, de oração, merecedor do benefício, porém, o Senhor lhe permitiu frequentes enfermidades <button class="ref" data-ref="1tm523">1Tm. 5:23</button>.
+      </p>
+
+      <h2 class="sec" id="exposicao">EXPOSIÇÃO</h2>
+
+      <h3 id="p1">1. A doença é castigo divino?</h3>
+
+      <blockquote>
+        “A ideia pagã de que a desgraça e o sofrimento se abatiam sobre as pessoas como juízo arbitrário de Deus era repulsiva a Jesus.” Mesmo os discípulos pensavam assim <button class="ref" data-ref="jo9">Jo. 9:2,3</button> — compare com <button class="ref" data-ref="lc13">Lc. 13:2-5</button>.
+      </blockquote>
+
+      <p>
+        Jesus, porém, deixou bem clara esta questão. Embora o sofrimento e a morte sejam consequências do pecado, o pecado não vem de Deus, e Deus não está punindo o pecado agora. Se a doença fosse castigo divino, que direito teríamos de procurar os médicos para sermos curados? Estaríamos agindo contra a vontade divina. Se Deus estivesse dando a cada um segundo as suas obras agora, então os maus deveriam sempre estar sofrendo e os justos sempre prosperando, porque Deus é um Deus de justiça. A realidade, porém, mostra que os justos sofrem e os ímpios muitas vezes prosperam.
+      </p>
+
+      <h3 id="p2">2. Deus quer curar hoje em dia?</h3>
+
+      <blockquote>
+        “Alguém poderá supor que, se Deus o curasse, evitaria despesas médicas e hospitalares! Mas essa atitude é incorreta. Embora Deus deseje operar milagres ainda hoje, há certas condições que precisam ser observadas. Ele quer que façamos a nossa parte, caso contrário a operação de milagres nos encorajaria à preguiça.”
+      </blockquote>
+
+      <p>
+        Vejamos: se a pessoa precisa fazer exercícios físicos para curar-se de insônia, não adiantará orar, ao mesmo tempo que negligencia os exercícios, pois a oração não é substituto para o trabalho. Embora Deus tenha poder para curar, Ele nem sempre o faz, porque uma doença pode ser usada por Deus como instrumento de correção para produzir frutos <button class="ref" data-ref="2co417">2Co. 4:17</button> <button class="ref" data-ref="2co12">2Co. 12:8,9</button>. Dessa experiência podemos concluir que precisamos confiar na sabedoria divina e aceitar a Sua decisão. Se Ele decidir não nos curar, devemos nos conformar e crer que isto também é para o nosso bem eterno, pois “todas as coisas contribuem para o bem daqueles que amam a Deus” <button class="ref" data-ref="rm828">Rm. 8:28</button>.
+      </p>
+
+      <h3 id="p3">3. Que é exigido para se receber a cura divina?</h3>
+
+      <p>
+        A falta de fé pode paralisar os dons espirituais na igreja; a incredulidade causa impedimentos <button class="ref" data-ref="mt1358">Mt. 13:58</button> / <button class="ref" data-ref="mt928">Mt. 9:28,30</button>. O dom de curar requer fé para ser eficaz; vejamos alguns exemplos:
+      </p>
+
+      <p>
+        <span class="letra">a) A fé exercida por um dos familiares.</span>
+        Na ressurreição da filha de Jairo, a fé foi exclusivamente do pai <button class="ref" data-ref="mc5">Mc. 5:35-43</button>.
+      </p>
+
+      <p>
+        <span class="letra">b) A fé exercida por terceiros.</span>
+        O paralítico trazido por quatro homens e introduzido pelo telhado para chegar a Jesus foi curado pela fé deles <button class="ref" data-ref="mc2">Mc. 2:5</button>.
+      </p>
+
+      <p>
+        <span class="letra">c) A fé exercida pelo paciente.</span>
+        A mulher que sofria de uma hemorragia, num ato de fé tocou na orla do vestido de Jesus <button class="ref" data-ref="mt922">Mt. 9:22</button>. Basta ter fé. Não é necessário enviar roupas, fotografias, etc., pois a enfermidade está no corpo da pessoa e não em seus pertences. É a pessoa que deve ir a Jesus e não seus objetos pessoais. Não há nenhum mandamento expresso ou relatado em que Cristo ou os apóstolos oraram por objetos de enfermos. Tal prática é antibíblica.
+      </p>
+
+      <h3 id="p4">4. Que efeito tem o dom de cura na pregação do Evangelho?</h3>
+
+      <p>
+        <button class="ref" data-ref="at9">At. 9:35</button>
+        <button class="ref" data-ref="jo62">Jo. 6:2</button>
+        <button class="ref" data-ref="mc16">Mc. 16:17,18</button>.
+        A cura divina é importante na evangelização para atrair o povo a ouvir o Evangelho; é um poder para atração. Os habitantes de Lida e Sarona se converteram ao Senhor ao verem Enéias curado. Pela cura Jesus atraía multidões e ministrava-lhes o Evangelho do Reino. Devido às grandes maravilhas e curas realizadas por Filipe, as multidões prestavam grande atenção ao que ele dizia. Os dons de curar servem como rede espiritual para pescar almas. A pregação do Evangelho não deve consistir somente em palavras <button class="ref" data-ref="1ts15">1Ts. 1:5</button>.
+      </p>
+
+      <h3 id="p5">5. Hoje, no caso de enfermidade física, devemos confiar somente em Deus dispensando os cuidados médicos?</h3>
+
+      <p>
+        <button class="ref" data-ref="2cr16">2Cr. 16:12,13</button>.
+        O grande erro do rei Asa foi ter confiado apenas nos médicos de seu tempo, que eram pouco mais do que curandeiros, já que a medicina e a feitiçaria andavam de mãos dadas naqueles tempos remotos. Mesmo hoje, com todos os recursos que temos, não deveríamos jamais prescindir da ajuda divina. Mas confiar em Deus, por outro lado, não significa dispensar os cuidados médicos. Em outras palavras, não devemos optar por um em exclusão do outro, pois Deus deseja operar em associação conosco. Estão redondamente enganados aqueles que querem excluir o uso da medicina!
+      </p>
+
+      <a class="top-link" href="#introducao">Voltar ao início da lição</a>
+    </article>
+  </div>
+
+  <footer>
+    Lição 7 — Dons de Curas · páginas 7A e 7B<br />
+    Textos bíblicos: Almeida Revista e Corrigida · toque na referência para ler.
+  </footer>
+
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet">
+      <div class="sheet-top">
+        <div>
+          <h2 id="sheet-title"></h2>
+          <span class="ver">Almeida Revista e Corrigida</span>
+        </div>
+        <button type="button" class="close" id="fechar" aria-label="Fechar">×</button>
+      </div>
+      <div class="texto" id="sheet-text"></div>
+      <a class="ext" id="sheet-link" href="#" target="_blank" rel="noopener">Abrir este texto na Bíblia Online</a>
+    </div>
+  </div>
+
+  <script>
+    const VERSOS = {
+      "2rs20": {
+        titulo: "2 Reis 20:7",
+        url: "https://www.bibliaonline.com.br/arc/2rs/20/7",
+        html: "<p><strong>7</strong> Disse mais Isaías: Tomai uma pasta de figos. E a tomaram e a puseram sobre a chaga; e ele sarou.</p>"
+      },
+      "at5": {
+        titulo: "Atos 5:15",
+        url: "https://www.bibliaonline.com.br/arc/atos/5/15",
+        html: "<p><strong>15</strong> de sorte que transportavam os enfermos para as ruas e os punham em leitos e em camilhas, para que ao menos a sombra de Pedro, quando este passasse, cobrisse alguns deles.</p>"
+      },
+      "at14": {
+        titulo: "Atos 14:3 e 14:8-10",
+        url: "https://www.bibliaonline.com.br/arc/atos/14/3-10",
+        html: "<p><strong>3</strong> Detiveram-se, pois, muito tempo, falando ousadamente acerca do Senhor, o qual dava testemunho à palavra da sua graça, permitindo que por suas mãos se fizessem sinais e prodígios.</p><p><strong>8</strong> E estava assentado em Listra certo varão leso dos pés, coxo desde o seu nascimento, o qual nunca tinha andado.</p><p><strong>9</strong> Este ouviu falar Paulo, que, fixando nele os olhos e vendo que tinha fé para ser curado,</p><p><strong>10</strong> disse em voz alta: Levanta-te direito sobre teus pés. E ele saltou e andou.</p>"
+      },
+      "lc531": {
+        titulo: "Lucas 5:31",
+        url: "https://www.bibliaonline.com.br/arc/lc/5/31",
+        html: "<p><strong>31</strong> E Jesus, respondendo, disse-lhes: Não necessitam de médico os que estão sãos, mas sim os que estão enfermos.</p>"
+      },
+      "1tm523": {
+        titulo: "1 Timóteo 5:23",
+        url: "https://www.bibliaonline.com.br/arc/1tm/5/23",
+        html: "<p><strong>23</strong> Não bebas mais água só, mas usa de um pouco de vinho, por causa do teu estômago e das tuas frequentes enfermidades.</p>"
+      },
+      "mc16": {
+        titulo: "Marcos 16:17-18",
+        url: "https://www.bibliaonline.com.br/arc/mc/16/17-18",
+        html: "<p><strong>17</strong> E estes sinais seguirão aos que crerem: em meu nome, expulsarão demônios; falarão novas línguas;</p><p><strong>18</strong> pegarão nas serpentes; e, se beberem alguma coisa mortífera, não lhes fará dano algum; e imporão as mãos sobre os enfermos e os curarão.</p>"
+      },
+      "at8": {
+        titulo: "Atos 8:7-13 — Leitura bíblica",
+        url: "https://www.bibliaonline.com.br/arc/atos/8/7-13",
+        html: "<p><strong>7</strong> pois que os espíritos imundos saíam de muitos que os tinham, clamando em alta voz; e muitos paralíticos e coxos eram curados.</p><p><strong>8</strong> E havia grande alegria naquela cidade.</p><p><strong>9</strong> E estava ali um certo homem chamado Simão, que anteriormente exercera naquela cidade a arte mágica e tinha iludido a gente de Samaria, dizendo que era uma grande personagem;</p><p><strong>10</strong> ao qual todos atendiam, desde o mais pequeno até ao maior, dizendo: Este é a grande virtude de Deus.</p><p><strong>11</strong> E atendiam-no a ele, porque já desde muito tempo os havia iludido com artes mágicas.</p><p><strong>12</strong> Mas, como cressem em Filipe, que lhes pregava acerca do Reino de Deus e do nome de Jesus Cristo, se batizavam, tanto homens como mulheres.</p><p><strong>13</strong> E creu até o próprio Simão; e, sendo batizado, ficou, de contínuo, com Filipe e, vendo os sinais e as grandes maravilhas que se faziam, estava atônito.</p>"
+      },
+      "1co129": {
+        titulo: "1 Coríntios 12:9",
+        url: "https://www.bibliaonline.com.br/arc/1co/12/9",
+        html: "<p><strong>9</strong> e a outro, pelo mesmo Espírito, a fé; e a outro, pelo mesmo Espírito, os dons de curar;</p>"
+      },
+      "1co121130": {
+        titulo: "1 Coríntios 12:11 e 12:30",
+        url: "https://www.bibliaonline.com.br/arc/1co/12/11",
+        html: "<p><strong>11</strong> Mas um só e o mesmo Espírito opera todas essas coisas, repartindo particularmente a cada um como quer.</p><p><strong>30</strong> Têm todos o dom de curar? Falam todos diversas línguas? Interpretam todos?</p>"
+      },
+      "tg5": {
+        titulo: "Tiago 5:14-16",
+        url: "https://www.bibliaonline.com.br/arc/tg/5/14-16",
+        html: "<p><strong>14</strong> Está alguém entre vós doente? Chame os presbíteros da igreja, e orem sobre ele, ungindo-o com azeite em nome do Senhor;</p><p><strong>15</strong> e a oração da fé salvará o doente, e o Senhor o levantará; e, se houver cometido pecados, ser-lhe-ão perdoados.</p><p><strong>16</strong> Confessai as vossas culpas uns aos outros e orai uns pelos outros, para que sareis; a oração feita por um justo pode muito em seus efeitos.</p>"
+      },
+      "jo9": {
+        titulo: "João 9:2-3",
+        url: "https://www.bibliaonline.com.br/arc/jo/9/2-3",
+        html: "<p><strong>2</strong> E os seus discípulos lhe perguntaram, dizendo: Rabi, quem pecou, este ou seus pais, para que nascesse cego?</p><p><strong>3</strong> Jesus respondeu: Nem ele pecou, nem seus pais; mas foi assim para que se manifestem nele as obras de Deus.</p>"
+      },
+      "lc13": {
+        titulo: "Lucas 13:2-5",
+        url: "https://www.bibliaonline.com.br/arc/lc/13/2-5",
+        html: "<p><strong>2</strong> E, respondendo Jesus, disse-lhes: Cuidais vós que esses galileus foram mais pecadores do que todos os galileus, por terem padecido tais coisas?</p><p><strong>3</strong> Não, vos digo; antes, se vos não arrependerdes, todos de igual modo perecereis.</p><p><strong>4</strong> E aqueles dezoito sobre os quais caiu a torre de Siloé e os matou, cuidais que foram mais culpados do que todos quantos homens habitam em Jerusalém?</p><p><strong>5</strong> Não, vos digo; antes, se vos não arrependerdes, todos de igual modo perecereis.</p>"
+      },
+      "2co417": {
+        titulo: "2 Coríntios 4:17",
+        url: "https://www.bibliaonline.com.br/arc/2co/4/17",
+        html: "<p><strong>17</strong> Porque a nossa leve e momentânea tribulação produz para nós um peso eterno de glória mui excelente,</p>"
+      },
+      "2co12": {
+        titulo: "2 Coríntios 12:8-9",
+        url: "https://www.bibliaonline.com.br/arc/2co/12/8-9",
+        html: "<p><strong>8</strong> Acerca do qual três vezes orei ao Senhor, para que se desviasse de mim.</p><p><strong>9</strong> E disse-me: A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza. De boa vontade, pois, me gloriarei nas minhas fraquezas, para que em mim habite o poder de Cristo.</p>"
+      },
+      "rm828": {
+        titulo: "Romanos 8:28",
+        url: "https://www.bibliaonline.com.br/arc/rm/8/28",
+        html: "<p><strong>28</strong> E sabemos que todas as coisas contribuem juntamente para o bem daqueles que amam a Deus, daqueles que são chamados por seu decreto.</p>"
+      },
+      "mt1358": {
+        titulo: "Mateus 13:58",
+        url: "https://www.bibliaonline.com.br/arc/mt/13/58",
+        html: "<p><strong>58</strong> E não fez ali muitas maravilhas, por causa da incredulidade deles.</p>"
+      },
+      "mt928": {
+        titulo: "Mateus 9:28-30",
+        url: "https://www.bibliaonline.com.br/arc/mt/9/28-30",
+        html: "<p><strong>28</strong> E, quando chegou à casa, os cegos se aproximaram dele; e Jesus disse-lhes: Credes vós que eu possa fazer isto? Disseram-lhe eles: Sim, Senhor.</p><p><strong>29</strong> Tocou, então, os olhos deles, dizendo: Seja-vos feito segundo a vossa fé.</p><p><strong>30</strong> E os olhos se lhes abriram. E Jesus ameaçou-os, dizendo: Olhai que ninguém o saiba.</p>"
+      },
+      "mc5": {
+        titulo: "Marcos 5:35-43 — A filha de Jairo",
+        url: "https://www.bibliaonline.com.br/arc/mc/5/35-43",
+        html: "<p><strong>35</strong> Estando ele ainda falando, chegaram alguns do principal da sinagoga, a quem disseram: A tua filha está morta; para que enfadas mais o Mestre?</p><p><strong>36</strong> E Jesus, tendo ouvido essas palavras, disse ao principal da sinagoga: Não temas, crê somente.</p><p><strong>37</strong> E não permitiu que alguém o seguisse, a não ser Pedro, e Tiago, e João, irmão de Tiago.</p><p><strong>38</strong> E, tendo chegado à casa do principal da sinagoga, viu o alvoroço e os que choravam muito e pranteavam.</p><p><strong>39</strong> E, entrando, disse-lhes: Por que vos alvoroçais e chorais? A menina não está morta, mas dorme.</p><p><strong>40</strong> E riam-se dele; porém ele, tendo-os feito sair, tomou consigo o pai e a mãe da menina e os que com ele estavam e entrou onde a menina estava deitada.</p><p><strong>41</strong> E, tomando a mão da menina, disse-lhe: Talitá cumi, que, traduzido, é: Menina, a ti te digo: levanta-te.</p><p><strong>42</strong> E logo a menina se levantou e andava, pois já tinha doze anos; e assombraram-se com grande espanto.</p><p><strong>43</strong> E mandou-lhes expressamente que ninguém o soubesse; e disse que lhe dessem de comer.</p>"
+      },
+      "mc2": {
+        titulo: "Marcos 2:3-5 — O paralítico",
+        url: "https://www.bibliaonline.com.br/arc/mc/2/3-5",
+        html: "<p><strong>3</strong> E vieram ter com ele, conduzindo um paralítico, trazido por quatro.</p><p><strong>4</strong> E, não podendo aproximar-se dele, por causa da multidão, descobriram o telhado onde estava e, fazendo um buraco, baixaram o leito em que jazia o paralítico.</p><p><strong>5</strong> E Jesus, vendo-lhes a fé, disse ao paralítico: Filho, perdoados estão os teus pecados.</p>"
+      },
+      "mt922": {
+        titulo: "Mateus 9:22",
+        url: "https://www.bibliaonline.com.br/arc/mt/9/22",
+        html: "<p><strong>22</strong> E Jesus, voltando-se e vendo-a, disse: Tem ânimo, filha, a tua fé te salvou. E imediatamente a mulher ficou sã.</p>"
+      },
+      "at9": {
+        titulo: "Atos 9:33-35 — Enéias",
+        url: "https://www.bibliaonline.com.br/arc/atos/9/33-35",
+        html: "<p><strong>33</strong> E achou ali um certo homem, chamado Enéias, que havia oito anos jazia na cama, porque era paralítico.</p><p><strong>34</strong> E disse-lhe Pedro: Enéias, Jesus Cristo te dá saúde; levanta-te e faze a tua cama. E logo se levantou.</p><p><strong>35</strong> E viram-no todos os que habitavam em Lida e Sarona, os quais se converteram ao Senhor.</p>"
+      },
+      "jo62": {
+        titulo: "João 6:2",
+        url: "https://www.bibliaonline.com.br/arc/jo/6/2",
+        html: "<p><strong>2</strong> E grande multidão o seguia, porque via os sinais que operava sobre os enfermos.</p>"
+      },
+      "1ts15": {
+        titulo: "1 Tessalonicenses 1:5",
+        url: "https://www.bibliaonline.com.br/arc/1ts/1/5",
+        html: "<p><strong>5</strong> porque o nosso evangelho não foi a vós somente em palavras, mas também em poder, e no Espírito Santo, e em muita certeza, como bem sabeis quais fomos entre vós, por amor de vós.</p>"
+      },
+      "2cr16": {
+        titulo: "2 Crônicas 16:12-13",
+        url: "https://www.bibliaonline.com.br/arc/2cr/16/12-13",
+        html: "<p><strong>12</strong> E caiu Asa doente de seus pés no ano trigésimo nono do seu reinado; grande por extremo era a sua enfermidade, e, contudo, na sua enfermidade, não buscou ao Senhor, mas, antes, aos médicos.</p><p><strong>13</strong> E Asa dormiu com seus pais e morreu no ano quarenta e um do seu reinado.</p>"
+      }
+    };
+
+    const overlay = document.getElementById("overlay");
+    const titleEl = document.getElementById("sheet-title");
+    const textEl = document.getElementById("sheet-text");
+    const linkEl = document.getElementById("sheet-link");
+
+    function abrir(id) {
+      const v = VERSOS[id];
+      if (!v) return;
+      titleEl.textContent = v.titulo;
+      textEl.innerHTML = v.html;
+      linkEl.href = v.url;
+      overlay.classList.add("open");
+    }
+
+    function fechar() {
+      overlay.classList.remove("open");
+    }
+
+    document.querySelectorAll("button.ref").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        abrir(btn.getAttribute("data-ref"));
+      });
+    });
+
+    document.getElementById("fechar").addEventListener("click", fechar);
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) fechar();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") fechar();
+    });
+
+    const root = document.documentElement;
+    let size = 20;
+    document.getElementById("maior").addEventListener("click", function () {
+      if (size < 32) { size += 2; root.style.setProperty("--fs", size + "px"); }
+    });
+    document.getElementById("menor").addEventListener("click", function () {
+      if (size > 16) { size -= 2; root.style.setProperty("--fs", size + "px"); }
+    });
+  </script>
+</body>
+</html>
