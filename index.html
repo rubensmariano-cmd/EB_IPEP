@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>EBIPEP — Lições Bíblicas</title>
+  <meta name="theme-color" content="#1e3a5f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="EBIPEP" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
   <style>
 :root {
   --bg: #f6f1e7;
@@ -563,6 +568,10 @@ a.lesson.wait .num { background: #8a8070; }
 
 .view { display: none; }
 .view.on { display: block; }
+a.lesson.locked { opacity: .62; }
+a.lesson.locked .num { background: #7a7264; }
+.lock-note { font-size: .88rem; color: #8b6914; margin-top: .15rem; }
+.locked-panel { background:#fffdf8; border:1px solid #e4d8c0; border-radius:18px; padding:2rem 1.4rem; text-align:center; margin-top:1.2rem; }
 
   </style>
 </head>
@@ -573,7 +582,7 @@ a.lesson.wait .num { background: #8a8070; }
         <img class="logo" src="data:image/jpeg;base64,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" alt="">
         <span>EBIPEP<strong id="brand-sub">Lições Bíblicas</strong></span>
       </a>
-      <div class="controls" aria-label="Tamanho da letra">
+      <div class="controls">
         <a class="btn ghost" href="#inicio">Menu</a>
         <span>Letra</span>
         <button type="button" id="menor">A−</button>
@@ -587,70 +596,122 @@ a.lesson.wait .num { background: #8a8070; }
         <div class="badge">Dons espirituais</div>
         <h1>Lições Bíblicas</h1>
         <p class="subtitle">Escola Bíblica da Igreja Pentecostal do Evangelho Puro</p>
-        <p class="hint">Toque na lição para ler. Um arquivo só — a aula abre nesta mesma página.</p>
+        <p class="hint">Lições 1 a 8 abertas. A partir da 9, cada terça depois das 22h libera a seguinte.</p>
       </header>
+      
+      <div class="card" id="install-box" style="margin-top:1.1rem;text-align:left;">
+        <h2>Instalar no celular</h2>
+        <p style="margin-bottom:.7rem;">Coloque o ícone na tela inicial. Depois abre como aplicativo e funciona sem internet.</p>
+        <button type="button" id="btn-instalar" class="top-link" style="margin-top:.2rem;border:0;cursor:pointer;">Instalar aplicativo</button>
+        <p id="install-help" style="margin-top:.7rem;margin-bottom:0;text-align:left;font-size:.95rem;color:#6b5d45;">No Chrome: três pontinhos → Instalar aplicativo ou Adicionar à tela inicial.</p>
+      </div>
+
       <div class="lesson-list">
-      <a class="lesson" href="#licao-1">
+      <a class="lesson" data-licao="1" href="#licao-1">
         <div class="num"><small>Lição</small><b>1</b></div>
         <div>
           <h3>Talento, dom e fruto</h3>
           <p>Qual a diferença? · Rm 12:1-8</p>
+          <p class="lock-note" hidden></p>
         </div>
         <span class="go">›</span>
       </a>
-      <a class="lesson" href="#licao-2">
+      <a class="lesson" data-licao="2" href="#licao-2">
         <div class="num"><small>Lição</small><b>2</b></div>
         <div>
           <h3>Dons ministeriais</h3>
           <p>Apóstolos, profetas, pastores… · Ef 4:7-14</p>
+          <p class="lock-note" hidden></p>
         </div>
         <span class="go">›</span>
       </a>
-      <a class="lesson" href="#licao-3">
+      <a class="lesson" data-licao="3" href="#licao-3">
         <div class="num"><small>Lição</small><b>3</b></div>
         <div>
           <h3>A importância dos dons</h3>
           <p>Buscar e usar com ordem · 1Co 14:26-40</p>
+          <p class="lock-note" hidden></p>
         </div>
         <span class="go">›</span>
       </a>
-      <a class="lesson" href="#licao-4">
+      <a class="lesson" data-licao="4" href="#licao-4">
         <div class="num"><small>Lição</small><b>4</b></div>
         <div>
           <h3>Palavra da sabedoria</h3>
           <p>Aplicar a verdade no momento certo · Dn 2:19-28</p>
+          <p class="lock-note" hidden></p>
         </div>
         <span class="go">›</span>
       </a>
-      <a class="lesson" href="#licao-5">
+      <a class="lesson" data-licao="5" href="#licao-5">
         <div class="num"><small>Lição</small><b>5</b></div>
         <div>
           <h3>Palavra do conhecimento</h3>
           <p>Revelação que o homem não alcança · Pv 3:13-24</p>
+          <p class="lock-note" hidden></p>
         </div>
         <span class="go">›</span>
       </a>
-      <a class="lesson" href="#licao-6">
+      <a class="lesson" data-licao="6" href="#licao-6">
         <div class="num"><small>Lição</small><b>6</b></div>
         <div>
           <h3>O dom da fé</h3>
           <p>Fé natural, salvadora e sobrenatural · Hb 11:24-40</p>
+          <p class="lock-note" hidden></p>
         </div>
         <span class="go">›</span>
       </a>
-      <a class="lesson" href="#licao-7">
+      <a class="lesson" data-licao="7" href="#licao-7">
         <div class="num"><small>Lição</small><b>7</b></div>
         <div>
           <h3>Dons de curas</h3>
           <p>Fatos bíblicos sobre as curas · At 8:7-13</p>
+          <p class="lock-note" hidden></p>
         </div>
         <span class="go">›</span>
       </a>
-      <a class="lesson" href="#licao-8">
+      <a class="lesson" data-licao="8" href="#licao-8">
         <div class="num"><small>Lição</small><b>8</b></div>
         <div>
           <h3>Operação de maravilhas</h3>
           <p>Sinais e milagres · Jo 6:1-15</p>
+          <p class="lock-note" hidden></p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" data-licao="9" href="#licao-9">
+        <div class="num"><small>Lição</small><b>9</b></div>
+        <div>
+          <h3>Dom de profecia</h3>
+          <p>Fatos concernentes ao dom de profecia</p>
+          <p class="lock-note" hidden></p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" data-licao="10" href="#licao-10">
+        <div class="num"><small>Lição</small><b>10</b></div>
+        <div>
+          <h3>Discernimento de espíritos</h3>
+          <p>Agir acertadamente pelo discernimento</p>
+          <p class="lock-note" hidden></p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" data-licao="11" href="#licao-11">
+        <div class="num"><small>Lição</small><b>11</b></div>
+        <div>
+          <h3>Variedades de línguas</h3>
+          <p>O que a Bíblia fala sobre o dom de línguas</p>
+          <p class="lock-note" hidden></p>
+        </div>
+        <span class="go">›</span>
+      </a>
+      <a class="lesson" data-licao="12" href="#licao-12">
+        <div class="num"><small>Lição</small><b>12</b></div>
+        <div>
+          <h3>Interpretação de línguas</h3>
+          <p>Para que a mensagem seja clara à igreja</p>
+          <p class="lock-note" hidden></p>
         </div>
         <span class="go">›</span>
       </a>
@@ -1374,17 +1435,281 @@ a.lesson.wait .num { background: #8a8070; }
   </div>
   
 </section>
+<section class="view" id="view-licao-9">
+<div class="wrap">
+  <header class="hero">
+    <div class="badge">Lição 9 · 9A / 9B / 9C</div>
+    <h1>DOM DE PROFECIA</h1>
+    <p class="subtitle">Fatos concernentes ao dom de profecia</p>
+    <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura bíblica</h2><p><button class="ref" data-ref="1co1445">1 Coríntios 14:3-6</button> · <button class="ref" data-ref="1co1426">14:26-40</button></p></div>
+      <div class="card"><h2>Objetivo da lição</h2><p>Estudar e relatar fatos concernentes ao dom de profecia.</p></div>
+    </div>
+    <div class="refs">
+      <h2>Textos de apoio</h2>
+      <ul>
+        <li><span>O dom de profecia em Isabel</span><button class="ref" data-ref="lc140">Lc. 1:40-45</button></li>
+        <li><span>Em Maria</span><button class="ref" data-ref="lc146">Lc. 1:46-55</button></li>
+        <li><span>Nos doze homens em Éfeso</span><button class="ref" data-ref="at196">At. 19:6</button></li>
+        <li><span>Nas filhas de Filipe</span><button class="ref" data-ref="at219">At. 21:9</button></li>
+        <li><span>Em Ágabo</span><button class="ref" data-ref="at2110">At. 21:10,11</button></li>
+        <li><span>Falso dom de profecia</span><button class="ref" data-ref="1jo41">1Jo. 4:1-3</button></li>
+      </ul>
+    </div>
+  </header>
+  <nav class="toc">
+    <h2>Índice</h2>
+    <a href="#l9-introducao">Introdução</a>
+    <a href="#l9-p1">1. Finalidades da profecia</a>
+    <a href="#l9-p2">2. Perigos da manifestação</a>
+    <a href="#l9-p3">3. Nossa atitude</a>
+    <a href="#l9-conclusao">Conclusão</a>
+  </nav>
+  <article>
+    <h2 class="sec" id="l9-introducao">INTRODUÇÃO</h2>
+    <p>O dom de profecia <button class="ref" data-ref="1co12711">1Co. 12:10</button>. É preciso distinguir a profecia aqui mencionada, como manifestação momentânea do Espírito, da profecia como dom ministerial na igreja mencionado em <button class="ref" data-ref="ef411">Ef. 4:11</button>. Como dom de ministério, a profecia é concedida a apenas alguns crentes, os quais servem na igreja como ministros profetas. Já como manifestação do Espírito, a profecia está potencialmente disponível a todo cristão cheio d’Ele <button class="ref" data-ref="at217">At. 2:16-18</button>.</p>
+    <p>Quanto à profecia, como manifestação do Espírito, observemos o seguinte:</p>
+    <p><strong>1.</strong> Trata-se de um dom que capacita o crente a transmitir uma palavra ou revelação diretamente de Deus, sob impulso do Espírito Santo <button class="ref" data-ref="1co1426">1Co. 14:24,25,29</button>. Aqui não se trata da entrega do sermão previamente preparado.</p>
+    <p><strong>2.</strong> Tanto no A.T. como no N.T., profetizar não é primariamente predizer o futuro, mas proclamar a vontade de Deus e exortar o Seu povo à retidão, à fidelidade e à paciência.</p>
+    <p><strong>3.</strong> A mensagem profética pode desmascarar a condição do coração de uma pessoa <button class="ref" data-ref="1co1426">1Co. 14:25</button>, ou prover edificação, exortação, consolo, advertência e julgamento <button class="ref" data-ref="1co143">1Co. 14:3</button>.</p>
+    <p><strong>4.</strong> A igreja não deve ter como infalível toda profecia deste tipo, porque muitos falsos profetas estarão na igreja <button class="ref" data-ref="1jo41">1Jo. 4:1</button>. Daí, toda profecia deve ser julgada quanto à sua autenticidade e conteúdo <button class="ref" data-ref="1ts520">1Ts. 5:20,21</button>. Ela deverá enquadrar-se na Palavra de Deus, e contribuir para a santidade de vida dos ouvintes, e ser transmitida por alguém que de fato vive submisso e obediente a Cristo <button class="ref" data-ref="1co1228">1Co. 12:3</button>.</p>
+    <p><strong>5.</strong> O dom de profecia manifesta-se segundo a vontade de Deus e não a do homem. Não há no N.T. um só texto mostrando que a igreja de então buscava revelação ou orientação através dos profetas. A mensagem profética ocorria na igreja somente quando Deus tomava o profeta para isso <button class="ref" data-ref="1co12711">1Co. 12:11</button>.</p>
+    <h2 class="sec">EXPOSIÇÃO</h2>
+    <h3 id="l9-p1">1. Quais as finalidades primordiais da profecia?</h3>
+    <p><button class="ref" data-ref="1co143">1Co. 14:3</button>; <button class="ref" data-ref="at2110">At. 21:10,11</button>. Encontramos no N.T. finalidades primordiais da profecia: edificar, exortar, consolar e predizer acontecimentos futuros. O dom de profecia na igreja é originado pelo Espírito Santo, não somente para predizer algo no futuro, mas para fortalecer a fé do cristão, sua vida espiritual e sua resolução sincera de permanecer fiel a Cristo e aos Seus ensinos. Profetizar não é, porém, pregar um sermão preparado, mas transmitir palavras espontâneas sob impulso do Espírito Santo, para edificação do indivíduo ou da congregação.</p>
+    <p>Note que, em nenhum incidente registrado no N.T., o dom de profecia foi usado para dirigir pessoas em casos que pudessem ser resolvidos pelos princípios bíblicos. As decisões no tocante à moralidade, compra e venda, ao casamento, ao lar e à família devem ser tomadas mediante a aplicação e obediência aos princípios da Palavra de Deus e não meramente à base de uma profecia.</p>
+    <p>No N.T., expressões vocais proféticas visavam, em primeiro lugar, à edificação, exortação e consolação da igreja <button class="ref" data-ref="1co143">1Co. 14:3</button>, e frequentemente à orientação no cumprimento da missão <button class="ref" data-ref="at166">At. 16:6-9</button>.</p>
+    <h3 id="l9-p2">2. Quais os perigos que envolvem a manifestação da profecia na igreja?</h3>
+    <p><span class="letra">a) O perigo do acréscimo por conta de quem profetiza.</span> O Espírito Santo coloca na mente do homem a mensagem, a qual é expressada dentro do vocabulário do instrumento humano. Não havendo especial cuidado, facilmente poderá haver acréscimo, inserindo nela coisas armazenadas no subconsciente. Esse perigo deve ser evitado, caso contrário o enunciado será distorcido e obscurecido.</p>
+    <p><span class="letra">b) O perigo de ser tomada por tão importante a ponto de suprimir o valor da pregação</span> <button class="ref" data-ref="ef411">Ef. 4:11</button>. Em <button class="ref" data-ref="1co1426">1Co. 14:26</button>, Paulo mostra que no culto todos têm direito de atuar; não só monopolizar todo o tempo para si.</p>
+    <p><span class="letra">c) O perigo de introduzir sutilmente heresias e inovações.</span> A verdadeira profecia move o ouvinte a um compromisso irrestrito com a Palavra de Deus escrita. O cristão nunca deve acreditar em uma mensagem profética que não esteja de acordo com os ensinamentos da Bíblia. “As profecias desaparecerão…” <button class="ref" data-ref="1co1313">1Co. 13:8</button>; “A Palavra do Senhor, porém, permanece eternamente” <button class="ref" data-ref="1pe125">1Pe. 1:25</button>.</p>
+    <p><span class="letra">d) O perigo de serem “consultados” os que profetizam.</span> A unção para dar a mensagem permanece na pessoa só durante o momento em que está sendo usada. O Espírito Santo utiliza a pessoa e jamais esta poderá utilizar o dom. O elemento preparado para ser consultado nos diversos problemas é o pastor.</p>
+    <p><span class="letra">e) O perigo de constituir a profecia um elemento de direção.</span> Deve-se evitar aceitar um tipo de “profecia” que revele se deve ou não sair de casa, ou se será bem-sucedido nos afazeres daquele dia. E muito menos nas decisões da igreja, pois para isto existe o presbitério. Deus guia o homem de muitas maneiras segundo a Sua própria vontade.</p>
+    <p><span class="letra">f) O perigo do abuso de profecias quantitativas.</span> “Falem dois ou três profetas…” <button class="ref" data-ref="1co1426">1Co. 14:29</button>. No culto deve haver um tempo certo para cada coisa.</p>
+    <p><span class="letra">g) O perigo de quem profetiza já conhecer os problemas daqueles que recebem a mensagem.</span> Isto irá influenciar no conteúdo. O instrumento deve ser fiel ao Senhor, entregando somente o que recebe.</p>
+    <h3 id="l9-p3">3. Qual deve ser a nossa atitude para com as profecias?</h3>
+    <p><button class="ref" data-ref="1ts520">1Ts. 5:19-21</button>. Paulo compara o extinguir o fogo do Espírito com o desprezo e a rejeição às manifestações sobrenaturais. Reprimir ou rejeitar o uso correto e ordenado da profecia resultará em perda geral da manifestação do Espírito Santo <button class="ref" data-ref="1co12711">1Co. 12:7-10</button>. Toda profecia deve ser avaliada quanto ao seu conteúdo. Os irmãos devem ficar atentos caso a profecia não se cumprir, “porque já muitos falsos profetas se têm levantado” <button class="ref" data-ref="1jo41">1Jo. 4:1</button>.</p>
+    <h2 class="sec" id="l9-conclusao">CONCLUSÃO</h2>
+    <p>O dom de profecia, inspiração que capacita para falar sobrenaturalmente, transmite a mensagem divina, edifica a igreja, ajuda o ministério local; enfim, é o Espírito Santo atuando na igreja!</p>
+    <div class="pager">
+      <a class="top-link" href="#licao-8">‹ Lição 8</a>
+      <a class="top-link" href="#inicio">Menu</a>
+      <a class="top-link" href="#licao-10">Lição 10 ›</a>
+    </div>
+  </article>
+  </div>
+
+</section>
+<section class="view" id="view-licao-10">
+<div class="wrap">
+  <header class="hero">
+    <div class="badge">Lição 10 · 10A / 10B</div>
+    <h1>DOM DE DISCERNIMENTO DE ESPÍRITOS</h1>
+    <p class="subtitle">Agir acertadamente pelo discernimento</p>
+    <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura bíblica</h2><p><button class="ref" data-ref="at138">Atos 13:8-12</button> · <button class="ref" data-ref="at1616">16:16-18</button></p></div>
+      <div class="card"><h2>Objetivo da lição</h2><p>Entender que, em certos casos, somente pelo discernimento é que iremos agir acertadamente.</p></div>
+    </div>
+    <div class="refs">
+      <h2>Textos de apoio</h2>
+      <ul>
+        <li><span>Toda profecia deve ser testada</span><button class="ref" data-ref="dt131">Dt. 13:1-3</button></li>
+        <li><span>Discernir o caráter pelos frutos</span><button class="ref" data-ref="gl522">Gl. 5:22,23</button></li>
+        <li><span>Discernir os ensinos segundo a Bíblia</span><button class="ref" data-ref="gl19">Gl. 1:9</button></li>
+        <li><span>Discernir obreiro verdadeiro do falso</span><button class="ref" data-ref="mt715">Mt. 7:15</button></li>
+        <li><span>Discernir o intento pelo evangelho</span><button class="ref" data-ref="at818">At. 8:18-23</button></li>
+        <li><span>Discernir o real interesse da pessoa</span><button class="ref" data-ref="jo660">Jo. 6:60-66</button></li>
+      </ul>
+    </div>
+  </header>
+  <nav class="toc">
+    <h2>Índice</h2>
+    <a href="#l10-introducao">Introdução</a>
+    <a href="#l10-p1">1. Tipos de inspirações</a>
+    <a href="#l10-p2">2. Por que é importante</a>
+    <a href="#l10-p3">3. Mestre verdadeiro e falso</a>
+    <a href="#l10-p4">4. Quando entra a apostasia</a>
+    <a href="#l10-palavra">Palavra de discernimento</a>
+  </nav>
+  <article>
+    <h2 class="sec" id="l10-introducao">INTRODUÇÃO</h2>
+    <p>O dom de discernimento de espíritos <button class="ref" data-ref="1co12711">1Co. 12:10</button>. Trata-se de uma dotação especial dada pelo Espírito, para o portador do dom discernir e julgar corretamente as profecias e distinguir se uma mensagem provém do Espírito Santo ou não. No fim dos tempos, os falsos mestres e a distorção do Cristianismo bíblico aumentarão muito, e esse dom espiritual será extremamente importante para a igreja.</p>
+    <p>Até os espíritos malignos conseguem agir na congregação através de falsos mestres ou falsos profetas aí presentes <button class="ref" data-ref="1jo41">1Jo. 4:1</button>.</p>
+    <p>O profetizar, o falar línguas estranhas ou a possessão de algum dom sobrenatural não é garantia de que alguém é um genuíno profeta ou cristão, pois os dons espirituais podem ser falsificados por Satanás <button class="ref" data-ref="mt2424">Mt. 24:24</button>.</p>
+    <p>Esse dom dá à igreja capacidade para distinguir entre as forças divinas, humanas e demoníacas. Capacita para conhecer os verdadeiros e falsos possuidores de dons espirituais. Pelo discernimento, o cristão recebe capacitação para julgar que espírito está operando: inspirando ações, milagres, doutrinas ou compaixão <button class="ref" data-ref="mt1623">Mt. 16:23</button>.</p>
+    <h2 class="sec">EXPOSIÇÃO</h2>
+    <h3 id="l10-p1">1. Quais os tipos de inspirações que podem ser manifestadas na igreja?</h3>
+    <p>Há três fontes de manifestações sobrenaturais:</p>
+    <p><strong>A) Manifestação do Espírito Santo:</strong> a verdadeira fonte de onde emanam os dons de revelação, poder e inspiração para beneficiar a humanidade e glorificar a Deus <button class="ref" data-ref="at24">At. 2:4</button>.</p>
+    <p><strong>B) Manifestação humana (da carne):</strong> muitas profecias e revelações podem representar o pensamento humano daquele que apresenta a mensagem. Devemos combater esse tipo de profeta na igreja <button class="ref" data-ref="jr1414">Jr. 14:14</button>.</p>
+    <p><strong>C) Manifestação demoníaca:</strong> provém de uma fonte impura. Saul consultou uma feiticeira a fim de se comunicar com Samuel que já havia morrido <button class="ref" data-ref="1sm287">1Sm. 28:7-15</button>. Tudo isso serve como advertência para que a igreja busque o dom de discernimento.</p>
+    <h3 id="l10-p2">2. Por que o dom de discernir os espíritos é importante para a igreja?</h3>
+    <p>O crente precisa do dom de discernir para distinguir obreiros que podem enganar-se e enganar os outros com mistura de verdade e falsidade. A autenticidade do ministério de uma pessoa e do seu ensino não deve ser avaliada apenas pela pregação talentosa ou pelo número de decisões.</p>
+    <p>Todos devem procurar conhecer o caráter e a vida daqueles que se dizem verdadeiros. Ministros que buscam popularidade, importância e atenção, que amam honrarias e títulos, são religiosos profissionais: na aparência espirituais, mas visam somente manter-se na liderança do povo <button class="ref" data-ref="mt235">Mt. 23:5-7</button>.</p>
+    <h3 id="l10-p3">3. É fácil discernir o mestre verdadeiro do falso?</h3>
+    <p>“E, por avareza, farão de vós negócio com palavras fingidas…” <button class="ref" data-ref="2pe23">2Pe. 2:3</button>. Os falsos ministros comercializarão o evangelho, sendo peritos em arrancar dinheiro dos irmãos, sem se importar com a condição em que estão vivendo.</p>
+    <p>Verifiquem isso, irmãos: se o líder demonstra grande interesse em administrar principalmente a parte financeira, com o pretexto de crescimento da Obra, e não renuncia à sua posição mesmo pressionado, visa somente o seu bem-estar <button class="ref" data-ref="zc1117">Zc. 11:17</button>. “Se alguém ensina outra doutrina e não concorda com as sãs palavras de nosso Senhor Jesus Cristo… é porque é soberbo, nada entende… supondo que a piedade é fonte de lucro” <button class="ref" data-ref="1tm63">1Tm. 6:3-5</button>.</p>
+    <h3 id="l10-p4">4. Quando a apostasia entra na igreja, qual deve ser a atitude de cada um?</h3>
+    <p>Todos na igreja devem amar, estimar e proteger as Escrituras como um tesouro, tendo-as como a única verdade de Deus para o mundo perdido. Devemos manter puras as suas doutrinas, proclamando a salvação e defendendo-as contra todos que procurarem destruir ou distorcer suas verdades eternas <button class="ref" data-ref="2tm113">2Tm. 1:13,14</button>; <button class="ref" data-ref="jd3">Jd. 3</button>. Ninguém tem autoridade de acrescentar ou subtrair qualquer coisa da Escritura <button class="ref" data-ref="ap2219">Dt. 4:2; Ap. 22:19</button>.</p>
+    <h2 class="sec" id="l10-palavra">PALAVRA DE DISCERNIMENTO</h2>
+    <p>Será que os atuais líderes que advogam ser os verdadeiros representantes de Deus no Brasil ousariam repartir seus bons salários e comodidades com os menos favorecidos na igreja? Sabemos de irmãos e irmãs que andam quilômetros a pé para congregar, porque mal têm dinheiro para comer.</p>
+    <p>Na igreja primitiva os direitos eram iguais: “E era um o coração e a alma da multidão dos que criam, e ninguém dizia que coisa alguma do que possuía era sua própria… Não havia, pois, entre eles necessitado algum…” <button class="ref" data-ref="at43133">At. 4:32-35</button>. E hoje, os “modernos apóstolos” seguem aqueles exemplos? Não deixe de ler <button class="ref" data-ref="ez341">Ez. 34:1-4</button>. Julgue você mesmo, irmão. As ovelhas ficam sem a lã e a gordura!</p>
+    <div class="pager">
+      <a class="top-link" href="#licao-9">‹ Lição 9</a>
+      <a class="top-link" href="#inicio">Menu</a>
+      <a class="top-link" href="#licao-11">Lição 11 ›</a>
+    </div>
+  </article>
+  </div>
+
+</section>
+<section class="view" id="view-licao-11">
+<div class="wrap">
+  <header class="hero">
+    <div class="badge">Lição 11 · 11A / 11B</div>
+    <h1>DOM DE VARIEDADES DE LÍNGUAS</h1>
+    <p class="subtitle">O que a Bíblia fala sobre o dom de línguas</p>
+    <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura bíblica</h2><p><button class="ref" data-ref="at213">Atos 2:1-13</button></p></div>
+      <div class="card"><h2>Objetivo da lição</h2><p>Esclarecer o que a Bíblia fala sobre o dom de línguas.</p></div>
+    </div>
+    <div class="refs">
+      <h2>Textos de apoio</h2>
+      <ul>
+        <li><span>Pode-se orar em línguas estranhas</span><button class="ref" data-ref="1co1414">1Co. 14:14</button></li>
+        <li><span>Falar em línguas em devoção particular</span><button class="ref" data-ref="1co1445">1Co. 14:5</button></li>
+        <li><span>Línguas sem interpretação edifica a pessoa</span><button class="ref" data-ref="1co1445">1Co. 14:4</button></li>
+        <li><span>É recomendado falar línguas estranhas</span><button class="ref" data-ref="1co1445">1Co. 14:5</button></li>
+        <li><span>Falar no máximo três e por sua vez</span><button class="ref" data-ref="1co1426">1Co. 14:27</button></li>
+        <li><span>Não havendo intérprete, fale em silêncio</span><button class="ref" data-ref="1co1426">1Co. 14:28</button></li>
+      </ul>
+    </div>
+  </header>
+  <nav class="toc">
+    <h2>Índice</h2>
+    <a href="#l11-introducao">Introdução</a>
+    <a href="#l11-p1">1. A promessa de Jesus</a>
+    <a href="#l11-p2">2. Benefícios do dom</a>
+    <a href="#l11-p3">3. Ordem para não haver abuso</a>
+    <a href="#l11-conclusao">Conclusão</a>
+  </nav>
+  <article>
+    <h2 class="sec" id="l11-introducao">INTRODUÇÃO</h2>
+    <p>O dom de variedades de línguas <button class="ref" data-ref="1co12711">1Co. 12:10</button>. Para aniquilar a existência do dom nos dias atuais, muitas denominações pregam que o dom foi necessário somente no dia de Pentecoste; que hoje caducou e desapareceu. Há ainda quem diz que o dom foi somente para os evangelistas que não tiveram acesso ao estudo de idiomas. Tudo pura especulação, porque, se tal argumento fosse verdade, na casa de Cornélio Pedro, sendo judeu, deveria ser quem falasse noutras línguas; porém o texto diz que os ouvintes receberam o Espírito Santo e falaram línguas <button class="ref" data-ref="at1044">At. 10:44-46</button>.</p>
+    <h2 class="sec">EXPOSIÇÃO</h2>
+    <h3 id="l11-p1">1. Antes de subir ao Pai, que promessa fez Jesus a todos os Seus servos?</h3>
+    <p><button class="ref" data-ref="mc16">Mc. 16:17</button> — ler os textos.</p>
+    <h3 id="l11-p2">2. Quais são os benefícios do dom de variedades de línguas?</h3>
+    <p>Falar noutras línguas é uma manifestação sobrenatural do Espírito Santo: uma expressão vocal inspirada, mediante a qual o cristão fala numa língua que nunca aprendeu <button class="ref" data-ref="at24">At. 2:4</button>; <button class="ref" data-ref="1co1414">1Co. 14:14,15</button>. Estas línguas podem ser humanas <button class="ref" data-ref="at213">At. 2:8</button>, ou desconhecidas na Terra <button class="ref" data-ref="1co1313">1Co. 13:1</button>.</p>
+    <p>A língua falada através deste dom não é aprendida, e quase sempre não é entendida, tanto por quem fala <button class="ref" data-ref="1co1414">1Co. 14:14</button> como pelos ouvintes <button class="ref" data-ref="1co1414">1Co. 14:16</button>; daí a necessidade do dom de interpretação. O falar noutras línguas faculta ao crente a comunicação direta com Deus, na oração, no louvor e na ação de graças <button class="ref" data-ref="rm826">Rm. 8:26</button>; <button class="ref" data-ref="jd20">Jd. 20</button>.</p>
+    <p>As línguas estranhas faladas no culto devem ser seguidas de sua interpretação, para que a congregação conheça o conteúdo da mensagem <button class="ref" data-ref="1co1426">1Co. 14:27,28</button>. Ela pode conter revelação, advertência, profecia ou ensino <button class="ref" data-ref="1co1445">1Co. 14:6</button>.</p>
+    <p>Quem fala em línguas pelo Espírito nunca fica “fora de controle” ou “histérico” <button class="ref" data-ref="1co1426">1Co. 14:27,28</button>.</p>
+    <h3 id="l11-p3">3. Como devemos proceder para que não haja abuso e confusão na igreja?</h3>
+    <p>Paulo deixou bem claro que, no uso dos dons, deve haver ordem e equilíbrio. Os irmãos de Corinto exageravam a importância do dom de línguas em detrimento de outros dons e o usavam sem interpretação. Segue-se um esboço de <strong>1 Coríntios 14</strong>:</p>
+    <p><strong>a)</strong> A profecia edifica a igreja mais do que as línguas sem interpretação, vv. 1-4.</p>
+    <p><strong>b)</strong> A profecia e as línguas com interpretação têm igual importância, v. 5.</p>
+    <p><strong>c)</strong> Falar em línguas sem interpretação não beneficia os outros, vv. 6-12.</p>
+    <p><strong>d)</strong> O que fala ou ora em línguas no culto deve orar pedindo o dom da interpretação, v. 13.</p>
+    <p><strong>e)</strong> Na vida pessoal de Paulo, falar com Deus em línguas é adoração e crescimento, vv. 14-19.</p>
+    <p><strong>f)</strong> A profecia é mais útil que as línguas sem interpretação, vv. 20-25.</p>
+    <p><strong>g)</strong> O falar em línguas e o profetizar devem ser regulados para prevalecer a ordem, vv. 26-30.</p>
+    <p><strong>h)</strong> Numa só reunião, no máximo dois ou três, e somente com interpretação, vv. 27,28.</p>
+    <p><strong>i)</strong> Falar em línguas deve ser feito por uma pessoa de cada vez, v. 27.</p>
+    <p><strong>j)</strong> Toda enunciação em línguas deve ser julgada pela igreja, vv. 29,32.</p>
+    <p><strong>k)</strong> Não havendo intérprete, o crente pode, em silêncio, falar em línguas em oração pessoal, v. 28.</p>
+    <h2 class="sec" id="l11-conclusao">CONCLUSÃO</h2>
+    <p>No culto público, as línguas não interpretadas são colocadas em segundo plano, conforme 1 Coríntios 14. Entretanto, para edificação o dom é encorajado, conforme os versículos 5, 18 e 19.</p>
+    <p>As igrejas que afirmam seguir a Palavra de Deus devem procurar com zelo os dons espirituais, não proibir o falar em línguas e, sobretudo, buscar o dom de profecia.</p>
+    <blockquote>“Portanto, irmãos, procurai com zelo profetizar e não proibais falar línguas.” <button class="ref" data-ref="1co1439">1Co. 14:39</button></blockquote>
+    <div class="pager">
+      <a class="top-link" href="#licao-10">‹ Lição 10</a>
+      <a class="top-link" href="#inicio">Menu</a>
+      <a class="top-link" href="#licao-12">Lição 12 ›</a>
+    </div>
+  </article>
+  </div>
+
+</section>
+<section class="view" id="view-licao-12">
+<div class="wrap">
+  <header class="hero">
+    <div class="badge">Lição 12 · 12A / 12B</div>
+    <h1>DOM DE INTERPRETAÇÃO DE LÍNGUAS</h1>
+    <p class="subtitle">Para que a mensagem seja clara à igreja</p>
+    <p class="hint">Toque em qualquer referência azul para ler o versículo.</p>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura bíblica</h2><p><button class="ref" data-ref="dn21928">Daniel 2:19-28</button></p></div>
+      <div class="card"><h2>Objetivo da lição</h2><p>Falar sobre o dom de interpretação de línguas.</p></div>
+    </div>
+    <div class="refs">
+      <h2>Textos de apoio</h2>
+      <ul>
+        <li><span>É preciso orar para poder interpretar</span><button class="ref" data-ref="1co1414">1Co. 14:13</button></li>
+        <li><span>A interpretação traz edificação à igreja</span><button class="ref" data-ref="1co1426">1Co. 14:26</button></li>
+        <li><span>Língua não interpretada fica sem fruto</span><button class="ref" data-ref="1co1414">1Co. 14:14</button></li>
+        <li><span>Profecia e línguas interpretadas edificam</span><button class="ref" data-ref="1co1445">1Co. 14:5</button></li>
+        <li><span>Não proibir falar línguas</span><button class="ref" data-ref="1co1439">1Co. 14:39</button></li>
+        <li><span>Culto com dons e ordem</span><button class="ref" data-ref="1co1426">1Co. 14:26-34</button></li>
+      </ul>
+    </div>
+  </header>
+  <nav class="toc">
+    <h2>Índice</h2>
+    <a href="#l12-introducao">Introdução</a>
+    <a href="#l12-p1">1. Para o dom ser proveitoso</a>
+    <a href="#l12-p2">2. Sem interpretação, a que Paulo compara</a>
+    <a href="#l12-p3">3. Como ser cheio do Espírito</a>
+    <a href="#l12-p4">4. Quem deixa de buscar o Espírito</a>
+    <a href="#l12-conclusao">Conclusão</a>
+  </nav>
+  <article>
+    <h2 class="sec" id="l12-introducao">INTRODUÇÃO</h2>
+    <p>Dom de interpretação de línguas <button class="ref" data-ref="1co12711">1Co. 12:10</button>; <button class="ref" data-ref="1co1414">14:13</button>. Trata-se da capacidade concedida pelo Espírito Santo para compreender e transmitir o significado de uma mensagem dada em línguas. Toda a congregação pode assim desfrutar dessa revelação. A interpretação pode ser um meio de edificação da congregação inteira <button class="ref" data-ref="1co1445">1Co. 14:6,13,26</button>.</p>
+    <p>A interpretação pode vir através de quem deu a mensagem em línguas, ou de outra pessoa. Quem fala em línguas deve orar para que possa interpretá-las <button class="ref" data-ref="1co1414">1Co. 14:13</button>.</p>
+    <p>Na igreja, o dom da interpretação é de extrema importância, pois as línguas assumem real significado; quando interpretadas, passam a edificar, exortar e consolar a igreja <button class="ref" data-ref="1co143">1Co. 14:3,5</button>.</p>
+    <h2 class="sec">EXPOSIÇÃO</h2>
+    <h3 id="l12-p1">1. O que é necessário para que o dom de línguas seja proveitoso na igreja?</h3>
+    <p>A interpretação é dada pelo Espírito Santo, sem que o intérprete compreenda intelectualmente a língua usada. Quando um crente está falando línguas, tanto pode a interpretação ser dada a ele mesmo como a outro que estiver presente <button class="ref" data-ref="1co1445">1Co. 14:5,27</button>.</p>
+    <h3 id="l12-p2">2. Sem interpretação, a que compara Paulo as línguas?</h3>
+    <p>Paulo não faz nenhuma proibição ao falar línguas estranhas <button class="ref" data-ref="1co1439">1Co. 14:39</button>, porém critica o emprego desordenado, sobretudo se não forem interpretadas <button class="ref" data-ref="1co1445">1Co. 14:6</button>.</p>
+    <p>Compara as línguas com instrumentos musicais: não sendo interpretadas, são semelhantes ao instrumento que não produz melodia, só ruído. A melodia de uma trombeta encerra uma mensagem distinta. Quando uma corneta dá um sinal desconhecido, ninguém saberá reagir. Assim Deus, quando quer dirigir Sua mensagem à comunidade, fá-lo-á de modo claro e compreensível — o sinal tem de ser entendido ou interpretado.</p>
+    <p>Para ser proveitosa a mensagem, regulamentou-se: no máximo três podiam falar, e cada um por sua vez. Muitos entendem os regulamentos de Paulo como proibição; mas suas palavras conclusivas dizem: “Não proibais falar línguas”; “Mas faça-se tudo decentemente e com ordem” <button class="ref" data-ref="1co1439">1Co. 14:39,40</button>.</p>
+    <h3 id="l12-p3">3. O que o crente deve fazer para ser cheio do Espírito Santo?</h3>
+    <p>Apartar-se do pecado e do mundo <button class="ref" data-ref="at240">At. 2:40</button>; abandonar tudo o que ofende a Deus, para ser “vaso para honra, santificado e idôneo para uso do Senhor” <button class="ref" data-ref="2tm221">2Tm. 2:21</button>; querer ser cheio do Espírito <button class="ref" data-ref="jo737">Jo. 7:37-39</button>.</p>
+    <p>Os resultados aos que buscam ser cheios do Espírito:</p>
+    <p>• mensagens proféticas e louvores <button class="ref" data-ref="at217">At. 2:17</button>;</p>
+    <p>• maior sensibilidade contra o pecado e busca da retidão <button class="ref" data-ref="jo168">Jo. 16:8</button>;</p>
+    <p>• uma vida que glorifica a Jesus Cristo <button class="ref" data-ref="jo1613">Jo. 16:13,14</button>;</p>
+    <p>• visões da parte do Espírito <button class="ref" data-ref="at217">At. 2:17</button>;</p>
+    <p>• manifestação dos vários dons <button class="ref" data-ref="1co12711">1Co. 12:1-10</button>;</p>
+    <p>• maior desejo de orar e interceder <button class="ref" data-ref="rm826">Rm. 8:26</button>;</p>
+    <p>• maior amor à Palavra de Deus <button class="ref" data-ref="jo1613">Jo. 16:13</button>;</p>
+    <p>• convicção de Deus como nosso Pai <button class="ref" data-ref="rm815">Rm. 8:15</button>; <button class="ref" data-ref="gl46">Gl. 4:6</button>.</p>
+    <h3 id="l12-p4">4. O que acontece com aquele que deixa de buscar a presença do Espírito?</h3>
+    <p>Há um limite para a paciência de Deus. O crente que continua a pecar intencionalmente <button class="ref" data-ref="hb1026">Hb. 10:26</button>, e se recusa a arrepender-se, pode chegar a um ponto sem retorno <button class="ref" data-ref="hb64">Hb. 6:4-6</button>.</p>
+    <p>O Espírito Santo só permanecerá na vida do crente mediante a oração, o testemunho e uma vida santificada. Por mais poderosa que seja a experiência espiritual, se ela não for expressa numa vida de oração, testemunho e santidade, logo se tornará numa glória desvanecente.</p>
+    <h2 class="sec" id="l12-conclusao">CONCLUSÃO</h2>
+    <p>Assim como os apóstolos e os crentes primitivos viram sinais, maravilhas e ouviram mensagens edificantes resultantes da interpretação das línguas, por que não igualmente hoje a Igreja de Deus ter aqueles mesmos sinais? Basta ter fé.</p>
+    <blockquote>“Porque a promessa vos diz respeito a vós, a vossos filhos e a todos os que estão longe: a tantos quantos Deus, nosso Senhor, chamar.” <button class="ref" data-ref="at239">At. 2:39</button></blockquote>
+    <div class="pager">
+      <a class="top-link" href="#licao-11">‹ Lição 11</a>
+      <a class="top-link" href="#inicio">Menu</a>
+    </div>
+  </article>
+  </div>
+
+</section>
   <div class="overlay" id="overlay" role="dialog" aria-modal="true">
     <div class="sheet">
       <div class="sheet-top">
-        <div>
-          <h2 id="sheet-title"></h2>
-          <span class="ver">Almeida Revista e Corrigida</span>
-        </div>
+        <div><h2 id="sheet-title"></h2><span class="ver">Almeida Revista e Corrigida</span></div>
         <button type="button" class="close" id="fechar" aria-label="Fechar">×</button>
       </div>
       <div class="texto" id="sheet-text"></div>
-      <a class="ext" id="sheet-link" href="#" target="_blank" rel="noopener">Abrir este texto na Bíblia Online</a>
+      <a class="ext" id="sheet-link" href="#" target="_blank" rel="noopener">Abrir na Bíblia Online</a>
     </div>
   </div>
   <script>
@@ -1658,6 +1983,92 @@ a.lesson.wait .num { background: #8a8070; }
       "<p><strong>21</strong> Nem todo o que me diz: Senhor, Senhor! entrará no Reino dos céus, mas aquele que faz a vontade de meu Pai, que está nos céus.</p><p><strong>22</strong> Muitos me dirão naquele Dia: Senhor, Senhor, não profetizamos nós em teu nome? E, em teu nome, não expulsamos demônios? E, em teu nome, não fizemos muitas maravilhas?</p><p><strong>23</strong> E, então, lhes direi abertamente: Nunca vos conheci; apartai-vos de mim, vós que praticais a iniquidade.</p>"),
     "jo114": V("João 11:4, 14-15 e 43-45", "jo/11/4",
       "<p><strong>4</strong> E Jesus, ouvindo isso, disse: Esta enfermidade não é para morte, mas para glória de Deus, para que o Filho de Deus seja glorificado por ela.</p><p><strong>14</strong> Então, Jesus disse-lhes claramente: Lázaro está morto;</p><p><strong>15</strong> e folgo, por amor de vós, de que eu lá não estivesse, para que acrediteis; mas vamos ter com ele.</p><p><strong>43</strong> E, tendo dito isso, clamou com grande voz: Lázaro, vem para fora.</p><p><strong>44</strong> E o defunto saiu, tendo as mãos e os pés ligados com faixas, e o seu rosto, envolto num lenço. Disse-lhes Jesus: Desligai-o e deixai-o ir.</p><p><strong>45</strong> Muitos, pois, dentre os judeus que tinham vindo a Maria e que tinham visto o que Jesus fizera, creram nele.</p>"),
+    "lc140": V("Lucas 1:40-45", "lc/1/40-45",
+      "<p><strong>40</strong> E entrou em casa de Zacarias e saudou a Isabel.</p><p><strong>41</strong> E aconteceu que, ao ouvir Isabel a saudação de Maria, a criancinha saltou no seu ventre; e Isabel foi cheia do Espírito Santo,</p><p><strong>42</strong> e exclamou com grande voz, e disse: Bendita és tu entre as mulheres, e bendito o fruto do teu ventre.</p><p><strong>43</strong> E de onde me provém isto a mim, que venha visitar-me a mãe do meu Senhor?</p><p><strong>44</strong> Pois eis que, ao chegar aos meus ouvidos a voz da tua saudação, a criancinha saltou de alegria no meu ventre.</p><p><strong>45</strong> Bem-aventurada a que creu, pois hão de cumprir-se as coisas que da parte do Senhor lhe foram ditas.</p>"),
+    "lc146": V("Lucas 1:46-55", "lc/1/46-55",
+      "<p><strong>46</strong> Disse, então, Maria: A minha alma engrandece ao Senhor,</p><p><strong>47</strong> e o meu espírito se alegra em Deus, meu Salvador,</p><p><strong>48</strong> porque atentou na baixeza de sua serva; pois eis que, desde agora, todas as gerações me chamarão bem-aventurada,</p><p><strong>49</strong> porque me fez grandes coisas o Poderoso; e santo é o seu nome.</p><p><strong>50</strong> E a sua misericórdia é de geração em geração sobre os que o temem.</p><p><strong>51</strong> Com o seu braço agiu valorosamente; dissipou os soberbos no pensamento de seus corações.</p><p><strong>52</strong> Depôs dos tronos os poderosos e elevou os humildes.</p><p><strong>53</strong> Encheu de bens os famintos, e despediu vazios os ricos.</p><p><strong>54</strong> Auxiliou a Israel, seu servo, recordando-se da sua misericórdia,</p><p><strong>55</strong> como falou a nossos pais, para com Abraão e a sua posteridade, para sempre.</p>"),
+    "at196": V("Atos 19:6", "atos/19/6",
+      "<p><strong>6</strong> E, impondo-lhes Paulo as mãos, veio sobre eles o Espírito Santo; e falavam línguas e profetizavam.</p>"),
+    "at219": V("Atos 21:9", "atos/21/9",
+      "<p><strong>9</strong> E tinha este quatro filhas virgens, que profetizavam.</p>"),
+    "at2110": V("Atos 21:10-11", "atos/21/10-11",
+      "<p><strong>10</strong> E, demorando-nos ali por muitos dias, chegou da Judeia um profeta, por nome Ágabo,</p><p><strong>11</strong> e, vindo ter conosco, tomou a cinta de Paulo e, ligando-se os seus próprios pés e mãos, disse: Isto diz o Espírito Santo: Assim ligarão os judeus, em Jerusalém, o homem de quem é esta cinta e o entregarão nas mãos dos gentios.</p>"),
+    "1jo41": V("1 João 4:1-3", "1jo/4/1-3",
+      "<p><strong>1</strong> Amados, não creiais a todo espírito, mas provai se os espíritos são de Deus, porque já muitos falsos profetas se têm levantado no mundo.</p><p><strong>2</strong> Nisto conhecereis o Espírito de Deus: todo espírito que confessa que Jesus Cristo veio em carne é de Deus;</p><p><strong>3</strong> e todo espírito que não confessa que Jesus Cristo veio em carne não é de Deus; mas este é o espírito do anticristo, do qual já ouvistes que há de vir, e eis que já está no mundo.</p>"),
+    "at217": V("Atos 2:16-18", "atos/2/16-18",
+      "<p><strong>16</strong> Mas isto é o que foi dito pelo profeta Joel:</p><p><strong>17</strong> E nos últimos dias acontecerá, diz Deus, que do meu Espírito derramarei sobre toda a carne; e os vossos filhos e as vossas filhas profetizarão, os vossos jovens terão visões, e os vossos velhos terão sonhos;</p><p><strong>18</strong> e também do meu Espírito derramarei sobre os meus servos e as minhas servas, naqueles dias, e profetizarão;</p>"),
+    "1ts520": V("1 Tessalonicenses 5:19-21", "1ts/5/19-21",
+      "<p><strong>19</strong> Não extingais o Espírito.</p><p><strong>20</strong> Não desprezeis as profecias.</p><p><strong>21</strong> Examinai tudo. Retende o bem.</p>"),
+    "1pe125": V("1 Pedro 1:25", "1pe/1/25",
+      "<p><strong>25</strong> mas a palavra do Senhor permanece para sempre. E esta é a palavra que entre vós foi evangelizada.</p>"),
+    "at166": V("Atos 16:6-9", "atos/16/6-9",
+      "<p><strong>6</strong> E, passando pela Frígia e pela província da Galácia, foram impedidos pelo Espírito Santo de anunciar a palavra na Ásia.</p><p><strong>7</strong> E, quando chegaram a Mísia, intentavam ir para Bitínia, mas o Espírito de Jesus não lho permitiu.</p><p><strong>8</strong> E, tendo passado por Mísia, desceram a Trôade.</p><p><strong>9</strong> E Paulo teve de noite uma visão, em que se apresentou um varão da Macedônia e lhe rogou, dizendo: Passa à Macedônia e ajuda-nos.</p>"),
+    "at138": V("Atos 13:8-12", "atos/13/8-12",
+      "<p><strong>8</strong> Mas resistia-lhes Elimas, o encantador (porque assim se interpreta o seu nome), procurando apartar da fé o procônsul.</p><p><strong>9</strong> Todavia, Saulo, que também se chama Paulo, cheio do Espírito Santo e fixando os olhos nele, disse:</p><p><strong>10</strong> Ó filho do diabo, cheio de todo o engano e de toda a malícia, inimigo de toda a justiça, não cessarás de perturbar os retos caminhos do Senhor?</p><p><strong>11</strong> Eis aí, pois, agora, contra ti a mão do Senhor, e ficarás cego, sem ver o sol por algum tempo. E no mesmo instante a escuridão e as trevas caíram sobre ele, e, andando à roda, buscava a quem o guiasse pela mão.</p><p><strong>12</strong> Então o procônsul, vendo o que havia acontecido, creu, maravilhado da doutrina do Senhor.</p>"),
+    "at1616": V("Atos 16:16-18", "atos/16/16-18",
+      "<p><strong>16</strong> E aconteceu que, indo nós à oração, nos saiu ao encontro uma jovem que tinha espírito de adivinhação, a qual, adivinhando, dava grande lucro aos seus senhores.</p><p><strong>17</strong> Esta, seguindo a Paulo e a nós, clamava, dizendo: Estes homens, que nos anunciam o caminho da salvação, são servos do Deus Altíssimo.</p><p><strong>18</strong> E isto fez ela por muitos dias. Mas Paulo, perturbado, voltou-se e disse ao espírito: Em nome de Jesus Cristo, te mando que saias dela. E, na mesma hora, saiu.</p>"),
+    "dt131": V("Deuteronômio 13:1-3", "dt/13/1-3",
+      "<p><strong>1</strong> Quando profeta ou sonhador de sonhos se levantar no meio de ti e te der um sinal ou prodígio,</p><p><strong>2</strong> e suceder o tal sinal ou prodígio de que te houver falado, dizendo: Vamos após outros deuses, que não conheceste, e sirvamo-los,</p><p><strong>3</strong> não ouvirás as palavras daquele profeta ou sonhador de sonhos, porquanto o Senhor, vosso Deus, vos prova, para saber se amais o Senhor, vosso Deus, com todo o vosso coração e com toda a vossa alma.</p>"),
+    "gl19": V("Gálatas 1:9", "gl/1/9",
+      "<p><strong>9</strong> Assim como já vo-lo dissemos, agora de novo também vo-lo digo: Se alguém vos anunciar outro evangelho além do que já recebestes, seja anátema.</p>"),
+    "mt715": V("Mateus 7:15", "mt/7/15",
+      "<p><strong>15</strong> Acautelai-vos, porém, dos falsos profetas, que vêm até vós vestidos como ovelhas, mas interiormente são lobos devoradores.</p>"),
+    "at818": V("Atos 8:18-23", "atos/8/18-23",
+      "<p><strong>18</strong> E Simão, vendo que pela imposição das mãos dos apóstolos era dado o Espírito Santo, lhes ofereceu dinheiro,</p><p><strong>19</strong> dizendo: Dai-me também a mim esse poder, para que aquele sobre quem eu puser as mãos receba o Espírito Santo.</p><p><strong>20</strong> Mas disse-lhe Pedro: O teu dinheiro seja contigo para perdição, pois cuidaste que o dom de Deus se alcança por dinheiro.</p><p><strong>21</strong> Tu não tens parte nem sorte nesta palavra, porque o teu coração não é reto diante de Deus.</p><p><strong>22</strong> Arrepende-te, pois, dessa tua iniquidade e ora a Deus, para que, porventura, te seja perdoado o pensamento do teu coração;</p><p><strong>23</strong> pois vejo que estás em fel de amargura e em laço de iniquidade.</p>"),
+    "jo660": V("João 6:60-66", "jo/6/60-66",
+      "<p><strong>60</strong> Muitos, pois, dos seus discípulos, ouvindo isto, disseram: Duro é este discurso; quem o pode ouvir?</p><p><strong>61</strong> Sabendo, pois, Jesus em si mesmo que os seus discípulos murmuravam disto, disse-lhes: Isto vos escandaliza?</p><p><strong>62</strong> Que seria, pois, se vísseis subir o Filho do Homem para onde primeiro estava?</p><p><strong>63</strong> O espírito é o que vivifica, a carne para nada aproveita; as palavras que eu vos disse são espírito e vida.</p><p><strong>64</strong> Mas há alguns de vós que não creem. Porque bem sabia Jesus, desde o princípio, quem eram os que não criam e quem era o que o havia de entregar.</p><p><strong>65</strong> E dizia: Por isso, eu vos disse que ninguém pode vir a mim, se por meu Pai não lhe for concedido.</p><p><strong>66</strong> Desde então, muitos dos seus discípulos tornaram para trás e já não andavam com ele.</p>"),
+    "mt2424": V("Mateus 24:24", "mt/24/24",
+      "<p><strong>24</strong> Porque surgirão falsos cristos e falsos profetas e farão tão grandes sinais e prodígios, que, se possível fora, enganariam até os escolhidos.</p>"),
+    "mt1623": V("Mateus 16:23", "mt/16/23",
+      "<p><strong>23</strong> Ele, porém, voltando-se, disse a Pedro: Para trás de mim, Satanás, que me serves de escândalo; porque não compreendes as coisas que são de Deus, mas só as que são dos homens.</p>"),
+    "jr1414": V("Jeremias 14:14", "jr/14/14",
+      "<p><strong>14</strong> E disse-me o Senhor: Os profetas profetizam falsamente no meu nome; nunca os enviei, nem lhes dei ordem, nem lhes falei; visão falsa, e adivinhação, e vaidade, e o engano do seu coração são o que eles vos profetizam.</p>"),
+    "mt235": V("Mateus 23:5-7", "mt/23/5-7",
+      "<p><strong>5</strong> E fazem todas as obras a fim de serem vistos pelos homens, pois alargam os seus filactérios e alongam as franjas das suas vestes;</p><p><strong>6</strong> e amam os primeiros lugares nas ceias e as primeiras cadeiras nas sinagogas,</p><p><strong>7</strong> e as saudações nas praças, e o serem chamados pelos homens: Rabi, Rabi.</p>"),
+    "2pe23": V("2 Pedro 2:3", "2pe/2/3",
+      "<p><strong>3</strong> E, por avareza, farão de vós negócio com palavras fingidas; sobre os quais já de largo tempo não será tardia a sentença, e a sua perdição não dormita.</p>"),
+    "zc1117": V("Zacarias 11:17", "zc/11/17",
+      "<p><strong>17</strong> Ai do pastor inútil, que abandona o rebanho! A espada lhe cairá sobre o braço e sobre o olho direito; o seu braço completamente se secará, e o seu olho direito completamente se escurecerá.</p>"),
+    "1tm63": V("1 Timóteo 6:3-5", "1tm/6/3-5",
+      "<p><strong>3</strong> Se alguém ensina alguma outra doutrina e se não conforma com as sãs palavras de nosso Senhor Jesus Cristo e com a doutrina que é segundo a piedade,</p><p><strong>4</strong> é soberbo e nada sabe, mas delira acerca de questões e contendas de palavras, das quais nascem invejas, porfias, blasfêmias, ruins suspeitas,</p><p><strong>5</strong> contendas de homens corruptos de entendimento e privados da verdade, cuidando que a piedade seja causa de ganho. Aparta-te dos tais.</p>"),
+    "2tm113": V("2 Timóteo 1:13-14", "2tm/1/13-14",
+      "<p><strong>13</strong> Conserva o modelo das sãs palavras que de mim tens ouvido, na fé e na caridade que há em Cristo Jesus.</p><p><strong>14</strong> Guarda o bom depósito pelo Espírito Santo que habita em nós.</p>"),
+    "ap2219": V("Deuteronômio 4:2 e Apocalipse 22:19", "ap/22/19",
+      "<p><strong>Dt 4:2</strong> Não acrescentareis à palavra que vos mando, nem diminuireis dela, para que guardeis os mandamentos do Senhor, vosso Deus, que eu vos mando.</p><p><strong>Ap 22:19</strong> E, se alguém tirar quaisquer palavras do livro desta profecia, Deus tirará a sua parte do livro da vida, e da cidade santa, e das coisas que estão escritas neste livro.</p>"),
+    "ez341": V("Ezequiel 34:1-4", "ez/34/1-4",
+      "<p><strong>1</strong> Veio a mim a palavra do Senhor, dizendo:</p><p><strong>2</strong> Filho do homem, profetiza contra os pastores de Israel; profetiza e dize aos pastores: Assim diz o Senhor Jeová: Ai dos pastores de Israel que se apascentam a si mesmos! Não devem os pastores apascentar as ovelhas?</p><p><strong>3</strong> Comeis a gordura, e vos vestis da lã, e degolais o cevado; mas não apascentais as ovelhas.</p><p><strong>4</strong> A fraca não fortalecestes, e a doente não curastes, e a quebrada não ligastes, e a desgarrada não tornastes a trazer, e a perdida não buscastes; mas dominais sobre elas com rigor e dureza.</p>"),
+    "at213": V("Atos 2:1-13 — Leitura bíblica", "atos/2/1-13",
+      "<p><strong>1</strong> E, cumprindo-se o dia de Pentecoste, estavam todos reunidos no mesmo lugar;</p><p><strong>2</strong> e, de repente, veio do céu um som, como de um vento veemente e impetuoso, e encheu toda a casa em que estavam assentados.</p><p><strong>3</strong> E foram vistas por eles línguas repartidas, como que de fogo, as quais pousaram sobre cada um deles.</p><p><strong>4</strong> E todos foram cheios do Espírito Santo e começaram a falar em outras línguas, conforme o Espírito Santo lhes concedia que falassem.</p><p><strong>5</strong> E em Jerusalém estavam habitando judeus, varões religiosos, de todas as nações que estão debaixo do céu.</p><p><strong>6</strong> E, quando aquele som ocorreu, ajuntou-se a multitude e estava confusa, porque cada um os ouvia falar na sua própria língua.</p><p><strong>7</strong> E todos pasmavam e se maravilhavam, dizendo uns aos outros: Pois quê! Não são galileus todos esses homens que estão falando?</p><p><strong>8</strong> Como, pois, os ouvimos, cada um, na nossa própria língua em que somos nascidos?</p><p><strong>9</strong> Partos e medos, elamitas e os que habitam na Mesopotâmia, Judeia, Capadócia, Ponto e Ásia,</p><p><strong>10</strong> e Frígia e Panfília, Egito e partes da Líbia, junto a Cirene, e forasteiros romanos, tanto judeus como prosélitos,</p><p><strong>11</strong> cretenses e árabes, todos os temos ouvido em nossas próprias línguas falar das grandezas de Deus.</p><p><strong>12</strong> E todos se maravilhavam e estavam suspensos, dizendo uns para os outros: Que quer isto dizer?</p><p><strong>13</strong> E outros, zombando, diziam: Estão cheios de mosto.</p>"),
+    "1co1414": V("1 Coríntios 14:13-16", "1co/14/13-16",
+      "<p><strong>13</strong> Pelo que, o que fala língua estranha, ore para que a possa interpretar.</p><p><strong>14</strong> Porque, se eu orar em língua estranha, o meu espírito ora bem, mas o meu entendimento fica sem fruto.</p><p><strong>15</strong> Que farei, pois? Orarei com o espírito, mas também orarei com o entendimento; cantarei com o espírito, mas também cantarei com o entendimento.</p><p><strong>16</strong> De outra maneira, se tu bendisseres com o espírito, como dirá o que ocupa o lugar de indouto o Amém sobre a tua ação de graças, visto que não sabe o que dizes?</p>"),
+    "at1044": V("Atos 10:44-46", "atos/10/44-46",
+      "<p><strong>44</strong> E, dizendo Pedro ainda estas palavras, caiu o Espírito Santo sobre todos os que ouviam a palavra.</p><p><strong>45</strong> E os fiéis que eram da circuncisão, todos quantos tinham vindo com Pedro, maravilharam-se de que o dom do Espírito Santo se derramasse também sobre os gentios.</p><p><strong>46</strong> Porque os ouviam falar línguas e magnificarem a Deus.</p>"),
+    "rm826": V("Romanos 8:26", "rm/8/26",
+      "<p><strong>26</strong> E da mesma maneira também o Espírito ajuda as nossas fraquezas; porque não sabemos o que havemos de pedir como convém, mas o mesmo Espírito intercede por nós com gemidos inexprimíveis.</p>"),
+    "jd20": V("Judas 20", "jd/1/20",
+      "<p><strong>20</strong> Mas vós, amados, edificando-vos a vós mesmos sobre a vossa santíssima fé, orando no Espírito Santo,</p>"),
+    "at240": V("Atos 2:40", "atos/2/40",
+      "<p><strong>40</strong> E com muitas outras palavras isto testificava e os exortava, dizendo: Salvai-vos desta geração perversa.</p>"),
+    "2tm221": V("2 Timóteo 2:21", "2tm/2/21",
+      "<p><strong>21</strong> De sorte que, se alguém se purificar destas coisas, será vaso para honra, santificado e idôneo para uso do Senhor e preparado para toda boa obra.</p>"),
+    "jo737": V("João 7:37-39", "jo/7/37-39",
+      "<p><strong>37</strong> E, no último dia, o grande dia da festa, Jesus pôs-se em pé e clamou, dizendo: Se alguém tem sede, venha a mim e beba.</p><p><strong>38</strong> Quem crê em mim, como diz a Escritura, rios de água viva correrão do seu ventre.</p><p><strong>39</strong> E isso disse ele do Espírito, que haviam de receber os que nele cressem; porque o Espírito Santo ainda não fora dado, por ainda Jesus não ter sido glorificado.</p>"),
+    "jo168": V("João 16:8", "jo/16/8",
+      "<p><strong>8</strong> E, quando ele vier, convencerá o mundo do pecado, e da justiça, e do juízo;</p>"),
+    "jo1613": V("João 16:13-14", "jo/16/13-14",
+      "<p><strong>13</strong> Mas, quando vier aquele Espírito da verdade, ele vos guiará em toda a verdade, porque não falará de si mesmo, mas dirá tudo o que tiver ouvido e vos anunciará o que há de vir.</p><p><strong>14</strong> Ele me glorificará, porque há de receber do que é meu e vo-lo há de anunciar.</p>"),
+    "rm815": V("Romanos 8:15", "rm/8/15",
+      "<p><strong>15</strong> Porque não recebestes o espírito de escravidão, para, outra vez, estardes em temor, mas recebestes o espírito de adoção de filhos, pelo qual clamamos: Aba, Pai.</p>"),
+    "gl46": V("Gálatas 4:6", "gl/4/6",
+      "<p><strong>6</strong> E, porque sois filhos, Deus enviou aos vossos corações o Espírito de seu Filho, que clama: Aba, Pai.</p>"),
+    "hb1026": V("Hebreus 10:26", "hb/10/26",
+      "<p><strong>26</strong> Porque, se pecarmos voluntariamente, depois de termos recebido o conhecimento da verdade, já não resta mais sacrifício pelos pecados,</p>"),
+    "hb64": V("Hebreus 6:4-6", "hb/6/4-6",
+      "<p><strong>4</strong> Porque é impossível que os que já uma vez foram iluminados, e provaram o dom celestial, e se fizeram participantes do Espírito Santo,</p><p><strong>5</strong> e provaram a boa palavra de Deus e as virtudes do século futuro,</p><p><strong>6</strong> e recaíram sejam outra vez renovados para arrependimento; pois assim, quanto a eles, de novo crucificam o Filho de Deus e o expõem ao vitupério.</p>"),
+    "at239": V("Atos 2:39", "atos/2/39",
+      "<p><strong>39</strong> Porque a promessa vos diz respeito a vós, a vossos filhos e a todos os que estão longe: a tantos quantos Deus, nosso Senhor, chamar.</p>"),
+    "1sm287": V("1 Samuel 28:7-8", "1sm/28/7-8",
+      "<p><strong>7</strong> Então, disse Saul aos seus criados: Buscai-me uma mulher que tenha o espírito de feiticeira, para que vá a ela e a consulte. E os seus criados lhe disseram: Eis que em En-Dor há uma mulher que tem o espírito de feiticeira.</p><p><strong>8</strong> E Saul se disfarçou, e vestiu outras vestes, e foi ele e dois homens com ele, e de noite chegaram à mulher; e disse: Peço-te que me adivinhes pela arte divinatória e me faças subir aquele que eu te disser.</p>"),
   };
 })();
 
@@ -1862,7 +2273,33 @@ a.lesson.wait .num { background: #8a8070; }
   <script>
 
 (function () {
-  var titles = {"1":"Talento, dom e fruto","2":"Dons ministeriais","3":"Importância dos dons","4":"Palavra da sabedoria","5":"Palavra do conhecimento","6":"O dom da fé","7":"Dons de curas","8":"Operação de maravilhas"};
+  var titles = {"1":"Talento, dom e fruto","2":"Dons ministeriais","3":"Importância dos dons","4":"Palavra da sabedoria","5":"Palavra do conhecimento","6":"O dom da fé","7":"Dons de curas","8":"Operação de maravilhas","9":"Dom de profecia","10":"Discernimento de espíritos","11":"Variedades de línguas","12":"Interpretação de línguas"};
+  var FIRST = Date.UTC(2026, 7, 26, 1, 0, 0);
+  function unlockAt(n) {
+    n = parseInt(n, 10);
+    if (n <= 8) return 0;
+    return FIRST + (n - 9) * 7 * 24 * 3600 * 1000;
+  }
+  function isUnlocked(n) {
+    return Date.now() >= unlockAt(n);
+  }
+  function fmtBRT(ms) {
+    var d = new Date(ms);
+    return new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", weekday: "long", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).format(d);
+  }
+  function markCards() {
+    document.querySelectorAll("a.lesson[data-licao]").forEach(function (a) {
+      var n = a.getAttribute("data-licao");
+      var note = a.querySelector(".lock-note");
+      if (!isUnlocked(n)) {
+        a.classList.add("locked");
+        if (note) { note.hidden = false; note.textContent = "Libera terça após 22h · " + fmtBRT(unlockAt(n)); }
+      } else {
+        a.classList.remove("locked");
+        if (note) note.hidden = true;
+      }
+    });
+  }
   function show(id) {
     document.querySelectorAll(".view").forEach(function (el) { el.classList.toggle("on", el.id === id); });
     var sub = document.getElementById("brand-sub");
@@ -1873,14 +2310,54 @@ a.lesson.wait .num { background: #8a8070; }
   }
   function route() {
     var h = (location.hash || "#inicio").replace("#", "");
-    if (h.indexOf("licao-") === 0) show("view-" + h);
-    else if (/^l\d+-/.test(h)) show("view-licao-" + h.slice(1, h.indexOf("-")));
-    else show("view-home");
+    var num = null;
+    if (h.indexOf("licao-") === 0) num = h.replace("licao-", "");
+    else if (/^l\d+-/.test(h)) num = h.slice(1, h.indexOf("-"));
+    if (num) {
+      if (!isUnlocked(num)) {
+        alert("A Lição " + num + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(num)));
+        history.replaceState(null, "", "#inicio");
+        show("view-home");
+        markCards();
+        return;
+      }
+      show("view-licao-" + num);
+      return;
+    }
+    show("view-home");
+    markCards();
   }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a.lesson.locked");
+    if (!a) return;
+    e.preventDefault();
+    var n = a.getAttribute("data-licao");
+    alert("A Lição " + n + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(n)));
+  });
   window.addEventListener("hashchange", route);
   route();
+  markCards();
 })();
 
   </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2d910da4f6ca51a',t:'MTc4NzE0MTUzOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+  <script>
+  if ("serviceWorker" in navigator) { navigator.serviceWorker.register("./sw.js"); }
+  (function () {
+    var deferred = null;
+    var btn = document.getElementById("btn-instalar");
+    var box = document.getElementById("install-box");
+    var standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone;
+    if (standalone && box) box.style.display = "none";
+    window.addEventListener("beforeinstallprompt", function (e) {
+      e.preventDefault(); deferred = e;
+    });
+    if (btn) btn.addEventListener("click", function () {
+      if (!deferred) { alert("No Chrome, toque nos três pontinhos e escolha Instalar aplicativo ou Adicionar à tela inicial."); return; }
+      deferred.prompt();
+    });
+  })();
+  </script>
+
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a30d95884ae91d46',t:'MTc4NzY5MjIzMw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
