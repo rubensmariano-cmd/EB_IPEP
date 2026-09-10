@@ -672,6 +672,14 @@ body.tema-noite footer { color: #8aa0b8; }
 body.tema-noite .top-link { background: #c9a227; color: #071422; }
 body.tema-noite .badge { background: #c9a227; color: #071422; }
 
+
+#rev-bar {
+  position: sticky; top: 0; z-index: 50;
+  background: #8b6914; color: #fff;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.82rem; text-align: center;
+  padding: 0.45rem 0.8rem;
+}
   </style>
 </head>
 <body>
@@ -718,7 +726,7 @@ body.tema-noite .badge { background: #c9a227; color: #071422; }
       <a class="etapa-card e2" href="#etapa-2">
         <small>2ª etapa <span class="selo-novo">NOVO</span></small>
         <h2>Batismo nas águas</h2>
-        <p>Novo compêndio · 12 lições · mesma liberação das terças</p>
+        <p>Novo compêndio · 12 lições · 1ª aula terça 22/09 às 22h</p>
       </a>
     </div>
   </div>
@@ -731,7 +739,7 @@ body.tema-noite .badge { background: #c9a227; color: #071422; }
         <div class="badge">1ª etapa · Dons</div>
         <h1>Dons espirituais</h1>
         <p class="subtitle">Escola Bíblica da Igreja Pentecostal do Evangelho Puro</p>
-        <p class="hint">Lições 1 a 8 abertas. A partir da 9, cada terça depois das 22h libera a seguinte.</p>
+        <p class="hint">Lições 1 a 10 abertas. A Lição 11 libera terça 22/09 após as 22h.</p>
       </header>
 
       <div class="lesson-list">
@@ -1836,7 +1844,7 @@ body.tema-noite .badge { background: #c9a227; color: #071422; }
       <div class="badge">2ª etapa · Batismo</div>
       <h1>Batismo nas águas</h1>
       <p class="subtitle">Manual de estudo · EBIPEP</p>
-      <p class="hint">Lições 1 a 8 abertas. A partir da 9, cada terça depois das 22h libera a seguinte. Toque no versículo azul para ler a ARC completa.</p>
+      <p class="hint">Todas as aulas bloqueadas. A Lição 1 abre terça 22/09 após as 22h; depois, uma por semana.</p>
     </header>
     <article>
       <h2 class="sec" id="b-intro">Introdução</h2>
@@ -3079,14 +3087,32 @@ Object.assign(VERSOS_DB, {
 (function () {
   var titles = {"1":"Talento, dom e fruto","2":"Dons ministeriais","3":"Importância dos dons","4":"Palavra da sabedoria","5":"Palavra do conhecimento","6":"O dom da fé","7":"Dons de curas","8":"Operação de maravilhas","9":"Dom de profecia","10":"Discernimento de espíritos","11":"Variedades de línguas","12":"Interpretação de línguas"};
   var titlesB = {"1":"O que é o batismo","2":"A origem do batismo","3":"O batismo de João","4":"Perguntas 1-2-7-8-10","5":"O batismo de Jesus","6":"Significado espiritual","7":"Quem pode se batizar","8":"Perguntas 5-11-12-21-23","9":"Por que não crianças","10":"O batismo salva?","11":"Depois do batismo","12":"Perguntas 4-6-9-13-18"};
-  var FIRST = Date.UTC(2026, 7, 26, 1, 0, 0);
-  function unlockAt(n) {
-    n = parseInt(n, 10);
-    if (n <= 8) return 0;
-    return FIRST + (n - 9) * 7 * 24 * 3600 * 1000;
+  var T22 = Date.UTC(2026, 8, 23, 1, 0, 0);
+  function isDiretor() {
+    try {
+      return new URLSearchParams(location.search).get("diretor") === "1";
+    } catch (e) {
+      return false;
+    }
   }
-  function isUnlocked(n) {
-    return Date.now() >= unlockAt(n);
+  function withQuery(hash) {
+    return (isDiretor() ? "?diretor=1" : "") + hash;
+  }
+  function kindOf(el) {
+    var href = (el && el.getAttribute && el.getAttribute("href")) || "";
+    return href.indexOf("batismo") >= 0 ? "b" : "d";
+  }
+  function unlockAt(n, kind) {
+    n = parseInt(n, 10);
+    if (kind === "b") {
+      return T22 + (n - 1) * 7 * 24 * 3600 * 1000;
+    }
+    if (n <= 10) return 0;
+    return T22 + (n - 11) * 7 * 24 * 3600 * 1000;
+  }
+  function isUnlocked(n, kind) {
+    if (isDiretor()) return true;
+    return Date.now() >= unlockAt(n, kind);
   }
   function fmtBRT(ms) {
     var d = new Date(ms);
@@ -3095,10 +3121,11 @@ Object.assign(VERSOS_DB, {
   function markCards() {
     document.querySelectorAll("a.lesson[data-licao]").forEach(function (a) {
       var n = a.getAttribute("data-licao");
+      var kind = kindOf(a);
       var note = a.querySelector(".lock-note");
-      if (!isUnlocked(n)) {
+      if (!isUnlocked(n, kind)) {
         a.classList.add("locked");
-        if (note) { note.hidden = false; note.textContent = "Libera terça após 22h · " + fmtBRT(unlockAt(n)); }
+        if (note) { note.hidden = false; note.textContent = "Libera terça após 22h · " + fmtBRT(unlockAt(n, kind)); }
       } else {
         a.classList.remove("locked");
         if (note) note.hidden = true;
@@ -3109,7 +3136,24 @@ Object.assign(VERSOS_DB, {
     var menu = document.querySelector(".controls a.btn.ghost");
     if (menu) menu.setAttribute("href", href);
   }
+  function showDiretorBar() {
+    var bar = document.getElementById("rev-bar");
+    if (!isDiretor()) {
+      if (bar) bar.hidden = true;
+      document.body.classList.remove("modo-diretor");
+      return;
+    }
+    document.body.classList.add("modo-diretor");
+    if (!bar) {
+      bar = document.createElement("div");
+      bar.id = "rev-bar";
+      bar.textContent = "Revisão da diretoria — todas as lições abertas. Não envie este link no grupo.";
+      document.body.insertBefore(bar, document.body.firstChild);
+    }
+    bar.hidden = false;
+  }
   function show(id) {
+    showDiretorBar();
     document.querySelectorAll(".view").forEach(function (el) { el.classList.toggle("on", el.id === id); });
     var sub = document.getElementById("brand-sub");
     var noite = id === "view-etapa-2" || (id && id.indexOf("view-batismo-") === 0);
@@ -3154,9 +3198,9 @@ Object.assign(VERSOS_DB, {
     if (h.indexOf("licao-") === 0) num = h.replace("licao-", "");
     else if (/^l\d+-/.test(h)) num = h.slice(1, h.indexOf("-"));
     if (num && h.indexOf("batismo") === -1 && !/^b\d/.test(h)) {
-      if (!isUnlocked(num)) {
-        alert("A Lição " + num + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(num)));
-        history.replaceState(null, "", "#etapa-1");
+      if (!isUnlocked(num, "d")) {
+        alert("A Lição " + num + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(num, "d")));
+        history.replaceState(null, "", withQuery("#etapa-1"));
         show("view-etapa-1");
         setMenu("#inicio");
         markCards();
@@ -3168,9 +3212,9 @@ Object.assign(VERSOS_DB, {
     }
     if (h.indexOf("batismo-") === 0) {
       var bn = h.replace("batismo-", "");
-      if (!isUnlocked(bn)) {
-        alert("A Lição " + bn + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(bn)));
-        history.replaceState(null, "", "#etapa-2");
+      if (!isUnlocked(bn, "b")) {
+        alert("A Lição " + bn + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(bn, "b")));
+        history.replaceState(null, "", withQuery("#etapa-2"));
         show("view-etapa-2");
         setMenu("#inicio");
         markCards();
@@ -3188,9 +3232,9 @@ Object.assign(VERSOS_DB, {
         return;
       }
       var bn2 = h.slice(1, h.indexOf("-"));
-      if (!isUnlocked(bn2)) {
-        alert("A Lição " + bn2 + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(bn2)));
-        history.replaceState(null, "", "#etapa-2");
+      if (!isUnlocked(bn2, "b")) {
+        alert("A Lição " + bn2 + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(bn2, "b")));
+        history.replaceState(null, "", withQuery("#etapa-2"));
         show("view-etapa-2");
         setMenu("#inicio");
         markCards();
@@ -3216,7 +3260,8 @@ Object.assign(VERSOS_DB, {
     if (locked) {
       e.preventDefault();
       var n = locked.getAttribute("data-licao");
-      alert("A Lição " + n + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(n)));
+      var kind = kindOf(locked);
+      alert("A Lição " + n + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(n, kind)));
       return;
     }
     var a = el.closest("a[href^='#']");
@@ -3227,7 +3272,7 @@ Object.assign(VERSOS_DB, {
     if (!href || href === "#") return;
     e.preventDefault();
     if (location.hash !== href) {
-      try { history.pushState(null, "", href); } catch (err) { location.hash = href; }
+      try { history.pushState(null, "", withQuery(href)); } catch (err) { location.hash = href; }
     }
     route();
   }, true);
