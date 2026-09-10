@@ -739,7 +739,7 @@ body.tema-noite .badge { background: #c9a227; color: #071422; }
         <div class="badge">1ª etapa · Dons</div>
         <h1>Dons espirituais</h1>
         <p class="subtitle">Escola Bíblica da Igreja Pentecostal do Evangelho Puro</p>
-        <p class="hint">Lições 1 a 10 abertas. A Lição 11 libera terça 22/09 após as 22h.</p>
+        <p class="hint">Lições 1 a 11 abertas. A Lição 12 libera terça 15/09 após as 22h.</p>
       </header>
 
       <div class="lesson-list">
@@ -1844,7 +1844,7 @@ body.tema-noite .badge { background: #c9a227; color: #071422; }
       <div class="badge">2ª etapa · Batismo</div>
       <h1>Batismo nas águas</h1>
       <p class="subtitle">Manual de estudo · EBIPEP</p>
-      <p class="hint">Todas as aulas bloqueadas. A Lição 1 abre terça 06/10 após as 22h; depois, uma por semana.</p>
+      <p class="hint">Todas as aulas bloqueadas. A Lição 1 abre terça 29/09 após as 22h (depois da confraternização), para a aula do dia 06/10.</p>
     </header>
     <article>
       <h2 class="sec" id="b-intro">Introdução</h2>
@@ -3087,8 +3087,8 @@ Object.assign(VERSOS_DB, {
 (function () {
   var titles = {"1":"Talento, dom e fruto","2":"Dons ministeriais","3":"Importância dos dons","4":"Palavra da sabedoria","5":"Palavra do conhecimento","6":"O dom da fé","7":"Dons de curas","8":"Operação de maravilhas","9":"Dom de profecia","10":"Discernimento de espíritos","11":"Variedades de línguas","12":"Interpretação de línguas"};
   var titlesB = {"1":"O que é o batismo","2":"A origem do batismo","3":"O batismo de João","4":"Perguntas 1-2-7-8-10","5":"O batismo de Jesus","6":"Significado espiritual","7":"Quem pode se batizar","8":"Perguntas 5-11-12-21-23","9":"Por que não crianças","10":"O batismo salva?","11":"Depois do batismo","12":"Perguntas 4-6-9-13-18"};
-  var T22 = Date.UTC(2026, 8, 23, 1, 0, 0);
-  var T06 = Date.UTC(2026, 9, 7, 1, 0, 0);
+  var T15 = Date.UTC(2026, 8, 16, 1, 0, 0);
+  var T29 = Date.UTC(2026, 8, 30, 1, 0, 0);
   function isDiretor() {
     try {
       return new URLSearchParams(location.search).get("diretor") === "1";
@@ -3106,10 +3106,10 @@ Object.assign(VERSOS_DB, {
   function unlockAt(n, kind) {
     n = parseInt(n, 10);
     if (kind === "b") {
-      return T06 + (n - 1) * 7 * 24 * 3600 * 1000;
+      return T29 + (n - 1) * 7 * 24 * 3600 * 1000;
     }
-    if (n <= 10) return 0;
-    return T22 + (n - 11) * 7 * 24 * 3600 * 1000;
+    if (n <= 11) return 0;
+    return T15;
   }
   function isUnlocked(n, kind) {
     if (isDiretor()) return true;
