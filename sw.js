@@ -1,4 +1,4 @@
-const CACHE = "ebipep-licoes-v4";
+const CACHE = "ebipep-licoes-v5";
 
 self.addEventListener("install", function (event) {
   self.skipWaiting();
