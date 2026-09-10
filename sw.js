@@ -1,6 +1,7 @@
-const CACHE = "ebipep-licoes-v2";
+const CACHE = "ebipep-licoes-v4";
 
 self.addEventListener("install", function (event) {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE).then(function (cache) {
       return cache.addAll([
@@ -10,8 +11,6 @@ self.addEventListener("install", function (event) {
         "./icon-192.png",
         "./icon-512.png"
       ]);
-    }).then(function () {
-      return self.skipWaiting();
     })
   );
 });
@@ -27,15 +26,33 @@ self.addEventListener("activate", function (event) {
 });
 
 self.addEventListener("fetch", function (event) {
-  event.respondWith(
-    caches.match(event.request).then(function (cached) {
-      if (cached) return cached;
-      return fetch(event.request).then(function (res) {
+  var req = event.request;
+  if (req.method !== "GET") return;
+
+  var isDoc = req.mode === "navigate" || (req.destination === "document");
+
+  if (isDoc) {
+    event.respondWith(
+      fetch(req).then(function (res) {
+        var copy = res.clone();
+        caches.open(CACHE).then(function (cache) { cache.put(req, copy); });
         return res;
       }).catch(function () {
-        if (event.request.mode === "navigate") {
-          return caches.match("./index.html");
-        }
+        return caches.match("./index.html").then(function (cached) {
+          return cached || caches.match(req);
+        });
+      })
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(req).then(function (cached) {
+      if (cached) return cached;
+      return fetch(req).then(function (res) {
+        return res;
+      }).catch(function () {
+        return caches.match("./index.html");
       });
     })
   );
