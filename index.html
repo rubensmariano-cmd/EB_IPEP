@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>EBIPEP — Lições Bíblicas</title>
   <meta name="theme-color" content="#1e3a5f" />
+  <meta name="color-scheme" content="light" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="EBIPEP" />
   <link rel="manifest" href="manifest.webmanifest" />
@@ -28,7 +29,8 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light; }
+a, button { -webkit-tap-highlight-color: rgba(61, 90, 128, 0.28); touch-action: manipulation; }
 
 body {
   font-family: "Georgia", "Palatino Linotype", "Book Antiqua", Palatino, serif;
@@ -299,8 +301,8 @@ blockquote {
   margin: 1rem 0 0.35rem;
 }
 
-button.ref {
-  display: inline;
+button.ref, a.ref {
+  display: inline-block;
   font: inherit;
   font-family: "Segoe UI", system-ui, sans-serif;
   font-size: 0.92em;
@@ -310,10 +312,17 @@ button.ref {
   border: 0;
   border-bottom: 2px solid #8aa4c7;
   border-radius: 6px;
-  padding: 0.05em 0.35em;
+  padding: 0.22em 0.5em;
+  margin: 0.12em 0.08em;
   cursor: pointer;
   white-space: nowrap;
-  line-height: 1.8;
+  line-height: 1.5;
+  vertical-align: middle;
+  max-width: 100%;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+  text-decoration: none;
 }
 
 button.ref:hover,
@@ -379,24 +388,36 @@ footer {
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(20, 28, 40, 0.55);
-  z-index: 40;
-  display: none;
+  background: rgba(20, 28, 40, 0.72);
+  z-index: 4000;
+  display: flex;
   align-items: flex-end;
   justify-content: center;
   padding: 1rem;
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  color-scheme: light;
 }
 
-.overlay.open { display: flex; }
+.overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
 .sheet {
   background: #fffdf8;
+  color: #2c2416;
   width: min(720px, 100%);
-  max-height: 86vh;
+  max-height: 86dvh;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: 18px 18px 14px 14px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
   padding: 1.15rem 1.2rem 1.4rem;
+  pointer-events: auto;
 }
 
 .sheet-top {
@@ -482,6 +503,10 @@ a.lesson {
   text-decoration: none;
   color: inherit;
   min-height: 92px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
 }
 
 a.lesson:active { transform: translateY(1px); }
@@ -574,6 +599,79 @@ a.lesson.locked .num { background: #7a7264; }
 .lock-note { font-size: .88rem; color: #8b6914; margin-top: .15rem; }
 .locked-panel { background:#fffdf8; border:1px solid #e4d8c0; border-radius:18px; padding:2rem 1.4rem; text-align:center; margin-top:1.2rem; }
 
+
+.etapa-grid { display: grid; gap: 1rem; margin-top: 1.2rem; }
+a.etapa-card {
+  display: block; text-decoration: none; color: inherit;
+  border-radius: 20px; padding: 1.45rem 1.3rem 1.55rem;
+  min-height: 148px; border: 1px solid var(--line);
+  box-shadow: var(--shadow); cursor: pointer;
+}
+a.etapa-card.e1 { background: linear-gradient(160deg, #fffdf8, #e8eef6); color: #1e3a5f; }
+a.etapa-card.e2 {
+  background: linear-gradient(165deg, #123056 0%, #071422 70%);
+  color: #f3e6c0; border-color: #c9a227;
+}
+a.etapa-card small {
+  display: block; letter-spacing: .14em; text-transform: uppercase;
+  font-family: "Segoe UI", system-ui, sans-serif; font-size: .75rem;
+  opacity: .85; margin-bottom: .4rem;
+}
+a.etapa-card h2 {
+  font-size: 1.5rem; margin: 0 0 .4rem; text-transform: none;
+  letter-spacing: 0; color: inherit;
+}
+a.etapa-card p { margin: 0; text-align: left; font-size: 1rem; opacity: .92; }
+.selo-novo {
+  display: inline-block; margin-left: .45rem; background: #c9a227; color: #071422;
+  font-family: "Segoe UI", system-ui, sans-serif; font-size: .7rem; font-weight: 800;
+  letter-spacing: .06em; padding: .12rem .5rem; border-radius: 999px; vertical-align: middle;
+}
+ul.lista { margin: 0 0 1rem 1.2rem; }
+ul.lista li { margin: .4rem 0; }
+.qa { margin-top: 1rem; }
+.qa h3 { margin-top: 0; font-size: 1.12rem; }
+
+body.tema-noite {
+  --bg: #071422;
+  --paper: #fffaf0;
+  --ink: #231c12;
+  --muted: #6e624c;
+  --gold: #d4b45a;
+  --gold-soft: #e0c36a;
+  --navy: #1a365d;
+  --navy-soft: #2c5282;
+  --box: #e8eef6;
+  --line: #d9c9a0;
+  --verse: #1e4e8c;
+  --shadow: 0 12px 36px rgba(0,0,0,.35);
+  background:
+    radial-gradient(900px 520px at 8% -8%, #163258 0%, transparent 55%),
+    radial-gradient(800px 480px at 110% 8%, #0c2744 0%, transparent 50%),
+    #071422;
+  color: #e8eef6;
+}
+body.tema-noite .topbar { background: rgba(7, 18, 36, .97); }
+body.tema-noite .hero h1 { color: #f3e6c0; }
+body.tema-noite .subtitle { color: var(--gold-soft); }
+body.tema-noite .hint { background: #13283f; color: #c5d4e8; }
+body.tema-noite article,
+body.tema-noite nav.toc,
+body.tema-noite .card {
+  color: var(--ink);
+}
+body.tema-noite a.lesson {
+  background: #102033;
+  border-color: #2a4a6e;
+  color: #e8eef6;
+}
+body.tema-noite a.lesson h3 { color: #f3e6c0; }
+body.tema-noite a.lesson p { color: #9eb4cc; }
+body.tema-noite .num { background: #1e4a86; }
+body.tema-noite footer { color: #8aa0b8; }
+body.tema-noite .top-link { background: #c9a227; color: #071422; }
+body.tema-noite .badge { background: #c9a227; color: #071422; }
+
   </style>
 </head>
 <body>
@@ -591,24 +689,50 @@ a.lesson.locked .num { background: #7a7264; }
       </div>
     </div>
   </div>
-  <section class="view on" id="view-home">
+  
+<section class="view on" id="view-home">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">EBIPEP</div>
+      <h1>Lições Bíblicas</h1>
+      <p class="subtitle">Escola Bíblica da Igreja Pentecostal do Evangelho Puro</p>
+      <p class="hint">Escolha a etapa. Toque no versículo azul para ler a ARC completa. Letra: A+ / A−.</p>
+    </header>
+
+    <div class="card" id="install-box" style="margin-top:1.1rem;text-align:left;">
+      <h2>Instalar no Android</h2>
+      <p style="margin-bottom:.55rem;">O ícone do app é a <strong>logo da Escola Bíblica</strong>. No Chrome:</p>
+      <p style="margin-bottom:.35rem;text-align:left;">1. Toque nos <strong>três pontinhos</strong> (canto superior direito)</p>
+      <p style="margin-bottom:.35rem;text-align:left;">2. Toque em <strong>Adicionar à tela inicial</strong> ou <strong>Instalar aplicativo</strong></p>
+      <p style="margin-bottom:.7rem;text-align:left;">3. Confirme. O ícone da EBIPEP aparece na tela do celular.</p>
+      <button type="button" id="btn-instalar" class="top-link" style="margin-top:.2rem;border:0;cursor:pointer;">Instalar aplicativo</button>
+      <p id="install-status" style="margin-top:.7rem;margin-bottom:0;text-align:left;font-size:.92rem;color:#6b5d45;"></p>
+    </div>
+
+    <div class="etapa-grid">
+      <a class="etapa-card e1" href="#etapa-1">
+        <small>1ª etapa</small>
+        <h2>Dons espirituais</h2>
+        <p>Talento, dons, fruto do Espírito · 12 lições</p>
+      </a>
+      <a class="etapa-card e2" href="#etapa-2">
+        <small>2ª etapa <span class="selo-novo">NOVO</span></small>
+        <h2>Batismo nas águas</h2>
+        <p>Novo compêndio · 12 lições · tudo liberado para revisão</p>
+      </a>
+    </div>
+  </div>
+  <footer>EBIPEP · Escola Bíblica da Igreja Pentecostal do Evangelho Puro</footer>
+</section>
+
+<section class="view" id="view-etapa-1">
     <div class="wrap">
       <header class="hero">
-        <div class="badge">Dons espirituais</div>
-        <h1>Lições Bíblicas</h1>
+        <div class="badge">1ª etapa · Dons</div>
+        <h1>Dons espirituais</h1>
         <p class="subtitle">Escola Bíblica da Igreja Pentecostal do Evangelho Puro</p>
         <p class="hint">Lições 1 a 8 abertas. A partir da 9, cada terça depois das 22h libera a seguinte.</p>
       </header>
-      
-      <div class="card" id="install-box" style="margin-top:1.1rem;text-align:left;">
-        <h2>Instalar no Android</h2>
-        <p style="margin-bottom:.55rem;">O ícone do app é a <strong>logo da Escola Bíblica</strong>. No Chrome:</p>
-        <p style="margin-bottom:.35rem;text-align:left;">1. Toque nos <strong>três pontinhos</strong> (canto superior direito)</p>
-        <p style="margin-bottom:.35rem;text-align:left;">2. Toque em <strong>Adicionar à tela inicial</strong> ou <strong>Instalar aplicativo</strong></p>
-        <p style="margin-bottom:.7rem;text-align:left;">3. Confirme. O ícone da EBIPEP aparece na tela do celular.</p>
-        <button type="button" id="btn-instalar" class="top-link" style="margin-top:.2rem;border:0;cursor:pointer;">Instalar aplicativo</button>
-        <p id="install-status" style="margin-top:.7rem;margin-bottom:0;text-align:left;font-size:.92rem;color:#6b5d45;"></p>
-      </div>
 
       <div class="lesson-list">
       <a class="lesson" data-licao="1" href="#licao-1">
@@ -1706,6 +1830,482 @@ a.lesson.locked .num { background: #7a7264; }
   </div>
 
 </section>
+  <section class="view" id="view-etapa-2">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">2ª etapa · Batismo</div>
+      <h1>Batismo nas águas</h1>
+      <p class="subtitle">Manual de estudo · EBIPEP</p>
+      <p class="hint">Tudo liberado para teste e revisão. Toque no versículo azul para ler a ARC completa.</p>
+    </header>
+    <article>
+      <h2 class="sec" id="b-intro">Introdução</h2>
+      <p>O batismo nas águas é um dos ensinamentos mais importantes da fé cristã. Desde os tempos bíblicos, tem sido um ato de obediência a Deus, um testemunho público de fé e um símbolo de transformação espiritual na vida daqueles que decidem seguir a Jesus Cristo. Muitas pessoas desejam se batizar, mas nem sempre compreendem profundamente o verdadeiro significado desse ato.</p>
+      <p>O batismo não é apenas uma cerimônia religiosa, nem um simples ritual. É um compromisso sério com Deus, que representa arrependimento, fé, nova vida e dedicação ao Senhor.</p>
+      <p>A Bíblia ensina que o batismo foi ordenado pelo próprio Jesus Cristo. Desde a igreja primitiva, todos os que criam no evangelho eram instruídos e preparados antes de descer às águas. Por isso, é importante conhecer o que as Escrituras ensinam, para que esse momento seja vivido com entendimento, reverência e consciência espiritual.</p>
+      <p>Este manual foi preparado para ensinar, de forma clara e baseada na Bíblia, o que o cristão precisa saber sobre o batismo nas águas: o significado, a origem, a importância, quem pode se batizar, como se preparar e o que a Palavra diz sobre a nova vida depois do batismo.</p>
+      <p>Pode ser usado para estudo pessoal, preparação para o batismo, classes de discipulado, ensino na igreja e orientação a novos convertidos. Nosso desejo é que cada pessoa compreenda: o batismo não é apenas entrar na água, mas declarar diante de Deus e dos homens que decidiu abandonar o velho caminho e viver uma nova vida com Cristo.</p>
+      <p>Que este estudo fortaleça a fé, aumente o entendimento e prepare o coração para uma vida transformada na presença do Senhor.</p>
+      <blockquote>“Quem crer e for batizado será salvo; mas quem não crer será condenado.” <button type="button" class="ref" data-ref="mc1616">Marcos 16:16</button></blockquote>
+    </article>
+    <div class="lesson-list">
+      <a class="lesson" href="#batismo-1"><div class="num"><small>Lição</small><b>1</b></div><div><h3>O que é o batismo nas águas</h3><p>Ordenança de Cristo · Mt 28:19</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-2"><div class="num"><small>Lição</small><b>2</b></div><div><h3>A origem do batismo na Bíblia</h3><p>Das purificações a João e Jesus</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-3"><div class="num"><small>Lição</small><b>3</b></div><div><h3>O batismo de João Batista</h3><p>Arrependimento que prepara o caminho</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-4"><div class="num"><small>Lição</small><b>4</b></div><div><h3>Perguntas 1 · 2 · 7 · 8 · 10</h3><p>Revisão das primeiras lições</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-5"><div class="num"><small>Lição</small><b>5</b></div><div><h3>O batismo de Jesus</h3><p>Para cumprir toda a justiça · Mt 3:13-17</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-6"><div class="num"><small>Lição</small><b>6</b></div><div><h3>O significado espiritual</h3><p>Morte, sepultamento e nova vida · Rm 6:4</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-7"><div class="num"><small>Lição</small><b>7</b></div><div><h3>Quem pode se batizar</h3><p>Fé, arrependimento e decisão</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-8"><div class="num"><small>Lição</small><b>8</b></div><div><h3>Perguntas 5 · 11 · 12 · 21 · 23</h3><p>Revisão do batismo de Jesus e da prática</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-9"><div class="num"><small>Lição</small><b>9</b></div><div><h3>Por que não batizamos crianças</h3><p>Fé consciente e responsabilidade pessoal</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-10"><div class="num"><small>Lição</small><b>10</b></div><div><h3>O batismo salva?</h3><p>Graça, fé e obediência · Ef 2:8</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-11"><div class="num"><small>Lição</small><b>11</b></div><div><h3>O que acontece depois</h3><p>Novidade de vida e perseverança</p></div><span class="go">›</span></a>
+      <a class="lesson" href="#batismo-12"><div class="num"><small>Lição</small><b>12</b></div><div><h3>Perguntas 4 · 6 · 9 · 13 · 18</h3><p>Revisão final do compêndio</p></div><span class="go">›</span></a>
+    </div>
+  </div>
+  <footer>EBIPEP · 2ª etapa · Batismo nas águas</footer>
+</section>
+
+<section class="view" id="view-batismo-1">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 1 · Batismo</div>
+      <h1>O que é o batismo nas águas</h1>
+      <p class="subtitle">Uma ordenança de Jesus para os que creem</p>
+    </header>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura</h2><p><button type="button" class="ref" data-ref="mt2819">Mateus 28:19</button></p></div>
+      <div class="card"><h2>Versículo-chave</h2><p><button type="button" class="ref" data-ref="mc1616">Marcos 16:16</button></p></div>
+    </div>
+    <article>
+      <h2 class="sec">Exposição</h2>
+      <p>O batismo nas águas é uma ordenança deixada pelo Senhor Jesus Cristo para todos os que creem no seu nome e desejam viver uma nova vida com Deus. Não é apenas um ritual religioso, mas um ato espiritual de obediência, fé e compromisso com Cristo.</p>
+      <p>A palavra <em>batismo</em> vem do termo grego <em>baptizo</em>, que significa mergulhar, imergir ou submergir. Por isso, o batismo bíblico é realizado nas águas, representando um ato visível de uma transformação interior que já aconteceu no coração.</p>
+      <p>Jesus ordenou que os seus discípulos batizassem os que cressem no evangelho: <button type="button" class="ref" data-ref="mt2819">Mateus 28:19</button>. O batismo não foi criado pela igreja; é prática ensinada pelo próprio Senhor e confirmada pelos apóstolos na igreja primitiva.</p>
+      <p>O batismo é um testemunho público de que a pessoa:</p>
+      <ul class="lista">
+        <li>se arrependeu dos seus pecados;</li>
+        <li>aceitou Jesus como Salvador;</li>
+        <li>decidiu viver uma nova vida;</li>
+        <li>deseja fazer parte do corpo de Cristo.</li>
+      </ul>
+      <p>Na Bíblia, vemos que todos os que criam em Jesus eram batizados, mostrando que o batismo sempre fez parte da vida cristã. <button type="button" class="ref" data-ref="mc1616">Marcos 16:16</button></p>
+      <p>O batismo não é apenas entrar na água. Simboliza uma mudança espiritual profunda: morte para o pecado e nascimento para uma nova vida com Deus. O apóstolo Paulo explica que, no batismo, somos identificados com a morte e a ressurreição de Cristo. <button type="button" class="ref" data-ref="rm64">Romanos 6:4</button></p>
+      <p>Portanto, o batismo nas águas é:</p>
+      <ul class="lista">
+        <li>um ato de obediência;</li>
+        <li>um testemunho público;</li>
+        <li>um símbolo espiritual;</li>
+        <li>um compromisso com Deus;</li>
+        <li>o início de uma nova caminhada.</li>
+      </ul>
+      <p>Na próxima lição, estudaremos como se originou o batismo bíblico.</p>
+    </article>
+    <div class="pager"><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-2">Próxima: Lição 2 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-2">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 2 · Batismo</div>
+      <h1>A origem do batismo na Bíblia</h1>
+      <p class="subtitle">Não é tradição humana — está nas Escrituras</p>
+    </header>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura</h2><p><button type="button" class="ref" data-ref="mt356">Mateus 3:5-6</button></p></div>
+      <div class="card"><h2>Antigo Testamento</h2><p><button type="button" class="ref" data-ref="ez3625">Ezequiel 36:25</button></p></div>
+    </div>
+    <article>
+      <h2 class="sec">Exposição</h2>
+      <p>O batismo nas águas não é uma prática criada pelos homens, nem uma tradição inventada pela igreja. Sua origem está nas Escrituras, e o seu significado foi revelado por Deus ao longo da história bíblica. Para entender o batismo cristão, é necessário conhecer como ele surgiu e como foi praticado.</p>
+      <p>A palavra vem do grego <em>baptizo</em>: mergulhar, imergir ou submergir. Esse sentido mostra que o batismo sempre esteve ligado à água e a um ato simbólico de purificação, arrependimento e consagração a Deus.</p>
+      <p>Desde o Antigo Testamento já existiam práticas de purificação com água, como sinal de limpeza espiritual e de separação para Deus. <button type="button" class="ref" data-ref="ez3625">Ezequiel 36:25</button></p>
+      <p>Essas purificações ainda não eram o batismo cristão, mas apontavam para algo maior. Deus preparava o povo para entender que a verdadeira purificação não seria apenas exterior, mas também interior.</p>
+      <p>No Novo Testamento, o batismo aparece de forma mais clara no ministério de João Batista. Ele foi enviado para preparar o caminho do Senhor, chamando o povo ao arrependimento e batizando nas águas como sinal de mudança de vida. <button type="button" class="ref" data-ref="mt356">Mateus 3:5-6</button></p>
+      <p>João batizava no rio Jordão. Muitos iam até ele confessando os pecados e decidindo abandonar a vida antiga. Era um batismo de arrependimento, que preparava o coração para receber o Messias.</p>
+      <p>O batismo cristão que conhecemos hoje foi confirmado pelo próprio Jesus. <button type="button" class="ref" data-ref="mt315">Mateus 3:15</button> Jesus foi batizado — não porque tivesse pecado, mas para cumprir toda a justiça e dar exemplo aos que creriam nele. Depois de ser batizado, iniciou o seu ministério, mostrando que o batismo faz parte do começo de uma nova caminhada com Deus.</p>
+      <p>Mais tarde, o Senhor ordenou que os discípulos continuassem batizando os que cressem. <button type="button" class="ref" data-ref="mt2819">Mateus 28:19</button></p>
+      <p>A partir desse momento, o batismo passou a fazer parte da vida da igreja, praticado pelos apóstolos e pelos primeiros cristãos. <button type="button" class="ref" data-ref="at241">Atos 2:41</button></p>
+      <p>Portanto, a origem do batismo está na Palavra de Deus. Foi apontado nas purificações, anunciado por João Batista, confirmado e ordenado por Jesus e praticado pela igreja primitiva. Não é apenas tradição: é ensinamento bíblico para todo aquele que deseja viver uma vida nova com Deus.</p>
+      <p>Na próxima lição, veremos a diferença entre o batismo de João e o batismo ordenado por Jesus Cristo.</p>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-1">‹ Lição 1</a><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-3">Lição 3 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-3">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 3 · Batismo</div>
+      <h1>O batismo de João Batista</h1>
+      <p class="subtitle">Arrependimento que prepara o caminho do Senhor</p>
+    </header>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura</h2><p><button type="button" class="ref" data-ref="mt31">Mateus 3:1-2</button></p></div>
+      <div class="card"><h2>Chave</h2><p><button type="button" class="ref" data-ref="mt311">Mateus 3:11</button></p></div>
+    </div>
+    <article>
+      <h2 class="sec">Exposição</h2>
+      <p>O batismo de João Batista é o primeiro batismo apresentado com clareza no Novo Testamento. Deus levantou João para preparar o caminho da vinda de Jesus Cristo, chamando o povo ao arrependimento e anunciando que o Reino de Deus estava próximo.</p>
+      <p>João foi enviado para despertar um povo afastado espiritualmente e ensinar que era necessário mudar de vida para receber o Salvador. <button type="button" class="ref" data-ref="mt33">Mateus 3:3</button> <button type="button" class="ref" data-ref="mt31">Mateus 3:1-2</button></p>
+      <p>O batismo de João era um batismo de arrependimento. As pessoas precisavam reconhecer os pecados, desejar mudar de vida e decidir voltar para Deus antes de serem batizadas. <button type="button" class="ref" data-ref="mt311">Mateus 3:11</button></p>
+      <p>Muitos iam até João, confessavam os pecados e eram batizados como sinal de que queriam abandonar a vida antiga. <button type="button" class="ref" data-ref="mt36">Mateus 3:6</button></p>
+      <p>Porém, o batismo de João ainda não era o batismo cristão completo. Tinha a função de preparar o povo para a chegada de Jesus. João mesmo declarou que viria alguém maior, que batizaria com o Espírito Santo. <button type="button" class="ref" data-ref="mt311">Mateus 3:11</button></p>
+      <p>Era sinal de arrependimento, mas ainda não representava totalmente a nova vida em Cristo, porque Jesus ainda não havia morrido e ressuscitado. Mesmo assim, foi muito importante: ensinou que ninguém se aproxima de Deus sem arrependimento.</p>
+      <p>João também ensinava que o batismo não deveria ser só um ato exterior: precisava vir acompanhado de mudança verdadeira no coração. <button type="button" class="ref" data-ref="mt38">Mateus 3:8</button></p>
+      <p>Até os religiosos da época foram repreendidos, porque queriam ser batizados sem mudar de vida. <button type="button" class="ref" data-ref="mt37">Mateus 3:7</button> Isso nos ensina que o batismo não pode ser feito só por tradição, costume ou obrigação. Deve ser resultado de uma decisão sincera de seguir a Deus.</p>
+      <p>O momento mais importante do ministério de João foi quando Jesus veio para ser batizado. Mesmo sabendo que Jesus não tinha pecado, João obedeceu à vontade de Deus. <button type="button" class="ref" data-ref="mt313">Mateus 3:13</button></p>
+      <p>João ensinou três verdades importantes:</p>
+      <ul class="lista">
+        <li>é preciso arrependimento;</li>
+        <li>é preciso mudança de vida;</li>
+        <li>é preciso obediência a Deus.</li>
+      </ul>
+      <p>Na próxima lição, faremos uma revisão em forma de perguntas. Depois estudaremos o batismo de Jesus: por que o próprio Filho de Deus decidiu ser batizado, mesmo sem pecado.</p>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-2">‹ Lição 2</a><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-4">Lição 4 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-4">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 4 · Perguntas</div>
+      <h1>Perguntas 1 · 2 · 7 · 8 · 10</h1>
+      <p class="subtitle">Revisão para firmar o ensino</p>
+    </header>
+    <article>
+      <h2 class="sec">Responda com a Bíblia</h2>
+      <div class="card qa">
+        <h3>1. O que é o batismo nas águas?</h3>
+        <p>O batismo nas águas é uma ordenança instituída por Jesus Cristo para os que creem nele. É um ato público de fé, no qual a pessoa declara que decidiu seguir a Cristo e começar uma nova vida com Deus. Não é apenas um ritual: é um passo de obediência e compromisso espiritual. Representa a morte para o pecado e o início de uma nova caminhada com o Senhor.</p>
+        <p><button type="button" class="ref" data-ref="mt2819">Mateus 28:19</button></p>
+      </div>
+      <div class="card qa">
+        <h3>2. Quem instituiu o batismo?</h3>
+        <p>O batismo foi instituído pelo próprio Senhor Jesus. Antes de subir ao céu, Ele ordenou que os discípulos ensinassem as nações e batizassem os que cressem. Isso mostra que o batismo não é uma tradição criada pela igreja, mas um mandamento direto de Cristo. Por isso, todos os que desejam seguir a Jesus são chamados a obedecer a essa ordenança.</p>
+        <p><button type="button" class="ref" data-ref="mt281920">Mateus 28:19-20</button></p>
+      </div>
+      <div class="card qa">
+        <h3>7. O batismo deve ser por imersão ou aspersão?</h3>
+        <p>Na Bíblia, o batismo era realizado nas águas, com a pessoa entrando no rio ou em lugar com bastante água. O modelo bíblico é o batismo por imersão. A imersão representa melhor o significado espiritual: morrer e ressuscitar com Cristo, simbolizando sepultamento e nova vida.</p>
+        <p><button type="button" class="ref" data-ref="mt316">Mateus 3:16</button></p>
+      </div>
+      <div class="card qa">
+        <h3>8. O batismo deve ser feito em nome de quem?</h3>
+        <p>Jesus ensinou que o batismo deve ser feito em nome do Pai, e do Filho, e do Espírito Santo. Ao ser batizada, a pessoa declara que pertence a Deus e passa a viver debaixo da autoridade do Senhor.</p>
+        <p><button type="button" class="ref" data-ref="mt2819">Mateus 28:19</button></p>
+      </div>
+      <div class="card qa">
+        <h3>10. O batismo é obrigatório para o cristão?</h3>
+        <p>O batismo não é opcional, pois foi um mandamento de Jesus. Todo aquele que deseja viver em obediência ao Senhor deve se batizar. Não se trata de uma imposição religiosa, mas de um passo natural para quem decidiu seguir a Cristo de todo o coração.</p>
+        <p><button type="button" class="ref" data-ref="mt2819">Mateus 28:19</button></p>
+      </div>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-3">‹ Lição 3</a><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-5">Lição 5 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-5">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 5 · Batismo</div>
+      <h1>O batismo de Jesus</h1>
+      <p class="subtitle">Para cumprir toda a justiça</p>
+    </header>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura</h2><p><button type="button" class="ref" data-ref="mt31315">Mateus 3:13-15</button></p></div>
+      <div class="card"><h2>Os céus se abriram</h2><p><button type="button" class="ref" data-ref="mt316">Mateus 3:16</button> · <button type="button" class="ref" data-ref="mt317">3:17</button></p></div>
+    </div>
+    <article>
+      <h2 class="sec">Exposição</h2>
+      <p>O batismo de Jesus foi um dos acontecimentos mais importantes do Novo Testamento. Mesmo sendo o Filho de Deus e não tendo pecado, Jesus decidiu ser batizado por João Batista, deixando um grande ensinamento para todos os que desejam seguir a vontade de Deus.</p>
+      <p>Quando João pregava e batizava no rio Jordão, muitas pessoas vinham arrepender-se dos pecados. Certo dia, Jesus também foi até João para ser batizado. <button type="button" class="ref" data-ref="mt313">Mateus 3:13</button></p>
+      <p>João ficou surpreso, porque sabia que Jesus era santo e não tinha pecado. Por isso, tentou impedi-lo. <button type="button" class="ref" data-ref="mt314">Mateus 3:14</button></p>
+      <p>Jesus respondeu que era necessário cumprir toda a justiça, mostrando que o batismo fazia parte do plano de Deus. <button type="button" class="ref" data-ref="mt315">Mateus 3:15</button></p>
+      <p>Mesmo sem pecado, Jesus quis ser batizado para dar exemplo: todo aquele que deseja obedecer a Deus deve seguir o que Ele ordena. O batismo de Jesus também marcou o início do seu ministério. Depois de ser batizado, Ele começou a ensinar, curar, libertar e anunciar o Reino de Deus.</p>
+      <p>Quando Jesus saiu das águas, algo extraordinário aconteceu. <button type="button" class="ref" data-ref="mt316">Mateus 3:16</button> O Espírito Santo desceu sobre Ele em forma de pomba, mostrando a aprovação de Deus. Logo em seguida, uma voz foi ouvida do céu: <button type="button" class="ref" data-ref="mt317">Mateus 3:17</button></p>
+      <p>Esse acontecimento revela verdades importantes:</p>
+      <p><strong>1.</strong> O batismo é um ato espiritual, aprovado por Deus e cheio de significado.</p>
+      <p><strong>2.</strong> O batismo marca o início de uma nova fase. Depois do batismo, Jesus começou o seu ministério.</p>
+      <p><strong>3.</strong> O batismo é acompanhado da presença de Deus. No batismo de Jesus, o céu se abriu e o Espírito Santo desceu.</p>
+      <p><strong>4.</strong> O batismo agrada a Deus quando é feito com sinceridade. O Pai declarou que tinha prazer no seu Filho.</p>
+      <p>O batismo não é apenas um ritual, mas um passo de obediência que mostra publicamente a decisão de seguir a Cristo.</p>
+      <p>Na próxima lição, estudaremos o verdadeiro significado espiritual do batismo: por que ele representa morte, sepultamento e nova vida.</p>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-4">‹ Lição 4</a><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-6">Lição 6 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-6">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 6 · Batismo</div>
+      <h1>O significado espiritual do batismo</h1>
+      <p class="subtitle">Morte, sepultamento e ressurreição com Cristo</p>
+    </header>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura</h2><p><button type="button" class="ref" data-ref="rm64">Romanos 6:4</button></p></div>
+      <div class="card"><h2>Revestidos de Cristo</h2><p><button type="button" class="ref" data-ref="gl327">Gálatas 3:27</button></p></div>
+    </div>
+    <article>
+      <h2 class="sec">Exposição</h2>
+      <p>O batismo nas águas não é apenas um ato exterior: possui um profundo significado espiritual. Na Bíblia, representa uma transformação interior na vida daquele que crê em Jesus Cristo. É símbolo de morte para o pecado e de nascimento para uma nova vida com Deus.</p>
+      <p>Quando a pessoa desce às águas, declara publicamente que decidiu abandonar a velha vida e começar uma nova caminhada com o Senhor.</p>
+      <p>O apóstolo Paulo explica com clareza: <button type="button" class="ref" data-ref="rm64">Romanos 6:4</button></p>
+      <p>Nesse versículo, o batismo representa três coisas:</p>
+      <ul class="lista">
+        <li>morte;</li>
+        <li>sepultamento;</li>
+        <li>ressurreição.</li>
+      </ul>
+      <p><strong>Primeiro:</strong> morte para o pecado. Quando a pessoa aceita Jesus, decide deixar a vida antiga, os pecados e tudo o que desagrada a Deus. <button type="button" class="ref" data-ref="rm66">Romanos 6:6</button> Descer às águas simboliza que o velho homem está sendo crucificado com Cristo.</p>
+      <p><strong>Segundo:</strong> sepultamento. Quando a pessoa é mergulhada na água, a velha vida é enterrada, assim como Jesus foi colocado no sepulcro. <button type="button" class="ref" data-ref="rm64">Romanos 6:4</button> Por isso o batismo não é apenas molhar a cabeça: representa um mergulho completo, o sepultamento do velho homem.</p>
+      <p><strong>Terceiro:</strong> ressurreição para uma nova vida. Ao sair das águas, a pessoa começa uma nova vida com Deus, assim como Jesus ressuscitou. “Assim andemos nós também em novidade de vida.”</p>
+      <p>O batismo mostra que a pessoa não quer mais viver como antes, mas deseja viver em obediência, santidade e comunhão com Deus. A Bíblia também ensina que, no batismo, nos revestimos de Cristo. <button type="button" class="ref" data-ref="gl327">Gálatas 3:27</button></p>
+      <p>Isso significa nova identidade espiritual: deixar o pecado e buscar agradar a Deus. O batismo é também um testemunho público diante da igreja, da família e da sociedade.</p>
+      <p>Por isso deve ser feito com consciência, fé e arrependimento verdadeiro. Quem se batiza declara que:</p>
+      <ul class="lista">
+        <li>quer viver para Cristo;</li>
+        <li>quer abandonar o pecado;</li>
+        <li>quer obedecer à Palavra;</li>
+        <li>quer fazer parte do corpo de Cristo.</li>
+      </ul>
+      <p>O batismo não é o fim da caminhada, mas o começo. Depois dele, o cristão deve continuar crescendo na fé, buscando a Deus e obedecendo à Palavra.</p>
+      <p>Na próxima lição, estudaremos quem pode ser batizado e quais são os requisitos bíblicos.</p>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-5">‹ Lição 5</a><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-7">Lição 7 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-7">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 7 · Batismo</div>
+      <h1>Quem pode se batizar</h1>
+      <p class="subtitle">Crer, arrepender-se e decidir seguir a Cristo</p>
+    </header>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura</h2><p><button type="button" class="ref" data-ref="mc1616">Marcos 16:16</button></p></div>
+      <div class="card"><h2>Exemplo</h2><p><button type="button" class="ref" data-ref="at83638">Atos 8:36-38</button></p></div>
+    </div>
+    <article>
+      <h2 class="sec">Exposição</h2>
+      <p>O batismo nas águas é um ato de fé e obediência. Por isso a Bíblia ensina que nem todas as pessoas estão prontas para se batizar. Deve ser realizado por aqueles que creram em Jesus Cristo, se arrependeram dos pecados e decidiram viver uma nova vida com Deus.</p>
+      <p>O Senhor Jesus ensinou que primeiro é necessário crer, e depois ser batizado. <button type="button" class="ref" data-ref="mc1616">Marcos 16:16</button></p>
+      <p>Isso mostra que o batismo acontece depois da fé. A pessoa precisa entender o evangelho, aceitar Jesus como Salvador e decidir seguir a Deus de coração.</p>
+      <p>Na igreja primitiva, todos os que se batizavam primeiro ouviam a Palavra, criam e se arrependiam. <button type="button" class="ref" data-ref="at241">Atos 2:41</button></p>
+      <p>O arrependimento é uma das condições. Não se trata apenas de querer entrar na água, mas de desejar mudar de vida. <button type="button" class="ref" data-ref="at238">Atos 2:38</button></p>
+      <p>O batismo também deve ser uma decisão consciente. A pessoa precisa entender o que está fazendo e assumir um compromisso com Cristo. Por esse motivo, a maioria das igrejas evangélicas não batiza crianças: elas ainda não têm entendimento suficiente para essa decisão.</p>
+      <p>O batismo é um compromisso pessoal. Cada um deve escolher seguir a Cristo por vontade própria. <button type="button" class="ref" data-ref="rm1412">Romanos 14:12</button></p>
+      <p>Nos tempos bíblicos, as pessoas eram batizadas depois de crerem, como o eunuco etíope. <button type="button" class="ref" data-ref="at83638">Atos 8:36-38</button> Essa passagem mostra que a fé verdadeira é necessária antes do batismo.</p>
+      <p>Além da fé, o batismo exige disposição para viver uma nova vida. Não deve ser feito por costume, pressão ou tradição, mas por decisão sincera. Quem deseja se batizar deve estar disposto a:</p>
+      <ul class="lista">
+        <li>abandonar o pecado;</li>
+        <li>seguir a Palavra de Deus;</li>
+        <li>viver em obediência;</li>
+        <li>fazer parte da igreja;</li>
+        <li>permanecer firme na fé.</li>
+      </ul>
+      <p>O batismo é um passo sério. Representa o início de uma nova caminhada com Deus e, por isso, deve ser feito com consciência, fé e sinceridade. Deus olha para o coração: o batismo só tem valor quando é acompanhado de arrependimento verdadeiro.</p>
+      <p>Na próxima lição, haverá mais perguntas de revisão. Depois estudaremos por que não batizamos crianças.</p>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-6">‹ Lição 6</a><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-8">Lição 8 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-8">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 8 · Perguntas</div>
+      <h1>Perguntas 5 · 11 · 12 · 21 · 23</h1>
+      <p class="subtitle">Revisão da prática do batismo</p>
+    </header>
+    <article>
+      <h2 class="sec">Responda com a Bíblia</h2>
+      <div class="card qa">
+        <h3>5. Por que Jesus foi batizado?</h3>
+        <p>Jesus não precisava se batizar, porque não tinha pecado. Mesmo assim, foi batizado para cumprir toda a justiça e dar exemplo aos seus seguidores. O batismo de Jesus mostra que essa prática faz parte da vontade de Deus. Se o próprio Senhor foi batizado, também devemos obedecer a esse mandamento.</p>
+        <p><button type="button" class="ref" data-ref="mt31315">Mateus 3:13-15</button></p>
+      </div>
+      <div class="card qa">
+        <h3>11. O batismo deve ser feito apenas uma vez?</h3>
+        <p>O batismo nas águas representa o início da vida cristã; por isso, normalmente acontece apenas uma vez. Simboliza uma decisão definitiva de seguir a Cristo. Na Bíblia, não vemos pessoas sendo batizadas repetidas vezes, mas um único batismo após a conversão. O importante é que seja feito com fé, arrependimento e consciência do compromisso com o Senhor.</p>
+        <p><button type="button" class="ref" data-ref="ef45">Efésios 4:5</button></p>
+      </div>
+      <div class="card qa">
+        <h3>12. O batismo pode ser realizado em qualquer lugar?</h3>
+        <p>Na Bíblia, o batismo era realizado em rios, lagos ou lugares com água suficiente. O mais importante não é o local, mas o significado espiritual do ato. Pode ser feito na igreja, no rio, na piscina ou em outro lugar apropriado, desde que seja com reverência, fé e entendimento.</p>
+        <p><button type="button" class="ref" data-ref="at83638">Atos 8:36-38</button></p>
+      </div>
+      <div class="card qa">
+        <h3>21. O batismo deve ser feito em público?</h3>
+        <p>Na Bíblia, o batismo era um ato público: uma declaração diante das pessoas de que alguém decidiu seguir a Cristo. Não era algo escondido, mas um testemunho visível da fé. Ao se batizar, a pessoa demonstra que não tem vergonha do evangelho e que deseja viver uma nova vida diante de Deus e da igreja.</p>
+        <p><button type="button" class="ref" data-ref="rm10910">Romanos 10:9-10</button></p>
+      </div>
+      <div class="card qa">
+        <h3>23. O batismo deve ser feito logo após a conversão?</h3>
+        <p>Na igreja primitiva, as pessoas eram batizadas logo depois de crerem em Jesus. Isso mostra que o batismo não deve ser adiado sem motivo, pois é parte da obediência cristã. Quando a pessoa entende o evangelho e decide seguir a Cristo, o próximo passo natural é o batismo.</p>
+        <p><button type="button" class="ref" data-ref="at812">Atos 8:12</button></p>
+      </div>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-7">‹ Lição 7</a><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-9">Lição 9 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-9">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 9 · Batismo</div>
+      <h1>Por que não batizamos crianças</h1>
+      <p class="subtitle">Fé, arrependimento e decisão pessoal</p>
+    </header>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura</h2><p><button type="button" class="ref" data-ref="mc1616">Marcos 16:16</button></p></div>
+      <div class="card"><h2>As crianças e Jesus</h2><p><button type="button" class="ref" data-ref="mc1014">Marcos 10:14</button></p></div>
+    </div>
+    <article>
+      <h2 class="sec">Exposição</h2>
+      <p>O batismo nas águas é um ato de fé, arrependimento e decisão pessoal. A Bíblia ensina que deve ser realizado por aqueles que creram em Jesus Cristo, reconheceram os pecados e decidiram seguir uma nova vida com Deus. Por esse motivo, muitas igrejas cristãs não batizam crianças, mas ensinam que o batismo deve acontecer quando a pessoa tem consciência do que está fazendo.</p>
+      <p>O Senhor Jesus ensinou que primeiro é necessário crer, e depois ser batizado. <button type="button" class="ref" data-ref="mc1616">Marcos 16:16</button></p>
+      <p>Nesse ensinamento, a fé vem antes do batismo. A pessoa precisa entender o evangelho, aceitar Jesus como Salvador e decidir obedecer a Deus. As crianças ainda estão em fase de crescimento e, muitas vezes, não têm maturidade suficiente para compreender o significado espiritual do batismo.</p>
+      <p>Por isso, o batismo não deve ser feito apenas por tradição, costume familiar ou decisão dos pais, mas por uma escolha pessoal. Na Bíblia, sempre que alguém era batizado, primeiro havia fé e arrependimento. <button type="button" class="ref" data-ref="at238">Atos 2:38</button></p>
+      <p>O arrependimento exige consciência do pecado, e essa consciência vem com o entendimento da Palavra. O batismo é a resposta de quem decidiu mudar de vida e seguir a Cristo.</p>
+      <p>No livro de Atos, o batismo acontecia depois que a pessoa cria de todo o coração. <button type="button" class="ref" data-ref="at83638">Atos 8:36-38</button></p>
+      <p>A Bíblia ensina que cada pessoa é responsável pelas suas próprias escolhas diante de Deus. <button type="button" class="ref" data-ref="rm1412">Romanos 14:12</button> Por isso, o batismo não pode ser feito por outra pessoa no lugar de alguém, nem pode ser imposto. Deve ser fruto de uma decisão pessoal de seguir a Cristo.</p>
+      <p>Isso não significa que as crianças não sejam importantes para Deus. Pelo contrário, Jesus demonstrou grande amor por elas. <button type="button" class="ref" data-ref="mc1014">Marcos 10:14</button></p>
+      <p>As crianças devem ser ensinadas, orientadas e conduzidas no caminho do Senhor, para que, quando crescerem, possam decidir por si mesmas servir a Deus e então se batizar com entendimento e fé.</p>
+      <p>Quando alguém se batiza com entendimento, o ato se torna um testemunho público de transformação e de nova vida. O batismo é um compromisso sério: representa que a pessoa decidiu abandonar a vida antiga e viver em obediência a Deus. Por isso, deve ser realizado quando há consciência, fé e desejo verdadeiro de seguir a Cristo.</p>
+      <p>Na próxima lição, estudaremos se o batismo salva e qual é a relação entre o batismo e a salvação, segundo a Bíblia.</p>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-8">‹ Lição 8</a><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-10">Lição 10 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-10">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 10 · Batismo</div>
+      <h1>O batismo salva?</h1>
+      <p class="subtitle">A graça, a fé e a obediência</p>
+    </header>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura</h2><p><button type="button" class="ref" data-ref="ef28">Efésios 2:8</button></p></div>
+      <div class="card"><h2>Boa consciência</h2><p><button type="button" class="ref" data-ref="1pe321">1 Pedro 3:21</button></p></div>
+    </div>
+    <article>
+      <h2 class="sec">Exposição</h2>
+      <p>Uma das dúvidas mais comuns entre os cristãos é se o batismo nas águas salva ou não. Muitos pensam que somente entrar nas águas já garante a salvação; outros acreditam que o batismo não tem importância. Para entender corretamente, precisamos ver o que a Bíblia ensina.</p>
+      <p>A Palavra mostra que o batismo é muito importante, mas a salvação não acontece por causa da água, e sim pela graça de Deus, mediante a fé em Jesus Cristo. <button type="button" class="ref" data-ref="ef28">Efésios 2:8</button></p>
+      <p>Esse versículo deixa claro: a salvação é um presente de Deus, recebido pela fé. Ninguém é salvo apenas por realizar um ritual, mas por crer verdadeiramente em Jesus.</p>
+      <p>O Senhor Jesus ensinou: <button type="button" class="ref" data-ref="mc1616">Marcos 16:16</button></p>
+      <p>Observe: a condenação não acontece por falta de batismo, mas por falta de fé. A fé vem primeiro, e o batismo vem como consequência da fé.</p>
+      <p>O batismo é um ato de obediência. Quando a pessoa crê em Jesus, decide obedecer ao que Ele ordenou, e uma das ordens de Cristo é o batismo. <button type="button" class="ref" data-ref="mt2819">Mateus 28:19</button></p>
+      <p>Isso significa que o batismo não é opcional para quem deseja viver em obediência a Deus. Faz parte da caminhada cristã, mas não é a água que salva: é o sacrifício de Jesus na cruz.</p>
+      <p>Um exemplo claro é o ladrão crucificado ao lado de Jesus. Ele creu em Cristo e foi salvo, mesmo sem ter sido batizado. <button type="button" class="ref" data-ref="lc2343">Lucas 23:43</button> Esse exemplo mostra que a salvação depende da fé, e não de um ritual.</p>
+      <p>Por outro lado, a Bíblia ensina que o verdadeiro cristão deseja obedecer a Deus. Quem realmente crê sente vontade de seguir os ensinamentos do Senhor e, por isso, se batiza. O batismo não salva, mas é a prova de que a pessoa decidiu viver para Cristo. Ele representa:</p>
+      <ul class="lista">
+        <li>arrependimento;</li>
+        <li>nova vida;</li>
+        <li>compromisso com Deus;</li>
+        <li>obediência à Palavra;</li>
+        <li>testemunho público.</li>
+      </ul>
+      <p>Quando alguém se recusa a se batizar sem motivo, pode estar demonstrando falta de obediência. Quando alguém deseja se batizar com sinceridade, mostra que quer viver de acordo com a vontade de Deus.</p>
+      <p>O apóstolo Pedro ensinou que o batismo não é apenas lavar o corpo, mas a indagação de uma boa consciência para com Deus. <button type="button" class="ref" data-ref="1pe321">1 Pedro 3:21</button></p>
+      <p>Isso significa que o batismo tem valor espiritual quando é feito com fé verdadeira e coração sincero.</p>
+      <p>Portanto, podemos entender que:</p>
+      <ul class="lista">
+        <li>o batismo não é o que salva;</li>
+        <li>a fé em Jesus é o que salva;</li>
+        <li>o batismo é um ato de obediência;</li>
+        <li>o batismo confirma a decisão de seguir a Cristo;</li>
+        <li>o batismo marca o início de uma nova vida.</li>
+      </ul>
+      <p>O cristão que ama a Deus deseja obedecer, e por isso se batiza.</p>
+      <p>Na próxima lição, estudaremos o que acontece depois do batismo e qual deve ser a vida do cristão após descer às águas.</p>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-9">‹ Lição 9</a><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-11">Lição 11 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-11">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 11 · Batismo</div>
+      <h1>O que acontece depois do batismo</h1>
+      <p class="subtitle">O começo de uma vida nova com Deus</p>
+    </header>
+    <div class="meta-grid">
+      <div class="card"><h2>Leitura</h2><p><button type="button" class="ref" data-ref="rm64">Romanos 6:4</button></p></div>
+      <div class="card"><h2>Crescimento</h2><p><button type="button" class="ref" data-ref="2pe318">2 Pedro 3:18</button></p></div>
+    </div>
+    <article>
+      <h2 class="sec">Exposição</h2>
+      <p>O batismo nas águas não é o fim da caminhada cristã, mas o começo de uma nova vida com Deus. Muitos pensam que, depois de se batizar, tudo está completo. Na verdade, o batismo marca o início de uma vida de compromisso, crescimento espiritual e obediência ao Senhor.</p>
+      <p>Quando alguém se batiza, declara que morreu para o pecado e decidiu viver para Cristo. A partir desse momento, começa uma nova fase, em que a pessoa deve aprender a viver de acordo com a Palavra de Deus.</p>
+      <p>A Bíblia ensina que, depois do batismo, o cristão deve andar em novidade de vida. <button type="button" class="ref" data-ref="rm64">Romanos 6:4</button> A vida antiga deve ficar para trás. A pessoa deve buscar uma vida diferente, guiada por Deus.</p>
+      <p>Depois do batismo, o cristão passa a fazer parte do corpo de Cristo, que é a igreja. <button type="button" class="ref" data-ref="1co1227">1 Coríntios 12:27</button> Por isso é importante permanecer na igreja, participar dos cultos, ouvir a Palavra e continuar aprendendo.</p>
+      <p>A nova vida exige crescimento espiritual. O cristão precisa buscar a Deus todos os dias, por meio da oração, da leitura da Bíblia e da comunhão com os irmãos. <button type="button" class="ref" data-ref="2pe318">2 Pedro 3:18</button></p>
+      <p>Também é importante entender que, depois do batismo, ainda existirão lutas e dificuldades. A vida cristã não significa ausência de problemas; significa que agora Deus está presente para ajudar em todas as situações. <button type="button" class="ref" data-ref="jo1633">João 16:33</button></p>
+      <p>O cristão deve aprender a resistir ao pecado e buscar viver em santidade. <button type="button" class="ref" data-ref="1pe116">1 Pedro 1:16</button> Isso não significa que a pessoa nunca vai errar, mas que agora deseja agradar a Deus e se arrepende quando falha. A vida cristã é uma caminhada, e cada dia é uma oportunidade para crescer na fé.</p>
+      <p>Depois do batismo, o cristão também deve desenvolver hábitos espirituais importantes:</p>
+      <ul class="lista">
+        <li>orar todos os dias;</li>
+        <li>ler a Bíblia;</li>
+        <li>frequentar a igreja;</li>
+        <li>obedecer à Palavra;</li>
+        <li>viver em comunhão com Deus;</li>
+        <li>dar bom testemunho.</li>
+      </ul>
+      <p>O batismo não transforma a pessoa automaticamente, mas marca o começo de uma vida que deve ser construída com Deus todos os dias. A Bíblia ensina que aquele que permanece firme até o fim será salvo. <button type="button" class="ref" data-ref="mt2413">Mateus 24:13</button></p>
+      <p>Por isso, o batismo deve ser seguido de fidelidade, compromisso e perseverança. Quando alguém se batiza com sinceridade e continua firme na fé, a vida começa a mudar, e Deus passa a agir de forma cada vez mais forte.</p>
+      <p>Na próxima lição, responderemos às últimas perguntas deste compêndio.</p>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-10">‹ Lição 10</a><a class="top-link" href="#etapa-2">Lista</a><a class="top-link" href="#batismo-12">Lição 12 ›</a></div>
+  </div>
+</section>
+
+<section class="view" id="view-batismo-12">
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Lição 12 · Perguntas</div>
+      <h1>Perguntas 4 · 6 · 9 · 13 · 18</h1>
+      <p class="subtitle">Revisão final do compêndio</p>
+    </header>
+    <article>
+      <h2 class="sec">Responda com a Bíblia</h2>
+      <div class="card qa">
+        <h3>4. O que o batismo representa espiritualmente?</h3>
+        <p>O batismo representa a morte para o pecado e o nascimento para uma nova vida. Quando a pessoa desce às águas, simboliza que a velha natureza foi crucificada com Cristo. Ao sair da água, representa a ressurreição para uma nova vida, agora em santidade e obediência a Deus. Por isso o batismo é chamado de símbolo de nova vida.</p>
+        <p><button type="button" class="ref" data-ref="rm64">Romanos 6:4</button></p>
+      </div>
+      <div class="card qa">
+        <h3>6. Quem pode se batizar?</h3>
+        <p>Pode se batizar aquele que crê em Jesus Cristo como Senhor e Salvador. O batismo está ligado à fé e ao arrependimento, e não apenas ao desejo de participar de um ritual. Na Bíblia, primeiro a pessoa cria, depois se arrependia, e então era batizada. O batismo é para quem decidiu seguir a Cristo.</p>
+        <p><button type="button" class="ref" data-ref="mc1616">Marcos 16:16</button></p>
+      </div>
+      <div class="card qa">
+        <h3>9. O batismo deve acontecer antes ou depois da conversão?</h3>
+        <p>Na Bíblia, o batismo sempre acontecia depois que a pessoa cria. Primeiro vinha a fé, depois o arrependimento, e então o batismo. Isso mostra que o batismo é uma decisão consciente de quem deseja seguir a Cristo, e não apenas um costume religioso.</p>
+        <p><button type="button" class="ref" data-ref="at238">Atos 2:38</button></p>
+      </div>
+      <div class="card qa">
+        <h3>13. O que acontece espiritualmente quando alguém se batiza?</h3>
+        <p>O batismo não é apenas um ato externo, mas um passo espiritual importante. Marca o início de uma nova vida com Deus e o compromisso de viver em santidade. Quando alguém se batiza, declara publicamente que deixou o pecado e decidiu seguir a Cristo. É um testemunho diante de Deus, da igreja e das pessoas.</p>
+        <p><button type="button" class="ref" data-ref="rm634">Romanos 6:3-4</button></p>
+      </div>
+      <div class="card qa">
+        <h3>18. O batismo é uma ordenança ou uma tradição?</h3>
+        <p>O batismo é uma ordenança de Cristo, e não apenas uma tradição da igreja. Foi o próprio Jesus quem mandou que os discípulos fossem batizados. Por isso, o batismo não depende da cultura ou da denominação, mas da obediência à Palavra de Deus.</p>
+        <p><button type="button" class="ref" data-ref="mt2819">Mateus 28:19</button></p>
+      </div>
+    </article>
+    <div class="pager"><a class="top-link" href="#batismo-11">‹ Lição 11</a><a class="top-link" href="#etapa-2">Lista da 2ª etapa</a><a class="top-link" href="#inicio">Início</a></div>
+  </div>
+</section>
+
   <div class="overlay" id="overlay" role="dialog" aria-modal="true">
     <div class="sheet">
       <div class="sheet-top">
@@ -2203,59 +2803,80 @@ a.lesson.locked .num { background: #7a7264; }
   </script>
   <script>
 (function () {
-  const root = document.documentElement;
-  const KEY = "licoes-fs";
-  let size = parseInt(localStorage.getItem(KEY) || "20", 10);
+  var root = document.documentElement;
+  var KEY = "licoes-fs";
+  function lsGet(k, fallback) {
+    try { return localStorage.getItem(k) || fallback; } catch (e) { return fallback; }
+  }
+  function lsSet(k, v) {
+    try { localStorage.setItem(k, v); } catch (e) {}
+  }
+  var size = parseInt(lsGet(KEY, "20"), 10);
   if (isNaN(size) || size < 16 || size > 32) size = 20;
   root.style.setProperty("--fs", size + "px");
 
   function bindFont() {
-    const maior = document.getElementById("maior");
-    const menor = document.getElementById("menor");
+    var maior = document.getElementById("maior");
+    var menor = document.getElementById("menor");
     if (!maior || !menor) return;
     maior.addEventListener("click", function () {
       if (size < 32) {
         size += 2;
         root.style.setProperty("--fs", size + "px");
-        localStorage.setItem(KEY, String(size));
+        lsSet(KEY, String(size));
       }
     });
     menor.addEventListener("click", function () {
       if (size > 16) {
         size -= 2;
         root.style.setProperty("--fs", size + "px");
-        localStorage.setItem(KEY, String(size));
+        lsSet(KEY, String(size));
       }
     });
   }
 
   function bindVersos(versos) {
-    const overlay = document.getElementById("overlay");
+    var overlay = document.getElementById("overlay");
     if (!overlay || !versos) return;
-    const titleEl = document.getElementById("sheet-title");
-    const textEl = document.getElementById("sheet-text");
-    const linkEl = document.getElementById("sheet-link");
+    var titleEl = document.getElementById("sheet-title");
+    var textEl = document.getElementById("sheet-text");
+    var linkEl = document.getElementById("sheet-link");
 
     function abrir(id) {
-      const v = versos[id];
-      if (!v) return;
+      var v = versos[id];
+      if (!v) return false;
       titleEl.textContent = v.titulo;
       textEl.innerHTML = v.html;
       linkEl.href = v.url;
       overlay.classList.add("open");
+      overlay.setAttribute("aria-hidden", "false");
+      return true;
     }
 
     function fechar() {
       overlay.classList.remove("open");
+      overlay.setAttribute("aria-hidden", "true");
     }
 
     document.querySelectorAll("button.ref").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        abrir(btn.getAttribute("data-ref"));
-      });
+      btn.setAttribute("type", "button");
     });
 
-    document.getElementById("fechar").addEventListener("click", fechar);
+    document.addEventListener("click", function (e) {
+      var el = e.target;
+      if (el && el.nodeType !== 1) el = el.parentElement;
+      if (!el || !el.closest) return;
+      var btn = el.closest("button.ref, a.ref");
+      if (!btn) return;
+      var id = btn.getAttribute("data-ref");
+      if (!id) return;
+      e.preventDefault();
+      e.stopPropagation();
+      abrir(id);
+    }, true);
+
+    var fecharBtn = document.getElementById("fechar");
+    if (fecharBtn) fecharBtn.addEventListener("click", fechar);
     overlay.addEventListener("click", function (e) {
       if (e.target === overlay) fechar();
     });
@@ -2273,11 +2894,191 @@ a.lesson.locked .num { background: #7a7264; }
 })();
 
   </script>
+  <script>
+Object.assign(VERSOS_DB, {
+  "mc1616": {
+    titulo: "Marcos 16:16",
+    url: "https://www.bibliaonline.com.br/arc/mc/16/16",
+    html: "<p><strong>16</strong> Quem crer e for batizado será salvo; mas quem não crer será condenado.</p>"
+  },
+  "mt2819": {
+    titulo: "Mateus 28:19",
+    url: "https://www.bibliaonline.com.br/arc/mt/28/19",
+    html: "<p><strong>19</strong> Portanto, ide, ensinai todas as nações, batizando-as em nome do Pai, e do Filho, e do Espírito Santo;</p>"
+  },
+  "mt281920": {
+    titulo: "Mateus 28:19-20",
+    url: "https://www.bibliaonline.com.br/arc/mt/28/19-20",
+    html: "<p><strong>19</strong> Portanto, ide, ensinai todas as nações, batizando-as em nome do Pai, e do Filho, e do Espírito Santo;</p><p><strong>20</strong> ensinando-as a guardar todas as coisas que eu vos tenho mandado; e eis que eu estou convosco todos os dias, até à consumação dos séculos. Amém!</p>"
+  },
+  "rm64": {
+    titulo: "Romanos 6:4",
+    url: "https://www.bibliaonline.com.br/arc/rm/6/4",
+    html: "<p><strong>4</strong> De sorte que fomos sepultados com ele pelo batismo na morte; para que, como Cristo ressuscitou dos mortos pela glória do Pai, assim andemos nós também em novidade de vida.</p>"
+  },
+  "rm634": {
+    titulo: "Romanos 6:3-4",
+    url: "https://www.bibliaonline.com.br/arc/rm/6/3-4",
+    html: "<p><strong>3</strong> Ou não sabeis que todos quantos fomos batizados em Jesus Cristo fomos batizados na sua morte?</p><p><strong>4</strong> De sorte que fomos sepultados com ele pelo batismo na morte; para que, como Cristo ressuscitou dos mortos pela glória do Pai, assim andemos nós também em novidade de vida.</p>"
+  },
+  "rm66": {
+    titulo: "Romanos 6:6",
+    url: "https://www.bibliaonline.com.br/arc/rm/6/6",
+    html: "<p><strong>6</strong> sabendo isto: que o nosso velho homem foi com ele crucificado, para que o corpo do pecado seja desfeito, a fim de que não sirvamos mais ao pecado.</p>"
+  },
+  "ez3625": {
+    titulo: "Ezequiel 36:25",
+    url: "https://www.bibliaonline.com.br/arc/ez/36/25",
+    html: "<p><strong>25</strong> Então, espalharei água pura sobre vós, e ficareis purificados; de todas as vossas imundícias e de todos os vossos ídolos vos purificarei.</p>"
+  },
+  "mt31": {
+    titulo: "Mateus 3:1-2",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/1-2",
+    html: "<p><strong>1</strong> E, naqueles dias, apareceu João Batista pregando no deserto da Judeia</p><p><strong>2</strong> e dizendo: Arrependei-vos, porque é chegado o Reino dos céus.</p>"
+  },
+  "mt33": {
+    titulo: "Mateus 3:3",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/3",
+    html: "<p><strong>3</strong> Porque este é o anunciado pelo profeta Isaías, que disse: Voz do que clama no deserto: Preparai o caminho do Senhor, endireitai as suas veredas.</p>"
+  },
+  "mt356": {
+    titulo: "Mateus 3:5-6",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/5-6",
+    html: "<p><strong>5</strong> Então, ia ter com ele Jerusalém, e toda a Judeia, e toda a província adjacente ao Jordão;</p><p><strong>6</strong> e eram por ele batizados no rio Jordão, confessando os seus pecados.</p>"
+  },
+  "mt36": {
+    titulo: "Mateus 3:6",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/6",
+    html: "<p><strong>6</strong> e eram por ele batizados no rio Jordão, confessando os seus pecados.</p>"
+  },
+  "mt37": {
+    titulo: "Mateus 3:7",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/7",
+    html: "<p><strong>7</strong> E, vendo ele muitos dos fariseus e dos saduceus que vinham ao seu batismo, dizia-lhes: Raça de víboras, quem vos ensinou a fugir da ira futura?</p>"
+  },
+  "mt38": {
+    titulo: "Mateus 3:8",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/8",
+    html: "<p><strong>8</strong> Produzi, pois, frutos dignos de arrependimento.</p>"
+  },
+  "mt311": {
+    titulo: "Mateus 3:11",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/11",
+    html: "<p><strong>11</strong> E eu, em verdade, vos batizo com água, para o arrependimento; mas aquele que vem após mim é mais poderoso do que eu; não sou digno de levar as suas sandálias; ele vos batizará com o Espírito Santo e com fogo.</p>"
+  },
+  "mt313": {
+    titulo: "Mateus 3:13",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/13",
+    html: "<p><strong>13</strong> Então, veio Jesus da Galileia ter com João junto do Jordão, para ser batizado por ele.</p>"
+  },
+  "mt314": {
+    titulo: "Mateus 3:14",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/14",
+    html: "<p><strong>14</strong> Mas João opunha-se-lhe, dizendo: Eu careço de ser batizado por ti, e vens tu a mim?</p>"
+  },
+  "mt315": {
+    titulo: "Mateus 3:15",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/15",
+    html: "<p><strong>15</strong> Jesus, porém, respondendo, disse-lhe: Deixa por agora, porque assim nos convém cumprir toda a justiça. Então, ele o permitiu.</p>"
+  },
+  "mt31315": {
+    titulo: "Mateus 3:13-15",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/13-15",
+    html: "<p><strong>13</strong> Então, veio Jesus da Galileia ter com João junto do Jordão, para ser batizado por ele.</p><p><strong>14</strong> Mas João opunha-se-lhe, dizendo: Eu careço de ser batizado por ti, e vens tu a mim?</p><p><strong>15</strong> Jesus, porém, respondendo, disse-lhe: Deixa por agora, porque assim nos convém cumprir toda a justiça. Então, ele o permitiu.</p>"
+  },
+  "mt316": {
+    titulo: "Mateus 3:16",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/16",
+    html: "<p><strong>16</strong> E, sendo Jesus batizado, saiu logo da água, e eis que se lhe abriram os céus, e viu o Espírito de Deus descendo como pomba e vindo sobre ele.</p>"
+  },
+  "mt317": {
+    titulo: "Mateus 3:17",
+    url: "https://www.bibliaonline.com.br/arc/mt/3/17",
+    html: "<p><strong>17</strong> E eis que uma voz dos céus dizia: Este é o meu Filho amado, em quem me comprazo.</p>"
+  },
+  "at238": {
+    titulo: "Atos 2:38",
+    url: "https://www.bibliaonline.com.br/arc/atos/2/38",
+    html: "<p><strong>38</strong> E disse-lhes Pedro: Arrependei-vos, e cada um de vós seja batizado em nome de Jesus Cristo para perdão dos pecados, e recebereis o dom do Espírito Santo.</p>"
+  },
+  "at241": {
+    titulo: "Atos 2:41",
+    url: "https://www.bibliaonline.com.br/arc/atos/2/41",
+    html: "<p><strong>41</strong> De sorte que foram batizados os que de bom grado receberam a sua palavra; e, naquele dia, agregaram-se quase três mil almas.</p>"
+  },
+  "at812": {
+    titulo: "Atos 8:12",
+    url: "https://www.bibliaonline.com.br/arc/atos/8/12",
+    html: "<p><strong>12</strong> Mas, como cressem em Filipe, que lhes pregava acerca do Reino de Deus e do nome de Jesus Cristo, se batizavam, tanto homens como mulheres.</p>"
+  },
+  "at83638": {
+    titulo: "Atos 8:36-38",
+    url: "https://www.bibliaonline.com.br/arc/atos/8/36-38",
+    html: "<p><strong>36</strong> E, indo eles caminhando, chegaram ao pé de alguma água, e disse o eunuco: Eis aqui água; que impede que eu seja batizado?</p><p><strong>37</strong> E disse Filipe: É lícito, se crês de todo o coração. E, respondendo ele, disse: Creio que Jesus Cristo é o Filho de Deus.</p><p><strong>38</strong> E mandou parar o carro, e desceram ambos à água, tanto Filipe como o eunuco, e o batizou.</p>"
+  },
+  "gl327": {
+    titulo: "Gálatas 3:27",
+    url: "https://www.bibliaonline.com.br/arc/gl/3/27",
+    html: "<p><strong>27</strong> porque todos quantos fostes batizados em Cristo já vos revestistes de Cristo.</p>"
+  },
+  "rm1412": {
+    titulo: "Romanos 14:12",
+    url: "https://www.bibliaonline.com.br/arc/rm/14/12",
+    html: "<p><strong>12</strong> De maneira que cada um de nós dará conta de si mesmo a Deus.</p>"
+  },
+  "ef45": {
+    titulo: "Efésios 4:5",
+    url: "https://www.bibliaonline.com.br/arc/ef/4/5",
+    html: "<p><strong>5</strong> um só Senhor, uma só fé, um só batismo;</p>"
+  },
+  "rm10910": {
+    titulo: "Romanos 10:9-10",
+    url: "https://www.bibliaonline.com.br/arc/rm/10/9-10",
+    html: "<p><strong>9</strong> a saber: Se, com a tua boca, confessares ao Senhor Jesus e, em teu coração, creres que Deus o ressuscitou dos mortos, serás salvo.</p><p><strong>10</strong> Visto que com o coração se crê para a justiça, e com a boca se faz confissão para a salvação.</p>"
+  },
+  "mc1014": {
+    titulo: "Marcos 10:14",
+    url: "https://www.bibliaonline.com.br/arc/mc/10/14",
+    html: "<p><strong>14</strong> Jesus, porém, vendo isso, indignou-se e disse-lhes: Deixai vir os pequeninos a mim e não os impeçais, porque dos tais é o Reino de Deus.</p>"
+  },
+  "lc2343": {
+    titulo: "Lucas 23:43",
+    url: "https://www.bibliaonline.com.br/arc/lc/23/43",
+    html: "<p><strong>43</strong> E disse-lhe Jesus: Em verdade te digo que hoje estarás comigo no Paraíso.</p>"
+  },
+  "1pe321": {
+    titulo: "1 Pedro 3:21",
+    url: "https://www.bibliaonline.com.br/arc/1pe/3/21",
+    html: "<p><strong>21</strong> que também, como uma verdadeira figura, agora vos salva, batismo, não do despojamento da imundícia da carne, mas da indagação de uma boa consciência para com Deus, pela ressurreição de Jesus Cristo;</p>"
+  },
+  "2pe318": {
+    titulo: "2 Pedro 3:18",
+    url: "https://www.bibliaonline.com.br/arc/2pe/3/18",
+    html: "<p><strong>18</strong> antes, crescei na graça e conhecimento de nosso Senhor e Salvador Jesus Cristo. A ele seja dada a glória, assim agora como no dia da eternidade. Amém!</p>"
+  },
+  "jo1633": {
+    titulo: "João 16:33",
+    url: "https://www.bibliaonline.com.br/arc/jo/16/33",
+    html: "<p><strong>33</strong> Tenho-vos dito isso, para que em mim tenhais paz; no mundo tereis aflições, mas tende bom ânimo; eu venci o mundo.</p>"
+  },
+  "1pe116": {
+    titulo: "1 Pedro 1:16",
+    url: "https://www.bibliaonline.com.br/arc/1pe/1/16",
+    html: "<p><strong>16</strong> porquanto escrito está: Sede santos, porque eu sou santo.</p>"
+  },
+  "mt2413": {
+    titulo: "Mateus 24:13",
+    url: "https://www.bibliaonline.com.br/arc/mt/24/13",
+    html: "<p><strong>13</strong> Mas aquele que perseverar até ao fim será salvo.</p>"
+  }
+});
+  </script>
   <script>LICAO.init(VERSOS_DB);</script>
   <script>
 
 (function () {
   var titles = {"1":"Talento, dom e fruto","2":"Dons ministeriais","3":"Importância dos dons","4":"Palavra da sabedoria","5":"Palavra do conhecimento","6":"O dom da fé","7":"Dons de curas","8":"Operação de maravilhas","9":"Dom de profecia","10":"Discernimento de espíritos","11":"Variedades de línguas","12":"Interpretação de línguas"};
+  var titlesB = {"1":"O que é o batismo","2":"A origem do batismo","3":"O batismo de João","4":"Perguntas 1-2-7-8-10","5":"O batismo de Jesus","6":"Significado espiritual","7":"Quem pode se batizar","8":"Perguntas 5-11-12-21-23","9":"Por que não crianças","10":"O batismo salva?","11":"Depois do batismo","12":"Perguntas 4-6-9-13-18"};
   var FIRST = Date.UTC(2026, 7, 26, 1, 0, 0);
   function unlockAt(n) {
     n = parseInt(n, 10);
@@ -2304,41 +3105,115 @@ a.lesson.locked .num { background: #7a7264; }
       }
     });
   }
+  function setMenu(href) {
+    var menu = document.querySelector(".controls a.btn.ghost");
+    if (menu) menu.setAttribute("href", href);
+  }
   function show(id) {
     document.querySelectorAll(".view").forEach(function (el) { el.classList.toggle("on", el.id === id); });
     var sub = document.getElementById("brand-sub");
+    var noite = id === "view-etapa-2" || (id && id.indexOf("view-batismo-") === 0);
+    document.body.classList.toggle("tema-noite", !!noite);
     if (id === "view-home") sub.textContent = "Lições Bíblicas";
-    else sub.textContent = titles[id.replace("view-licao-", "")] || "Lição";
+    else if (id === "view-etapa-1") sub.textContent = "Dons espirituais";
+    else if (id === "view-etapa-2") sub.textContent = "Batismo nas águas";
+    else if (id && id.indexOf("view-licao-") === 0) sub.textContent = titles[id.replace("view-licao-", "")] || "Lição";
+    else if (id && id.indexOf("view-batismo-") === 0) sub.textContent = titlesB[id.replace("view-batismo-", "")] || "Batismo";
     var h = location.hash || "";
-    if (h === "" || h === "#inicio" || h.indexOf("#licao-") === 0) window.scrollTo(0, 0);
+    if (h === "" || h === "#inicio" || h === "#etapa-1" || h === "#etapa-2" || h.indexOf("#licao-") === 0 || h.indexOf("#batismo-") === 0) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    var target = document.getElementById(h.replace("#", ""));
+    if (target) {
+      setTimeout(function () {
+        try { target.scrollIntoView(true); } catch (err) {}
+      }, 30);
+    }
   }
   function route() {
     var h = (location.hash || "#inicio").replace("#", "");
     var num = null;
+    if (h === "inicio" || h === "") {
+      show("view-home");
+      setMenu("#inicio");
+      return;
+    }
+    if (h === "etapa-1") {
+      show("view-etapa-1");
+      setMenu("#inicio");
+      markCards();
+      return;
+    }
+    if (h === "etapa-2") {
+      show("view-etapa-2");
+      setMenu("#inicio");
+      return;
+    }
     if (h.indexOf("licao-") === 0) num = h.replace("licao-", "");
     else if (/^l\d+-/.test(h)) num = h.slice(1, h.indexOf("-"));
-    if (num) {
+    if (num && h.indexOf("batismo") === -1 && !/^b\d/.test(h)) {
       if (!isUnlocked(num)) {
         alert("A Lição " + num + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(num)));
-        history.replaceState(null, "", "#inicio");
-        show("view-home");
+        history.replaceState(null, "", "#etapa-1");
+        show("view-etapa-1");
+        setMenu("#inicio");
         markCards();
         return;
       }
       show("view-licao-" + num);
+      setMenu("#etapa-1");
+      return;
+    }
+    if (h.indexOf("batismo-") === 0) {
+      show("view-batismo-" + h.replace("batismo-", ""));
+      setMenu("#etapa-2");
+      return;
+    }
+    if (/^b\d+-/.test(h) || h === "b-intro") {
+      if (h === "b-intro") {
+        show("view-etapa-2");
+        setMenu("#inicio");
+        return;
+      }
+      show("view-batismo-" + h.slice(1, h.indexOf("-")));
+      setMenu("#etapa-2");
       return;
     }
     show("view-home");
+    setMenu("#inicio");
     markCards();
   }
+  function elemFromEvent(e) {
+    var el = e.target;
+    if (el && el.nodeType !== 1) el = el.parentElement;
+    return el;
+  }
   document.addEventListener("click", function (e) {
-    var a = e.target.closest("a.lesson.locked");
+    var el = elemFromEvent(e);
+    if (!el || !el.closest) return;
+    var locked = el.closest("a.lesson.locked");
+    if (locked) {
+      e.preventDefault();
+      var n = locked.getAttribute("data-licao");
+      alert("A Lição " + n + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(n)));
+      return;
+    }
+    var a = el.closest("a[href^='#']");
     if (!a) return;
+    if (a.closest(".overlay")) return;
+    if (a.id === "sheet-link") return;
+    var href = a.getAttribute("href") || "";
+    if (!href || href === "#") return;
     e.preventDefault();
-    var n = a.getAttribute("data-licao");
-    alert("A Lição " + n + " será liberada terça-feira após as 22h.\n" + fmtBRT(unlockAt(n)));
-  });
+    if (location.hash !== href) {
+      try { history.pushState(null, "", href); } catch (err) { location.hash = href; }
+    }
+    route();
+  }, true);
   window.addEventListener("hashchange", route);
+  window.addEventListener("popstate", route);
+  window.addEventListener("pageshow", route);
   route();
   markCards();
 })();
@@ -2350,7 +3225,8 @@ a.lesson.locked .num { background: #7a7264; }
     var status = document.getElementById("install-status");
     function msg(s) { if (status) status.textContent = s; }
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js").then(function () {
+      navigator.serviceWorker.register("./sw.js").then(function (reg) {
+        if (reg.update) reg.update();
         msg("Pronto para instalar. Use o botão acima ou os três pontinhos do Chrome.");
       }).catch(function () {
         msg("Se o botão não funcionar: Chrome → três pontinhos → Adicionar à tela inicial.");
